@@ -61,3 +61,9 @@ URL共有でみんなが気になるお店を登録し、いいねで比較す�
 - データベース PostgreSQL
 - デプロイ先 Render
 - 使用予定のライブラリ  ( Sorcery, Tailwind CSS, DaisyUI, ActiveStorage )
+
+## 画面遷移図
+https://www.figma.com/design/oiS8Qecin0WFz8C2ZREPSM/%E5%8D%92%E5%88%B6%E3%80%80%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=dM6pWllWVzZC9kJk-0
+
+## ER図
+[![Image from Gyazo](https://i.gyazo.com/02503688b347e0bdd86bee7ba63d2cd0.png)](https://gyazo.com/02503688b347e0bdd86bee7ba63d2cd0)
