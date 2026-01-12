@@ -11,6 +11,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "shared/header" %>
+
+    <main class="px-4">
+      <%= yield %>
+    </main>
   </body>
 </html>
