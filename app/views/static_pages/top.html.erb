@@ -9,8 +9,8 @@
         </p>
 
         <div class="mt-6 flex flex-col sm:flex-row gap-3">
-          <a href="#" class="btn btn-primary">新規登録</a>
-          <a href="#" class="btn btn-outline">ログイン</a>
+          <%= link_to "新規登録", new_user_path, class: "btn btn-primary" %>
+          <%= link_to "ログイン", login_path, class: "btn btn-outline" %>
         </div>
 
         <div class="divider"></div>
