@@ -7,8 +7,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
-      redirect_to root_path, notice: "ユーザー登録しました"
+      auto_login(@user)
+      redirect_to dashboard_path, notice: "ユーザー登録しました"
     else
       render :new, status: :unprocessable_entity
     end

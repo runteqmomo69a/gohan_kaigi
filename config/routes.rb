@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  get 'user_sessions/new'
-  get 'users/new'
-  get 'users/create'
   root "static_pages#top"
+
+  get "dashboard", to: "dashboard#index"
 
   resources :users, only: %i[new create]
 

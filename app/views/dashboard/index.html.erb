@@ -1,0 +1,51 @@
+<div class="max-w-4xl mx-auto p-6">
+
+  <!-- ページタイトル（ダッシュボード表記なし） -->
+  <h1 class="text-2xl font-bold mb-6 text-center">
+    ごはん会議
+  </h1>
+
+  <!-- ユーザー情報 -->
+  <div class="mb-8 text-center">
+    <p class="text-gray-700">
+      ようこそ、
+      <span class="font-semibold">
+        <%= current_user.name %>
+      </span>
+      さん
+    </p>
+    <p class="text-sm text-gray-500 mt-1">
+      みんなで行くお店を決めましょう 🍽️
+    </p>
+  </div>
+
+  <!-- メイン導線 -->
+  <div class="grid gap-4 sm:grid-cols-2">
+
+    <!-- イベント作成 -->
+    <div class="card bg-base-100 shadow">
+      <div class="card-body">
+        <h2 class="card-title">イベントを作成</h2>
+        <p class="text-sm text-gray-600">
+          ランチ会・飲み会などの予定を作成できます
+        </p>
+        <div class="card-actions justify-end">
+          <%= link_to "イベントを作る", "#", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- イベント一覧 -->
+    <div class="card bg-base-100 shadow">
+      <div class="card-body">
+        <h2 class="card-title">イベント一覧</h2>
+        <p class="text-sm text-gray-600">
+          作成・参加しているイベントを確認できます
+        </p>
+        <div class="card-actions justify-end">
+          <%= link_to "一覧を見る", "#", class: "btn btn-outline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
