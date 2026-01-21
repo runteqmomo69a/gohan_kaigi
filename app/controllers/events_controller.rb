@@ -1,4 +1,12 @@
 class EventsController < ApplicationController
+  def index
+    @events = current_user.events.order(created_at: :desc)
+  end
+
+  def show
+    @event = current_user.events.find(params[:id])
+  end
+
   def new
     @event = Event.new
   end

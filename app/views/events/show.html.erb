@@ -1,0 +1,34 @@
+<div class="max-w-4xl mx-auto p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold"><%= @event.title %></h1>
+    <%= link_to "一覧へ戻る", events_path, class: "btn btn-ghost btn-sm" %>
+  </div>
+
+  <div class="card bg-base-100 shadow-sm">
+    <div class="card-body space-y-3">
+      <div>
+        <p class="text-sm text-gray-500">日時</p>
+        <p class="text-base">
+          <%= @event.event_date %>
+          <% if @event.event_time.present? %>
+            <span> <%= @event.event_time.strftime("%H:%M") %></span>
+          <% end %>
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">場所</p>
+        <p class="text-base">
+          <%= @event.place.presence || "未設定" %>
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">作成者</p>
+        <p class="text-base"><%= @event.user.name %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本リリースでここに「参加/未参加/作成者」分岐 -->
+</div>
