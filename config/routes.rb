@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "static_pages#top"
 
-  resources :events, only: %i[new create index show]
+  resources :events, only: %i[index show new create edit update destroy]
 
   get "dashboard", to: "dashboard#index"
 
