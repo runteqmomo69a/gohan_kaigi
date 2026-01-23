@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
 
     if @event.save
-      redirect_to dashboard_path, notice: "イベントを作成しました"
+      redirect_to event_path(@event), notice: "イベントを作成しました"
     else
       flash.now[:alert] = "入力内容を確認してください"
       render :new, status: :unprocessable_entity
