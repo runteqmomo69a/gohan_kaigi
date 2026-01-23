@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_20_142514) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_23_132445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_20_142514) do
     t.string "unique_url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "note"
     t.index ["unique_url"], name: "index_events_on_unique_url", unique: true
     t.index ["user_id"], name: "index_events_on_user_id"
   end
