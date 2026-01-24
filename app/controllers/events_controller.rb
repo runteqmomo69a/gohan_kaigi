@@ -18,7 +18,6 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to event_path(@event), notice: "イベントを作成しました"
     else
-      flash.now[:alert] = "入力内容を確認してください"
       render :new, status: :unprocessable_entity
     end
   end
@@ -30,7 +29,6 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to event_path(@event), notice: "イベントを更新しました"
     else
-      flash.now[:alert] = "入力内容を確認してください"
       render :edit, status: :unprocessable_entity
     end
   end
