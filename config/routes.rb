@@ -1,15 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
   root "static_pages#top"
 
   resources :events, only: %i[index show new create edit update destroy]
 
   get "dashboard", to: "dashboard#index"
-
-  resources :users, only: %i[new create]
-
-  get    "login",  to: "user_sessions#new"
-  post   "login",  to: "user_sessions#create"
-  delete "logout", to: "user_sessions#destroy"
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
