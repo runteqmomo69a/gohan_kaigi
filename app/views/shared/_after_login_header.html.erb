@@ -24,7 +24,7 @@
         <li><%= link_to "イベント一覧", events_path %></li>
         <li>
           <%= link_to "ログアウト",
-                      logout_path,
+                      destroy_user_session_path,
                       data: { turbo_method: :delete },
                       class: "text-error hover:bg-base-200" %>
         </li>
