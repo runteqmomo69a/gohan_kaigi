@@ -10,10 +10,10 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <%= render "shared/header" %>
 
-    <main class="px-4">
+    <main class="flex-1 px-4">
       <% if flash[:notice].present? %>
         <div class="alert alert-success mb-4">
           <span><%= flash[:notice] %></span>
@@ -28,5 +28,7 @@
 
       <%= yield %>
     </main>
+
+    <%= render "shared/footer" %>
   </body>
 </html>
