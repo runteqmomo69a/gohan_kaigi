@@ -1,26 +1,153 @@
-<div class="min-h-screen bg-base-200">
-  <div class="max-w-3xl mx-auto px-4 py-12">
-    <div class="card bg-base-100 shadow-xl">
+<div class="bg-base-200">
+  <div class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+
+    <!-- Hero -->
+    <section class="card bg-base-100 shadow-xl">
       <div class="card-body">
-        <h1 class="text-3xl font-bold">ごはん会議</h1>
+        <div class="flex flex-col gap-4">
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">
+              ごはん会議
+            </h1>
 
-        <p class="mt-2 text-base-content/70">
-          みんなでお店の候補を出して、いいねで決めるアプリ。
-        </p>
+            <h2 class="mt-4 text-xl sm:text-2xl font-semibold">
+              みんなの「行きたい」を、わかりやすく。
+            </h2>
 
-        <div class="mt-6 flex flex-col sm:flex-row gap-3">
-          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary" %>
-          <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline" %>
+            <p class="mt-3 text-base sm:text-lg text-base-content/70">
+              候補をまとめて、いいねで見える化。<br class="hidden sm:block">
+              複数人でのお店決めを、シンプルに共有できるアプリです。
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <%= link_to "無料で始める（新規登録）", new_user_registration_path, class: "btn btn-primary" %>
+            <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline" %>
+          </div>
+
+          <div class="divider my-2"></div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rounded-box bg-base-200 p-4">
+              <p class="font-semibold">🗓️ イベントを作る</p>
+              <p class="mt-1 text-sm text-base-content/70">日程やメモをまとめて作成</p>
+            </div>
+            <div class="rounded-box bg-base-200 p-4">
+              <p class="font-semibold">🔗 URLを共有</p>
+              <p class="mt-1 text-sm text-base-content/70">参加者にリンクを送るだけ</p>
+            </div>
+            <div class="rounded-box bg-base-200 p-4">
+              <p class="font-semibold">👍 候補を出して投票</p>
+              <p class="mt-1 text-sm text-base-content/70">「行きたい」が見える化</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Steps -->
+    <section class="mt-10">
+      <h2 class="text-xl sm:text-2xl font-bold">使い方は3ステップ</h2>
+      <p class="mt-2 text-base-content/70">
+        迷わないように、やることを最小限にまとめています。
+      </p>
+
+      <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <div class="flex items-center gap-2">
+              <span class="badge badge-primary">STEP 1</span>
+              <p class="font-bold">イベントを作成</p>
+            </div>
+            <p class="mt-2 text-sm text-base-content/70">
+              タイトル・日付・メモを入力してイベントを作ります。
+            </p>
+          </div>
         </div>
 
-        <div class="divider"></div>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <div class="flex items-center gap-2">
+              <span class="badge badge-primary">STEP 2</span>
+              <p class="font-bold">URLを共有</p>
+            </div>
+            <p class="mt-2 text-sm text-base-content/70">
+              参加者にリンクを送って、同じイベントを見てもらいます。
+            </p>
+          </div>
+        </div>
 
-        <ul class="text-sm text-base-content/70 space-y-1">
-          <li>・イベントを作ってURL共有</li>
-          <li>・候補を登録して比較</li>
-          <li>・いいねで「行きたい」が見える</li>
-        </ul>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <div class="flex items-center gap-2">
+              <span class="badge badge-primary">STEP 3</span>
+              <p class="font-bold">候補登録＆いいね</p>
+            </div>
+            <p class="mt-2 text-sm text-base-content/70">
+              行きたいお店を追加して、いいねで意見を集めます。
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="mt-10">
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h2 class="text-xl sm:text-2xl font-bold">こんな時に便利</h2>
+
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex gap-3">
+              <div class="text-2xl">🍽️</div>
+              <div>
+                <p class="font-semibold">候補が散らばらない</p>
+                <p class="text-sm text-base-content/70">
+                  チャットに流れない場所で候補をまとめられます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div class="text-2xl">👀</div>
+              <div>
+                <p class="font-semibold">好みが見える</p>
+                <p class="text-sm text-base-content/70">
+                  いいねで「行きたい」が可視化されます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div class="text-2xl">🧭</div>
+              <div>
+                <p class="font-semibold">次に何をすればいいか明確</p>
+                <p class="text-sm text-base-content/70">
+                  イベント詳細でやることが把握できます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <div class="text-2xl">⚡</div>
+              <div>
+                <p class="font-semibold">すぐ始められる</p>
+                <p class="text-sm text-base-content/70">
+                  アカウント作成→イベント作成まで最短で進められます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider my-6"></div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <%= link_to "新規登録して使ってみる", new_user_registration_path, class: "btn btn-primary" %>
+            <%= link_to "ログインする", new_user_session_path, class: "btn btn-outline" %>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </div>
