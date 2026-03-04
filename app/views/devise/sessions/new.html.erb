@@ -4,22 +4,6 @@
       <h1 class="text-2xl font-bold">ログイン</h1>
       <p class="text-sm text-gray-500">登録済みのメールアドレスでログインします。</p>
 
-      <% if flash.alert.present? %>
-        <div class="alert alert-error mt-4">
-          <div>
-            <p class="font-semibold"><%= flash.alert %></p>
-          </div>
-        </div>
-      <% end %>
-
-      <% if flash.notice.present? %>
-        <div class="alert alert-info mt-4">
-          <div>
-            <p class="font-semibold"><%= flash.notice %></p>
-          </div>
-        </div>
-      <% end %>
-
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="mt-6 space-y-4">
           <div class="form-control">

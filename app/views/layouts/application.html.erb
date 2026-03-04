@@ -13,22 +13,20 @@
   <body class="min-h-screen flex flex-col">
     <%= render "shared/header" %>
 
-    <main class="flex-1 px-4">
-      <% if flash[:notice].present? %>
-        <div class="alert alert-success mb-4">
-          <span><%= flash[:notice] %></span>
-        </div>
-      <% end %>
+  <main class="flex-1 px-4">
 
-      <% if flash[:alert].present? %>
-        <div class="alert alert-error mb-4">
-          <span><%= flash[:alert] %></span>
-        </div>
-      <% end %>
+    <% flash.each do |type, message| %>
+      <% alert_class = type == "notice" ? "alert-success" : "alert-error" %>
 
-      <%= yield %>
-    </main>
+      <div class="alert <%= alert_class %> mb-4">
+        <span><%= message %></span>
+      </div>
+    <% end %>
 
+    <%= yield %>
+
+  </main>
+  
     <%= render "shared/footer" %>
   </body>
 </html>
