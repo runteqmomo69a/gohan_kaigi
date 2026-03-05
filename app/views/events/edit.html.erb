@@ -4,18 +4,7 @@
     内容を修正してイベントを更新します。
   </p>
 
-  <% if @event.errors.any? %>
-    <div class="alert alert-error mb-6">
-      <div>
-        <p class="font-semibold">入力内容を確認してください</p>
-        <ul class="list-disc ml-5 text-sm mt-2">
-          <% @event.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+  <%= render "shared/error_messages", resource: @event %>
 
   <%= form_with model: @event do |f| %>
     <!-- イベント名 -->
