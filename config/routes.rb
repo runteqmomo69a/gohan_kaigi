@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get "terms",   to: "static_pages#terms"
   get "privacy", to: "static_pages#privacy"
 
-  resources :events, only: %i[index show new create edit update destroy]
+  resources :events, only: %i[index show new create edit update destroy] do
+    resources :event_participants, only: [:create]
+  end
+
   get "dashboard", to: "dashboard#index"
 
   # 開発環境だけ、送信メール確認ページを有効化

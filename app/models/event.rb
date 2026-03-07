@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :user
-
+  has_many :event_participants, dependent: :destroy
+  has_many :participants, through: :event_participants, source: :user
+  
   validates :title, presence: true, length: { maximum: 255 }
   validates :event_date, presence: true
   validates :unique_url, presence: true, uniqueness: true, length: { maximum: 255 }
