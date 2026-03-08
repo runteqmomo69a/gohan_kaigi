@@ -60,13 +60,43 @@
   </div>
 
   <div class="mt-6">
-    <% if @event.event_participants.exists?(user_id: current_user.id) %>
+    <% if @participating %>
       <button class="btn btn-disabled">参加済み</button>
     <% else %>
-      <%= button_to "このイベントに参加する",
-        event_event_participants_path(@event),
-        method: :post,
-        class: "btn btn-primary" %>
+      <label for="join-event-modal" class="btn btn-primary">
+        このイベントに参加する
+      </label>
+
+      <input type="checkbox" id="join-event-modal" class="modal-toggle" />
+
+      <div class="modal" role="dialog">
+        <div class="modal-box max-w-lg">
+          <h3 class="text-lg font-bold">このイベントに参加しますか？</h3>
+
+          <p class="py-4 text-sm text-base-content/70 leading-7">
+            参加すると
+            <br>
+            ・お店候補を見られます
+            <br>
+            ・お店を追加できます
+            <br>
+            ・気になるお店にいいねできます
+          </p>
+
+          <div class="modal-action">
+            <%= button_to "このイベントに参加する",
+                event_event_participants_path(@event),
+                method: :post,
+                class: "btn btn-primary" %>
+
+            <label for="join-event-modal" class="btn btn-ghost">
+              キャンセル
+            </label>
+          </div>
+        </div>
+
+        <label class="modal-backdrop" for="join-event-modal">Close</label>
+      </div>
     <% end %>
   </div>
 </div>

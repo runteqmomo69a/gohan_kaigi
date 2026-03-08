@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
   end
 
   def new
