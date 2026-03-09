@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[show]
+  before_action :set_current_user_event, only: %i[edit update destroy]
 
   def index
     @events = current_user.events.order(created_at: :desc)
@@ -8,6 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
+    @participants = @event.participants
   end
 
   def new
@@ -18,6 +20,7 @@ class EventsController < ApplicationController
     @event = current_user.events.new(event_params)
 
     if @event.save
+      @event.event_participants.create(user: current_user)
       redirect_to event_path(@event), notice: "イベントを作成しました"
     else
       render :new, status: :unprocessable_entity
@@ -43,6 +46,10 @@ class EventsController < ApplicationController
   private
 
   def set_event
+    @event = Event.find(params[:id])
+  end
+
+  def set_current_user_event
     @event = current_user.events.find(params[:id])
   end
 
