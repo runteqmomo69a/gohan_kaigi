@@ -99,4 +99,25 @@
       </div>
     <% end %>
   </div>
+
+  <div class="mt-8">
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title text-lg">参加者</h2>
+
+        <% if @participants.any? %>
+          <ul class="mt-2 space-y-2">
+            <% @participants.each do |participant| %>
+              <li class="flex items-center gap-2">
+                <span class="badge badge-outline">参加中</span>
+                <span><%= participant.name %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-sm text-gray-500 mt-2">まだ参加者はいません</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
