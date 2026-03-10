@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :event_participants, only: [:create]
   end
 
+  get "/events/join/:unique_url", to: "events#join", as: "join_event"
+  
   get "dashboard", to: "dashboard#index"
 
   # 開発環境だけ、送信メール確認ページを有効化

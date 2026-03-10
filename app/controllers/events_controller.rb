@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[join]
   before_action :set_event, only: %i[show]
   before_action :set_current_user_event, only: %i[edit update destroy]
 
@@ -10,6 +10,23 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
+  end
+
+  def join
+    @event = Event.find_by!(unique_url: params[:unique_url])　
+
+    unless @event
+      redirect_to root_path, alert: "イベントが見つかりませんでした"
+      return
+    end
+
+    unless user_signed_in?
+      store_location_for(:user, join_event_path(@event.unique_url))
+      redirect_to root_path, alert: "イベントに参加するにはログインまたは新規登録が必要です"
+      return
+    end
+
+    redirect_to event_path(@event)
   end
 
   def new

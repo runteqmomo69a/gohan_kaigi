@@ -56,8 +56,32 @@
         <p class="text-sm text-gray-500">作成者</p>
         <p class="text-base"><%= @event.user.name %></p>
       </div>
-    </div>
-  </div>
+
+      <div class="mt-4 rounded-lg border border-base-300 p-4 bg-base-100" data-controller="clipboard">
+        <p class="text-sm text-gray-500 mb-2">共有用URL</p>
+
+        <div class="flex flex-col gap-2 sm:flex-row">
+          <input
+            type="text"
+            value="<%= join_event_url(@event.unique_url) %>"
+            readonly
+            class="input input-bordered w-full text-sm"
+            data-clipboard-target="source"
+          >
+
+          <button
+            type="button"
+            class="btn btn-outline btn-sm shrink-0"
+            data-action="click->clipboard#copy"
+          >
+            コピー
+          </button>
+        </div>
+
+        <p class="text-xs text-success mt-2 hidden" data-clipboard-target="message">
+          URLをコピーしました
+        </p>
+      </div>
 
   <div class="mt-6">
     <% if @participating %>
