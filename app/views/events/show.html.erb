@@ -82,6 +82,8 @@
           URLをコピーしました
         </p>
       </div>
+    </div>
+  </div>
 
   <div class="mt-6">
     <% if @participating %>
@@ -141,6 +143,19 @@
         <% else %>
           <p class="text-sm text-gray-500 mt-2">まだ参加者はいません</p>
         <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <div class="flex items-center justify-between">
+          <h2 class="card-title text-lg">お店候補</h2>
+          <%= link_to "お店候補を登録", new_event_shop_path(@event), class: "btn btn-primary btn-sm" %>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-2">まだお店候補はありません</p>
       </div>
     </div>
   </div>
