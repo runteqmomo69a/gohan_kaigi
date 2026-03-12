@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def join
-    @event = Event.find_by!(unique_url: params[:unique_url])　
+    @event = Event.find_by!(unique_url: params[:unique_url])
 
     unless @event
       redirect_to root_path, alert: "イベントが見つかりませんでした"
