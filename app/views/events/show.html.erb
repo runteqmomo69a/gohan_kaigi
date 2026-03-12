@@ -155,7 +155,33 @@
           <%= link_to "お店候補を登録", new_event_shop_path(@event), class: "btn btn-primary btn-sm" %>
         </div>
 
-        <p class="text-sm text-gray-500 mt-2">まだお店候補はありません</p>
+        <% if @shops.any? %>
+          <ul class="mt-4 space-y-3">
+            <% @shops.each do |shop| %>
+              <li class="border rounded p-3">
+                <p class="font-semibold"><%= shop.name %></p>
+
+                <% if shop.url.present? %>
+                  <p class="text-sm">
+                    <a href="<%= shop.url %>" target="_blank" class="text-blue-500 underline">
+                      お店のURL
+                    </a>
+                  </p>
+                <% end %>
+
+                <% if shop.memo.present? %>
+                  <p class="text-sm text-gray-600 mt-1"><%= shop.memo %></p>
+                <% end %>
+
+                <p class="text-xs text-gray-400 mt-2">
+                  登録者：<%= shop.user.name %>
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-sm text-gray-500 mt-2">まだお店候補はありません</p>
+        <% end %>
       </div>
     </div>
   </div>
