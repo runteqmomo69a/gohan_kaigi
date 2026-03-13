@@ -3,6 +3,7 @@ class ShopsController < ApplicationController
   before_action :set_event
   before_action :ensure_event_participant
   before_action :set_shop, only: %i[edit update destroy]
+  before_action :ensure_shop_owner, only: %i[edit update destroy]
 
   def new
     @shop = @event.shops.new
@@ -49,6 +50,12 @@ class ShopsController < ApplicationController
 
   def set_shop
     @shop = @event.shops.find(params[:id])
+  end
+
+  def ensure_shop_owner
+    unless @shop.user == current_user
+      redirect_to event_path(@event), alert: "お店候補の編集・削除は登録者のみ可能です"
+    end
   end
 
   def shop_params
