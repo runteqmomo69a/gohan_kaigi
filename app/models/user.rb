@@ -8,4 +8,6 @@ class User < ApplicationRecord
   has_many :event_participants, dependent: :destroy
   has_many :participating_events, through: :event_participants, source: :event
   has_many :shops, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_shops, through: :likes, source: :shop
 end

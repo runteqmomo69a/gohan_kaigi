@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :events, only: %i[index show new create edit update destroy] do
     resources :event_participants, only: [:create]
-    resources :shops, only: %i[new create edit update destroy]
+    resources :shops, only: %i[new create edit update destroy] do
+      resource :like, only: %i[create destroy]
+    end
   end
 
   get "/events/join/:unique_url", to: "events#join", as: "join_event"
