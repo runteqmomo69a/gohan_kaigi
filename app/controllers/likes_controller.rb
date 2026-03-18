@@ -2,6 +2,7 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
   before_action :set_shop
+  before_action :ensure_event_participant
 
   def create
     current_user.likes.create!(shop: @shop)
@@ -21,5 +22,11 @@ class LikesController < ApplicationController
 
   def set_shop
     @shop = @event.shops.find(params[:shop_id])
+  end
+
+  def ensure_event_participant
+    unless @event.participants.exists?(current_user.id)
+      redirect_to event_path(@event), alert: "イベント参加者のみいいねできます"
+    end
   end
 end
