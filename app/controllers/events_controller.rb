@@ -10,7 +10,7 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
-    @shops = @event.shops.includes(:user)
+    @shops = @event.shops.includes(:user, :likes)
   end
 
   def join

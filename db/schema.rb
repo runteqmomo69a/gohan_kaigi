@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_12_080859) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_17_090054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_12_080859) do
     t.text "note"
     t.index ["unique_url"], name: "index_events_on_unique_url", unique: true
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "shop_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_id", "user_id"], name: "index_likes_on_shop_id_and_user_id", unique: true
+    t.index ["shop_id"], name: "index_likes_on_shop_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -67,6 +77,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_12_080859) do
   add_foreign_key "event_participants", "events"
   add_foreign_key "event_participants", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "likes", "shops"
+  add_foreign_key "likes", "users"
   add_foreign_key "shops", "events"
   add_foreign_key "shops", "users"
 end
