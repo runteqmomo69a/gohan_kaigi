@@ -10,7 +10,16 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
-    @shops = @event.shops.includes(:user, :likes)
+    # 並び替え用　
+    @shops =
+    case params[:sort]
+    when "likes_count"
+      @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
+    else
+      @event.shops.includes(:user, :likes).order(created_at: :asc)
+    end
+    # ランキング用
+    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(3)
   end
 
   def join
