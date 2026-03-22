@@ -23,14 +23,22 @@
           <div class="pt-2">
             <%= f.submit "ログイン", class: "btn btn-primary w-full" %>
           </div>
-
-          <div class="divider my-2 text-xs text-gray-400">または</div>
-
-          <div class="text-center text-sm">
-            <%= link_to "新規登録はこちら", new_user_registration_path, class: "link link-hover text-gray-500" %>
-          </div>
         </div>
       <% end %>
+
+      <div class="divider my-2 text-xs text-gray-400">または</div>
+
+      <div class="mt-2">
+        <%= button_to "LINEでログイン",
+          user_line_omniauth_authorize_path,
+          method: :post,
+          class: "btn btn-success w-full",
+          form: { data: { turbo: false } } %>
+      </div>
+
+      <div class="text-center text-sm mt-4">
+        <%= link_to "新規登録はこちら", new_user_registration_path, class: "link link-hover text-gray-500" %>
+      </div>
     </div>
   </div>
 </div>

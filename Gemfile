@@ -34,6 +34,9 @@ gem "devise"
 gem "rails-i18n"
 gem "devise-i18n"
 
+gem "omniauth-line-v2"
+gem "omniauth-rails_csrf_protection"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
