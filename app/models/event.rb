@@ -3,6 +3,7 @@ class Event < ApplicationRecord
   has_many :event_participants, dependent: :destroy
   has_many :participants, through: :event_participants, source: :user
   has_many :shops, dependent: :destroy
+  has_many :event_preferences, dependent: :destroy
   
   validates :title, presence: true, length: { maximum: 255 }
   validates :event_date, presence: true

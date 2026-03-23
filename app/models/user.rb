@@ -11,4 +11,5 @@ class User < ApplicationRecord
   has_many :shops, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_shops, through: :likes, source: :shop
+  has_many :event_preferences, dependent: :destroy
 end
