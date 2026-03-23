@@ -147,6 +147,106 @@
     </div>
   </div>
 
+    <div class="mt-8">
+    <div class="card bg-base-100 shadow-sm">
+      <div class="card-body">
+        <div class="flex items-center justify-between">
+          <h2 class="card-title text-lg">希望条件</h2>
+
+          <% if @participating %>
+            <label for="event-preference-modal" class="btn btn-primary btn-sm">
+              希望条件を入力
+            </label>
+          <% end %>
+        </div>
+
+        <% if @event_preferences.any? %>
+          <ul class="mt-4 space-y-3">
+            <% @event_preferences.each do |event_preference| %>
+              <li class="border rounded p-3 space-y-2">
+                
+                <% if event_preference.user_id == current_user.id %>
+                  <p class="text-xs text-primary font-bold">あなたの投稿</p>
+                <% end %>
+                <div>
+                  <p class="text-sm text-gray-500">苦手なもの</p>
+                  <p><%= event_preference.dislike_foods.presence || "特にありません" %></p>
+                </div>
+
+                <div>
+                  <p class="text-sm text-gray-500">予算</p>
+                  <p><%= event_preference.budget_label %></p>
+                </div>
+
+                <div>
+                  <p class="text-sm text-gray-500">自由記述</p>
+                  <p class="whitespace-pre-wrap"><%= event_preference.content.presence || "特にありません" %></p>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-sm text-gray-500 mt-2">まだ投稿がありません</p>
+        <% end %>
+
+        <% if @participating %>
+          <input type="checkbox" id="event-preference-modal" class="modal-toggle" />
+
+          <div class="modal" role="dialog">
+            <div class="modal-box max-w-lg">
+              <h3 class="text-lg font-bold">希望条件を入力</h3>
+
+              <%= form_with model: @event_preference,
+                            url: event_event_preferences_path(@event),
+                            method: :post,
+                            local: true do |f| %>
+                <div class="mt-4 space-y-4">
+                  <div class="form-control">
+                    <%= f.label :dislike_foods, "苦手なもの（アレルギー・避けたいものなど）", class: "label" %>
+                    <%= f.text_area :dislike_foods, class: "textarea textarea-bordered w-full", rows: 3 %>
+                  </div>
+
+                  <div class="form-control">
+                    <%= f.label :budget, "予算(目安）", class: "label" %>
+                    <%= f.select :budget,
+                      [
+                        ["未選択", nil],
+                        ["〜999円", 1],
+                        ["1000〜1999円", 2],
+                        ["2000〜2999円", 3],
+                        ["3000〜3999円", 4],
+                        ["4000円以上", 5]
+                      ],
+                      {},
+                      class: "select select-bordered w-full" %>
+                  </div>
+
+                  <div class="form-control">
+                    <%= f.label :content, "その他の希望（任意）", class: "label" %>
+                    <%= f.text_area :content, class: "textarea textarea-bordered w-full", rows: 4 %>
+                  </div>
+
+                  <div class="modal-action">
+                    <% if @event_preference.persisted? %>
+                      <%= link_to "削除する",
+                        event_event_preference_path(@event, @event_preference),
+                        data: { turbo_method: :delete, turbo_confirm: "希望条件を削除しますか？" },
+                        class: "btn btn-error" %>
+                    <% end %>
+
+                    <%= f.submit "保存する", class: "btn btn-primary" %>
+                    <label for="event-preference-modal" class="btn btn-ghost">キャンセル</label>
+                  </div>
+            <% end %>
+          </div>
+
+          <label class="modal-backdrop" for="event-preference-modal">Close</label>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
   <div class="mt-8">
     <div class="card bg-base-100 shadow-sm">
       <div class="card-body">

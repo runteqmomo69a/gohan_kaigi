@@ -20,6 +20,17 @@ class EventsController < ApplicationController
     end
     # ランキング用
     @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(3)
+    
+    # 希望条件フォーム用
+    @event_preference =
+      if user_signed_in?
+        @event.event_preferences.find_or_initialize_by(user: current_user)
+      else
+        EventPreference.new
+      end
+
+    # 希望条件一覧用
+    @event_preferences = @event.event_preferences.order(updated_at: :desc)
   end
 
   def join
