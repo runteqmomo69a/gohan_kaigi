@@ -30,6 +30,7 @@ services:
       TZ: Asia/Tokyo
       LINE_CHANNEL_ID: ${LINE_CHANNEL_ID}
       LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY}
     ports:
       - "3000:3000"
     depends_on:
