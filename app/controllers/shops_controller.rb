@@ -12,6 +12,8 @@ class ShopsController < ApplicationController
   def create
     @shop = @event.shops.new(shop_params)
     @shop.user = current_user
+  
+    @shop.place_id = @shop.fetch_place_id(@event.place)
 
     if @shop.save
       redirect_to event_path(@event), notice: "お店候補を登録しました"
@@ -24,7 +26,16 @@ class ShopsController < ApplicationController
   end
 
   def update
-    if @shop.update(shop_params)
+    # まずフォームの内容を @shop に反映する（まだ保存はしない）
+    @shop.assign_attributes(shop_params)
+
+    # 名前が変更された場合のみ place_id を再取得
+    if @shop.will_save_change_to_name?
+      new_place_id = @shop.fetch_place_id(@event.place)
+      @shop.place_id = new_place_id if new_place_id.present?
+    end
+
+    if @shop.save
       redirect_to event_path(@event), notice: "お店候補を更新しました"
     else
       render :edit, status: :unprocessable_entity
