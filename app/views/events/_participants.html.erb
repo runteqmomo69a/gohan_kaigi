@@ -1,0 +1,25 @@
+<div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-3">
+
+  <!-- ラベル -->
+  <div class="flex items-center justify-between text-sm text-gray-500">
+    <div class="flex items-center gap-2">
+      <span>👥</span>
+      <span>参加者</span>
+    </div>
+    <span><%= participants.count %>人</span>
+  </div>
+
+  <!-- 一覧 -->
+  <% if participants.any? %>
+    <ul class="flex flex-wrap gap-2">
+      <% participants.each do |participant| %>
+        <li class="px-3 py-1 rounded-full bg-base-200/60 text-sm">
+          <%= participant.name %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-sm text-gray-500">まだ参加者はいません</p>
+  <% end %>
+
+</div>
