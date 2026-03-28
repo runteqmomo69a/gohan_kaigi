@@ -1,0 +1,107 @@
+<div class="space-y-6">
+
+  <!-- タイトル + 操作 -->
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <h1 class="text-3xl font-bold leading-tight">
+      <%= event.title %>
+    </h1>
+
+    <div class="flex items-center gap-2 flex-wrap">
+      <%= link_to "一覧へ戻る", events_path, class: "btn btn-ghost btn-sm" %>
+      <%= link_to "編集", edit_event_path(event), class: "btn btn-outline btn-sm" %>
+      <%= link_to "削除",
+                  event_path(event),
+                  data: { turbo_method: :delete, turbo_confirm: "このイベントを削除します。よろしいですか？" },
+                  class: "btn btn-error btn-sm" %>
+    </div>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-600">
+
+    <div class="flex items-center gap-1">
+      <span>📅</span>
+      <span class="font-medium text-base-content">
+        <%= event.event_date %>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1">
+      <span>🕒</span>
+      <span class="font-medium text-base-content">
+        <%= event.event_time.present? ? event.event_time.strftime("%H:%M") : "時間未設定" %>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1">
+      <span>📍</span>
+      <span class="font-medium text-base-content">
+        <%= event.place.presence || "未設定" %>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-1">
+      <span>👤</span>
+      <span class="font-medium text-base-content">
+        <%= event.user.name %>
+      </span>
+    </div>
+
+  </div>
+
+  <!-- メモ -->
+  <% if event.note.present? %>
+    <div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-2">
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+        <span>📝</span>
+        <span>メモ</span>
+      </div>
+
+      <p class="text-base leading-relaxed">
+        <%= event.note %>
+      </p>
+    </div>
+  <% end %>
+
+  <!-- 参加ボタン -->
+  <div>
+    <% if participating %>
+      <div class="inline-flex items-center gap-2 rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success">
+        <span>✓</span>
+        <span>参加済み</span>
+      </div>
+    <% else %>
+      <label for="join-event-modal" class="btn btn-primary">
+        このイベントに参加する
+      </label>
+    <% end %>
+  </div>
+
+  <!-- URL -->
+  <div class="rounded-xl border border-base-300 bg-base-100 p-4" data-controller="clipboard">
+    <p class="text-sm text-gray-500 mb-2">共有用URL</p>
+
+    <div class="flex flex-col gap-2 sm:flex-row">
+      <input
+        type="text"
+        value="<%= join_event_url(event.unique_url) %>"
+        readonly
+        class="input input-bordered w-full text-sm"
+        data-clipboard-target="source"
+      >
+
+      <button
+        type="button"
+        class="btn btn-outline btn-sm shrink-0"
+        data-action="click->clipboard#copy"
+      >
+        コピー
+      </button>
+    </div>
+
+    <p class="text-xs text-success mt-2 hidden" data-clipboard-target="message">
+      URLをコピーしました
+    </p>
+  </div>
+
+</div>

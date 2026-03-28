@@ -1,0 +1,48 @@
+<div class="mt-8">
+  <div class="rounded-xl border border-base-300 bg-base-100 p-5 space-y-4">
+
+    <div class="flex items-center gap-2">
+      <span class="text-lg">🏆</span>
+      <h2 class="text-lg font-semibold">人気ランキング</h2>
+    </div>
+
+    <% if top_shops.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+        <% top_shops.each_with_index do |shop, index| %>
+
+          <% bg_class =
+            case index
+            when 0 then "bg-yellow-50 border-yellow-200"
+            when 1 then "bg-gray-50 border-gray-200"
+            when 2 then "bg-orange-50 border-orange-200"
+            end
+          %>
+
+          <div class="rounded-xl p-4 text-center space-y-2 border <%= bg_class %>">
+
+            <% case index %>
+            <% when 0 %>
+              <div class="text-yellow-500 font-bold text-lg">🥇 1位</div>
+            <% when 1 %>
+              <div class="text-gray-400 font-bold text-lg">🥈 2位</div>
+            <% when 2 %>
+              <div class="text-orange-400 font-bold text-lg">🥉 3位</div>
+            <% end %>
+
+            <p class="font-semibold"><%= shop.name %></p>
+
+            <p class="text-sm text-gray-500">
+              （<%= shop.likes_count %>いいね）
+            </p>
+
+          </div>
+        <% end %>
+
+      </div>
+    <% else %>
+      <p class="text-sm text-gray-500">まだランキングはありません</p>
+    <% end %>
+
+  </div>
+</div>
