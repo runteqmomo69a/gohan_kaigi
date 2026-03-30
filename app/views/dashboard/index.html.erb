@@ -1,6 +1,6 @@
 <div class="max-w-4xl mx-auto p-6">
 
-  <!-- ページタイトル（ダッシュボード表記なし） -->
+  <!-- ページタイトル -->
   <h1 class="text-2xl font-bold mb-6 text-center">
     ごはん会議
   </h1>
@@ -43,9 +43,27 @@
           作成・参加しているイベントを確認できます
         </p>
         <div class="card-actions justify-end">
-          <%= link_to "一覧を見る", events_path, class: "btn btn-outline" %>
+          <%= link_to "一覧を見る", events_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
+
+    <!-- お店ログ（下中央） -->
+    <div class="sm:col-span-2 flex justify-center">
+      <div class="w-full sm:w-1/2">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <h2 class="card-title">お店ログ</h2>
+            <p class="text-sm text-gray-600">
+              これまでに登録したお店を見返せます
+            </p>
+            <div class="card-actions justify-end">
+              <%= link_to "一覧を見る", shop_logs_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
