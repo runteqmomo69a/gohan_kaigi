@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       resource :like, only: %i[create destroy]
     end
   end
+  
+  resources :shop_logs, only: [:index]
 
   get "/events/join/:unique_url", to: "events#join", as: "join_event"
   
