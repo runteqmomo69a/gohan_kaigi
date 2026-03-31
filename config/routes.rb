@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :shop_logs, only: [:index]
+  resources :shop_logs, only: [:index, :edit, :update]
 
   get "/events/join/:unique_url", to: "events#join", as: "join_event"
   

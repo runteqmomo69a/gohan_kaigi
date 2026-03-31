@@ -1,0 +1,25 @@
+<div class="max-w-xl mx-auto p-6">
+
+  <h1 class="text-xl font-bold mb-4">カテゴリを編集</h1>
+
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+
+      <%= form_with model: @shop, url: shop_log_path(@shop), method: :patch, local: true do |f| %>
+        
+        <div class="form-control">
+          <%= f.label :log_category, "カテゴリ", class: "label" %>
+          <%= f.text_field :log_category, class: "input input-bordered w-full" %>
+        </div>
+
+        <div class="mt-4 flex justify-end gap-2">
+          <%= link_to "戻る", shop_logs_path, class: "btn btn-ghost" %>
+          <%= f.submit "保存する", class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</div>
