@@ -3,6 +3,7 @@ class Shop < ApplicationRecord
   belongs_to :user
 
   validates :name, presence: true
+  validates :log_note, length: { maximum: 1000, message: "は1000文字以内で入力してください" }
 
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
