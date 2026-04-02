@@ -22,6 +22,6 @@ class ShopLogsController < ApplicationController
   private
 
   def shop_params
-    params.require(:shop).permit(:log_category)
+    params.require(:shop).permit(:log_category, :log_note)
   end
 end
