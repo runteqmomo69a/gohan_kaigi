@@ -7,7 +7,45 @@
       これまでに登録したお店をまとめて見返せます📖
     </p>
   </div>
+  <div class="card bg-base-100 shadow-sm">
+    <div class="card-body">
+      <%= form_with url: shop_logs_path, method: :get, local: true, class: "flex flex-col gap-4 md:flex-row md:items-end" do %>
 
+        <div class="form-control w-full md:w-52">
+          <label class="label">
+            <span class="label-text">並び替え</span>
+          </label>
+          <%= select_tag :sort,
+            options_for_select(
+              [
+                ["新しい順", "recent"],
+                ["古い順", "old"]
+              ],
+              params[:sort]
+            ),
+            class: "select select-bordered w-full" %>
+        </div>
+
+        <div class="form-control w-full md:w-52">
+          <label class="label">
+            <span class="label-text">カテゴリ</span>
+          </label>
+          <%= select_tag :category,
+            options_for_select(
+              [["すべて", ""]] + @categories.map { |category| [category, category] },
+              params[:category]
+            ),
+            class: "select select-bordered w-full" %>
+        </div>
+
+        <div class="flex gap-2">
+          <%= submit_tag "適用", class: "btn btn-primary" %>
+          <%= link_to "リセット", shop_logs_path, class: "btn btn-ghost" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
   <!-- 一覧 -->
   <div class="card bg-base-100 shadow-sm">
     <div class="card-body">
