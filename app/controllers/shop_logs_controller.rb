@@ -2,6 +2,11 @@ class ShopLogsController < ApplicationController
   def index
     @shops = current_user.shops.includes(:event)
 
+    # 検索
+    if params[:q].present?
+      @shops = @shops.where("name LIKE ?", "%#{params[:q]}%")
+    end
+
     # カテゴリ絞り込み
     if params[:category].present?
       @shops = @shops.where(log_category: params[:category])
@@ -21,6 +26,19 @@ class ShopLogsController < ApplicationController
                               .where.not(log_category: [nil, ""])
                               .distinct
                               .pluck(:log_category)
+  end
+
+  # オートコンプリート
+  def autocomplete
+    shops = current_user.shops
+
+    if params[:q].present?
+      shops = shops.where("name LIKE ?", "%#{params[:q]}%").limit(5)
+    else
+      shops = []
+    end
+
+    render json: shops.pluck(:name)
   end
 
   def edit

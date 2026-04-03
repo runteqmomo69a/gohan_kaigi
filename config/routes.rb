@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   end
   
   resources :shop_logs, only: [:index, :edit, :update]
+  
+  get "shop_logs/autocomplete", to: "shop_logs#autocomplete"
 
   get "/events/join/:unique_url", to: "events#join", as: "join_event"
   
