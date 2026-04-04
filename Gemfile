@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 ruby "3.3.10"
@@ -31,8 +33,8 @@ gem "jbuilder"
 
 gem "devise"
 
-gem "rails-i18n"
 gem "devise-i18n"
+gem "rails-i18n"
 
 gem "omniauth-line-v2"
 gem "omniauth-rails_csrf_protection"
@@ -47,7 +49,7 @@ gem "omniauth-rails_csrf_protection"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -57,7 +59,11 @@ gem "bootsnap", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ]
+  gem "debug", platforms: %i[mri windows]
+
+  gem "rubocop", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do

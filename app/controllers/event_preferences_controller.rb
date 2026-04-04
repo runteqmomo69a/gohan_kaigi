@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventPreferencesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
@@ -5,7 +7,7 @@ class EventPreferencesController < ApplicationController
 
   def create
     @event_preference = @event.event_preferences.find_or_initialize_by(user: current_user)
-    
+
     if @event_preference.update(event_preference_params)
       redirect_to event_path(@event), notice: "希望の条件を保存しました"
     else
@@ -15,7 +17,7 @@ class EventPreferencesController < ApplicationController
 
   def destroy
     @event_preference = @event.event_preferences.find_by(user: current_user)
-    @event_preference.destroy if @event_preference
+    @event_preference&.destroy
     redirect_to event_path(@event), notice: "希望条件を削除しました"
   end
 
@@ -26,9 +28,9 @@ class EventPreferencesController < ApplicationController
   end
 
   def ensure_event_participant
-    unless @event.participants.exists?(current_user.id)
-      redirect_to event_path(@event), alert: "イベント参加者のみ希望条件を入力できます"
-    end
+    return if @event.participants.exists?(current_user.id)
+
+    redirect_to event_path(@event), alert: "イベント参加者のみ希望条件を入力できます"
   end
 
   def event_preference_params

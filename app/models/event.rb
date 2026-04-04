@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
   belongs_to :user
   has_many :event_participants, dependent: :destroy
   has_many :participants, through: :event_participants, source: :user
   has_many :shops, dependent: :destroy
   has_many :event_preferences, dependent: :destroy
-  
+
   validates :title, presence: true, length: { maximum: 255 }
   validates :event_date, presence: true
   validates :unique_url, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :note, length: { maximum: 1000 }, allow_blank: true
-  
 
   before_validation :set_unique_url, on: :create
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
@@ -25,8 +27,8 @@ class LikesController < ApplicationController
   end
 
   def ensure_event_participant
-    unless @event.participants.exists?(current_user.id)
-      redirect_to event_path(@event), alert: "イベント参加者のみいいねできます"
-    end
+    return if @event.participants.exists?(current_user.id)
+
+    redirect_to event_path(@event), alert: "イベント参加者のみいいねできます"
   end
 end

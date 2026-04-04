@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEventPreferences < ActiveRecord::Migration[7.1]
   def change
     create_table :event_preferences do |t|
@@ -9,6 +11,6 @@ class CreateEventPreferences < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    add_index :event_preferences, [:event_id, :user_id], unique: true
+    add_index :event_preferences, %i[event_id user_id], unique: true
   end
 end

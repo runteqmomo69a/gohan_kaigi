@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ShopsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
@@ -9,20 +11,19 @@ class ShopsController < ApplicationController
     @shop = @event.shops.new
   end
 
+  def edit; end
+
   def create
     @shop = @event.shops.new(shop_params)
     @shop.user = current_user
-  
+
     @shop.place_id = @shop.fetch_place_id(@event.place)
 
     if @shop.save
       redirect_to event_path(@event), notice: "お店候補を登録しました"
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
-  end
-
-  def edit
   end
 
   def update
@@ -38,7 +39,7 @@ class ShopsController < ApplicationController
     if @shop.save
       redirect_to event_path(@event), notice: "お店候補を更新しました"
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -54,9 +55,9 @@ class ShopsController < ApplicationController
   end
 
   def ensure_event_participant
-    unless @event.participants.exists?(current_user.id)
-      redirect_to event_path(@event), alert: "イベント参加者のみお店候補を操作できます"
-    end
+    return if @event.participants.exists?(current_user.id)
+
+    redirect_to event_path(@event), alert: "イベント参加者のみお店候補を操作できます"
   end
 
   def set_shop
@@ -64,9 +65,9 @@ class ShopsController < ApplicationController
   end
 
   def ensure_shop_owner
-    unless @shop.user == current_user
-      redirect_to event_path(@event), alert: "お店候補の編集・削除は登録者のみ可能です"
-    end
+    return if @shop.user == current_user
+
+    redirect_to event_path(@event), alert: "お店候補の編集・削除は登録者のみ可能です"
   end
 
   def shop_params
