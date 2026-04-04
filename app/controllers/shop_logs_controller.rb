@@ -1,16 +1,14 @@
+# frozen_string_literal: true
+
 class ShopLogsController < ApplicationController
   def index
     @shops = current_user.shops.includes(:event)
 
     # 検索
-    if params[:q].present?
-      @shops = @shops.where("name LIKE ?", "%#{params[:q]}%")
-    end
+    @shops = @shops.where("name LIKE ?", "%#{params[:q]}%") if params[:q].present?
 
     # カテゴリ絞り込み
-    if params[:category].present?
-      @shops = @shops.where(log_category: params[:category])
-    end
+    @shops = @shops.where(log_category: params[:category]) if params[:category].present?
 
     # 並び替え
     @shops =
@@ -23,7 +21,7 @@ class ShopLogsController < ApplicationController
 
     # カテゴリ一覧（セレクト用）
     @categories = current_user.shops
-                              .where.not(log_category: [nil, ""])
+                              .where.not(log_category: [ nil, "" ])
                               .distinct
                               .pluck(:log_category)
   end
@@ -32,10 +30,10 @@ class ShopLogsController < ApplicationController
   def autocomplete
     shops = current_user.shops
 
-    if params[:q].present?
-      shops = shops.where("name LIKE ?", "%#{params[:q]}%").limit(5)
+    shops = if params[:q].present?
+              shops.where("name LIKE ?", "%#{params[:q]}%").limit(5)
     else
-      shops = []
+              []
     end
 
     render json: shops.pluck(:name)
@@ -51,7 +49,7 @@ class ShopLogsController < ApplicationController
     if @shop.update(shop_params)
       redirect_to shop_logs_path, notice: "お店ログを更新しました"
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

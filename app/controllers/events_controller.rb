@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: %i[join]
   before_action :set_event, only: %i[show]
@@ -10,17 +12,17 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
-    # 並び替え用　
+    # 並び替え用
     @shops =
-    case params[:sort]
-    when "likes_count"
-      @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
-    else
-      @event.shops.includes(:user, :likes).order(created_at: :asc)
-    end
+      case params[:sort]
+      when "likes_count"
+        @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
+      else
+        @event.shops.includes(:user, :likes).order(created_at: :asc)
+      end
     # ランキング用
     @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(3)
-    
+
     # 希望条件フォーム用
     @event_preference =
       if user_signed_in?
@@ -54,6 +56,8 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
+  def edit; end
+
   def create
     @event = current_user.events.new(event_params)
 
@@ -61,18 +65,15 @@ class EventsController < ApplicationController
       @event.event_participants.create(user: current_user)
       redirect_to event_path(@event), notice: "イベントを作成しました"
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
-  end
-
-  def edit
   end
 
   def update
     if @event.update(event_params)
       redirect_to event_path(@event), notice: "イベントを更新しました"
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

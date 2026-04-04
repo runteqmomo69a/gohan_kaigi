@@ -1,0 +1,11 @@
+# Omakase Ruby styling for Rails
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+
+# バージョン指定とgemおすすめ通知不要
+AllCops:
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
+
+# ダブルクオーテーションを使う
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

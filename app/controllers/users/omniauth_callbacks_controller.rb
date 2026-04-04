@@ -1,31 +1,35 @@
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def line
-    auth = request.env["omniauth.auth"]
+# frozen_string_literal: true
 
-    @user = User.find_or_initialize_by(provider: auth.provider, uid: auth.uid)
+module Users
+  class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    def line
+      auth = request.env["omniauth.auth"]
 
-    if @user.new_record?
-      @user.email = dummy_email(auth)
-      @user.name = auth.info.name.presence || "LINEユーザー"
-      @user.password = Devise.friendly_token[0, 20]
-      @user.save
+      @user = User.find_or_initialize_by(provider: auth.provider, uid: auth.uid)
+
+      if @user.new_record?
+        @user.email = dummy_email(auth)
+        @user.name = auth.info.name.presence || "LINEユーザー"
+        @user.password = Devise.friendly_token[0, 20]
+        @user.save
+      end
+
+      if @user.persisted?
+        sign_in @user
+        redirect_to dashboard_path, notice: "LINEでログインしました"
+      else
+        redirect_to new_user_session_path, alert: "LINEログインに失敗しました"
+      end
     end
 
-    if @user.persisted?
-      sign_in @user
-      redirect_to dashboard_path, notice: "LINEでログインしました"
-    else
+    def failure
       redirect_to new_user_session_path, alert: "LINEログインに失敗しました"
     end
-  end
 
-  def failure
-    redirect_to new_user_session_path, alert: "LINEログインに失敗しました"
-  end
+    private
 
-  private
-
-  def dummy_email(auth)
-    "#{auth.uid}-line@example.com"
+    def dummy_email(auth)
+      "#{auth.uid}-line@example.com"
+    end
   end
 end

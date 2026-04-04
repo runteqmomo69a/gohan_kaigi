@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ShopLogsHelper
   CATEGORY_COLORS = [
     "bg-blue-100 text-blue-700",
