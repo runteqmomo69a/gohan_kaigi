@@ -1,11 +1,11 @@
 <div class="mt-8">
   <div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-3">
     <div class="flex items-center justify-between">
-      <h2 class="text-lg font-semibold">希望条件</h2>
+      <h2 class="text-lg font-semibold"><%= t("views.events.preferences.title") %></h2>
 
       <% if participating %>
         <label for="event-preference-modal" class="btn btn-primary btn-sm">
-          希望条件を入力
+          <%= t("views.events.preferences.open_form") %>
         </label>
       <% end %>
     </div>
@@ -16,23 +16,23 @@
           <% event_preferences.each do |event_preference| %>
             <div class="rounded-lg border border-base-200 bg-base-100 p-3 space-y-2">
               <% if event_preference.user_id == current_user.id %>
-                <p class="text-xs text-primary font-bold">あなたの投稿</p>
+                <p class="text-xs text-primary font-bold"><%= t("views.events.preferences.your_post") %></p>
               <% end %>
 
               <div>
-                <p class="text-sm text-gray-500">苦手なもの</p>
-                <p><%= event_preference.dislike_foods.presence || "特にありません" %></p>
+                <p class="text-sm text-gray-500"><%= t("views.events.preferences.dislike_foods") %></p>
+                <p><%= event_preference.dislike_foods.presence || t("views.events.preferences.none") %></p>
               </div>
 
               <div>
-                <p class="text-sm text-gray-500">予算</p>
+                <p class="text-sm text-gray-500"><%= t("views.events.preferences.budget") %></p>
                 <p><%= event_preference.budget_label %></p>
               </div>
 
               <div>
-                <p class="text-sm text-gray-500">自由記述</p>
+                <p class="text-sm text-gray-500"><%= t("views.events.preferences.content") %></p>
                 <p class="whitespace-pre-wrap">
-                  <%= event_preference.content.presence || "特にありません" %>
+                  <%= event_preference.content.presence || t("views.events.preferences.none") %>
                 </p>
               </div>
             </div>
@@ -40,7 +40,7 @@
         </div>
       </div>
     <% else %>
-      <p class="text-sm text-gray-500">まだ投稿がありません</p>
+      <p class="text-sm text-gray-500"><%= t("views.events.preferences.empty") %></p>
     <% end %>
 
     <% if participating %>
@@ -48,7 +48,7 @@
 
       <div class="modal" role="dialog">
         <div class="modal-box max-w-lg">
-          <h3 class="text-lg font-bold">希望条件を入力</h3>
+          <h3 class="text-lg font-bold"><%= t("views.events.preferences.open_form") %></h3>
 
           <%= form_with model: event_preference,
                         url: event_event_preferences_path(event),
@@ -58,47 +58,47 @@
             <div class="mt-4 space-y-4">
 
               <div class="form-control">
-                <%= f.label :dislike_foods, "苦手なもの", class: "label" %>
+                <%= f.label :dislike_foods, t("views.events.preferences.dislike_foods"), class: "label" %>
                 <%= f.text_area :dislike_foods, class: "textarea textarea-bordered w-full", rows: 3 %>
               </div>
 
               <div class="form-control">
-                <%= f.label :budget, "予算", class: "label" %>
+                <%= f.label :budget, t("views.events.preferences.budget"), class: "label" %>
                 <%= f.select :budget,
                   [
-                    ["未選択", nil],
-                    ["〜999円", 1],
-                    ["1000〜1999円", 2],
-                    ["2000〜2999円", 3],
-                    ["3000〜3999円", 4],
-                    ["4000円以上", 5]
+                    [t("views.events.preferences.select_budget"), nil],
+                    [t("views.events.preferences.option_1"), 1],
+                    [t("views.events.preferences.option_2"), 2],
+                    [t("views.events.preferences.option_3"), 3],
+                    [t("views.events.preferences.option_4"), 4],
+                    [t("views.events.preferences.option_5"), 5]
                   ],
                   {},
                   class: "select select-bordered w-full" %>
               </div>
 
               <div class="form-control">
-                <%= f.label :content, "その他", class: "label" %>
+                <%= f.label :content, t("views.events.preferences.other"), class: "label" %>
                 <%= f.text_area :content, class: "textarea textarea-bordered w-full", rows: 4 %>
               </div>
 
               <div class="modal-action">
                 <% if event_preference.persisted? %>
-                  <%= link_to "削除する",
+                  <%= link_to t("views.events.preferences.delete"),
                     event_event_preference_path(event, event_preference),
-                    data: { turbo_method: :delete, turbo_confirm: "希望条件を削除しますか？" },
+                    data: { turbo_method: :delete, turbo_confirm: t("views.events.preferences.delete_confirm") },
                     class: "btn btn-error" %>
                 <% end %>
 
-                <%= f.submit "保存する", class: "btn btn-primary" %>
-                <label for="event-preference-modal" class="btn btn-ghost">キャンセル</label>
+                <%= f.submit t("common.save"), class: "btn btn-primary" %>
+                <label for="event-preference-modal" class="btn btn-ghost"><%= t("common.cancel") %></label>
               </div>
 
             </div>
           <% end %>
         </div>
 
-        <label class="modal-backdrop" for="event-preference-modal">Close</label>
+        <label class="modal-backdrop" for="event-preference-modal"><%= t("views.events.preferences.close") %></label>
       </div>
     <% end %>
 

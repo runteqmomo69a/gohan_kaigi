@@ -1,12 +1,12 @@
 <div class="max-w-4xl mx-auto p-6">
   <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold">イベント一覧</h1>
+    <h1 class="text-2xl font-bold"><%= t("views.events.index.title") %></h1>
 
     <div class="flex items-center gap-3">
-      <%= link_to "戻る", dashboard_path,
+      <%= link_to t("common.back"), dashboard_path,
             class: "link link-hover text-sm text-gray-500" %>
 
-      <%= link_to "イベント作成", new_event_path,
+      <%= link_to t("views.events.index.new"), new_event_path,
             class: "btn btn-primary btn-sm" %>
     </div>
   </div>
@@ -37,7 +37,7 @@
                 </p>
               </div>
 
-              <%= link_to "詳細",
+              <%= link_to t("views.events.index.detail"),
                     event_path(event),
                     class: "btn btn-outline btn-sm" %>
             </div>
@@ -47,7 +47,7 @@
     </div>
   <% else %>
     <div class="alert">
-      <span>まだイベントがありません。まずはイベントを作成しましょう。</span>
+      <span><%= t("views.events.index.empty") %></span>
     </div>
   <% end %>
 </div>

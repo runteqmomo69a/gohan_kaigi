@@ -39,4 +39,6 @@
 
 /node_modules
 
+AGENTS.md
+
 .vscode/

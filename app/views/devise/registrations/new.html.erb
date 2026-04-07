@@ -1,8 +1,8 @@
 <div class="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-10">
   <div class="card w-full max-w-md bg-base-100 shadow">
     <div class="card-body">
-      <h1 class="text-2xl font-bold">新規登録</h1>
-      <p class="text-sm text-gray-500">必要事項を入力してアカウントを作成します。</p>
+      <h1 class="text-2xl font-bold"><%= t("views.devise.registrations.new.title") %></h1>
+      <p class="text-sm text-gray-500"><%= t("views.devise.registrations.new.description") %></p>
 
       <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -29,13 +29,13 @@
           </div>
 
           <div class="pt-2">
-            <%= f.submit "新規登録", class: "btn btn-primary w-full" %>
+            <%= f.submit t("views.devise.registrations.new.submit"), class: "btn btn-primary w-full" %>
           </div>
 
-          <div class="divider my-2 text-xs text-gray-400">または</div>
+          <div class="divider my-2 text-xs text-gray-400"><%= t("views.devise.shared.or") %></div>
 
           <div class="text-center text-sm">
-            <%= link_to "ログインはこちら", new_user_session_path, class: "link link-hover text-gray-500" %>
+            <%= link_to t("views.devise.registrations.new.login_link"), new_user_session_path, class: "link link-hover text-gray-500" %>
           </div>
         </div>
       <% end %>

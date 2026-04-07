@@ -9,16 +9,16 @@ class EventPreferencesController < ApplicationController
     @event_preference = @event.event_preferences.find_or_initialize_by(user: current_user)
 
     if @event_preference.update(event_preference_params)
-      redirect_to event_path(@event), notice: "希望の条件を保存しました"
+      redirect_to event_path(@event), notice: t("flash.event_preferences.create.notice")
     else
-      redirect_to event_path(@event), alert: "希望の条件の保存に失敗しました"
+      redirect_to event_path(@event), alert: t("flash.event_preferences.create_failed.alert")
     end
   end
 
   def destroy
     @event_preference = @event.event_preferences.find_by(user: current_user)
     @event_preference&.destroy
-    redirect_to event_path(@event), notice: "希望条件を削除しました"
+    redirect_to event_path(@event), notice: t("flash.event_preferences.destroy.notice")
   end
 
   private
@@ -30,7 +30,7 @@ class EventPreferencesController < ApplicationController
   def ensure_event_participant
     return if @event.participants.exists?(current_user.id)
 
-    redirect_to event_path(@event), alert: "イベント参加者のみ希望条件を入力できます"
+    redirect_to event_path(@event), alert: t("flash.event_preferences.participant_only.alert")
   end
 
   def event_preference_params

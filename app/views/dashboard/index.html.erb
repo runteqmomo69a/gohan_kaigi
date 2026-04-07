@@ -2,20 +2,20 @@
 
   <!-- ページタイトル -->
   <h1 class="text-2xl font-bold mb-6 text-center">
-    ごはん会議
+    <%= t("views.dashboard.title") %>
   </h1>
 
   <!-- ユーザー情報 -->
   <div class="mb-8 text-center">
     <p class="text-gray-700">
-      ようこそ、
+      <%= t("views.dashboard.welcome") %>
       <span class="font-semibold">
         <%= current_user.name %>
       </span>
-      さん
+      <%= t("views.shared.header.user_suffix") %>
     </p>
     <p class="text-sm text-gray-500 mt-1">
-      みんなで行くお店を決めましょう 🍽️
+      <%= t("views.dashboard.message") %>
     </p>
   </div>
 
@@ -25,12 +25,12 @@
     <!-- イベント作成 -->
     <div class="card bg-base-100 shadow">
       <div class="card-body">
-        <h2 class="card-title">イベントを作成</h2>
+        <h2 class="card-title"><%= t("views.dashboard.cards.events_new_title") %></h2>
         <p class="text-sm text-gray-600">
-          ランチ会・飲み会などの予定を作成できます
+          <%= t("views.dashboard.cards.events_new_desc") %>
         </p>
         <div class="card-actions justify-end">
-          <%= link_to "イベント作成", new_event_path, class: "btn btn-primary" %>
+          <%= link_to t("views.dashboard.cards.events_new_link"), new_event_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
@@ -38,12 +38,12 @@
     <!-- イベント一覧 -->
     <div class="card bg-base-100 shadow">
       <div class="card-body">
-        <h2 class="card-title">イベント一覧</h2>
+        <h2 class="card-title"><%= t("views.dashboard.cards.events_index_title") %></h2>
         <p class="text-sm text-gray-600">
-          作成・参加しているイベントを確認できます
+          <%= t("views.dashboard.cards.events_index_desc") %>
         </p>
         <div class="card-actions justify-end">
-          <%= link_to "一覧を見る", events_path, class: "btn btn-primary" %>
+          <%= link_to t("views.dashboard.cards.index_link"), events_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
@@ -53,12 +53,12 @@
       <div class="w-full sm:w-1/2">
         <div class="card bg-base-100 shadow">
           <div class="card-body">
-            <h2 class="card-title">お店ログ</h2>
+            <h2 class="card-title"><%= t("views.dashboard.cards.shop_logs_title") %></h2>
             <p class="text-sm text-gray-600">
-              これまでに登録したお店を見返せます
+              <%= t("views.dashboard.cards.shop_logs_desc") %>
             </p>
             <div class="card-actions justify-end">
-              <%= link_to "一覧を見る", shop_logs_path, class: "btn btn-primary" %>
+              <%= link_to t("views.dashboard.cards.index_link"), shop_logs_path, class: "btn btn-primary" %>
             </div>
           </div>
         </div>

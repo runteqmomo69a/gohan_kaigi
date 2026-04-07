@@ -39,13 +39,13 @@ class EventsController < ApplicationController
     @event = Event.find_by!(unique_url: params[:unique_url])
 
     unless @event
-      redirect_to root_path, alert: "イベントが見つかりませんでした"
+      redirect_to root_path, alert: t("flash.events.not_found.alert")
       return
     end
 
     unless user_signed_in?
       store_location_for(:user, join_event_path(@event.unique_url))
-      redirect_to root_path, alert: "イベントに参加するにはログインまたは新規登録が必要です"
+      redirect_to root_path, alert: t("flash.events.join_requires_auth.alert")
       return
     end
 
@@ -63,7 +63,7 @@ class EventsController < ApplicationController
 
     if @event.save
       @event.event_participants.create(user: current_user)
-      redirect_to event_path(@event), notice: "イベントを作成しました"
+      redirect_to event_path(@event), notice: t("flash.events.create.notice")
     else
       render :new, status: :unprocessable_content
     end
@@ -71,7 +71,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to event_path(@event), notice: "イベントを更新しました"
+      redirect_to event_path(@event), notice: t("flash.events.update.notice")
     else
       render :edit, status: :unprocessable_content
     end
@@ -79,7 +79,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy!
-    redirect_to events_path, notice: "イベントを削除しました"
+    redirect_to events_path, notice: t("flash.events.destroy.notice")
   end
 
   private

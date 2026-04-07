@@ -1,6 +1,6 @@
 <div class="max-w-xl mx-auto p-6">
 
-  <h1 class="text-xl font-bold mb-4">お店ログを編集</h1>
+  <h1 class="text-xl font-bold mb-4"><%= t("views.shop_logs.edit.title") %></h1>
 
   <div class="card bg-base-100 shadow">
     <div class="card-body">
@@ -8,7 +8,7 @@
       <!-- エラーメッセージ -->
       <% if @shop.errors.any? %>
         <div class="mb-4 rounded-lg bg-error/10 p-4 text-sm text-error">
-          <p class="font-semibold mb-2">保存できませんでした</p>
+          <p class="font-semibold mb-2"><%= t("views.shop_logs.edit.save_failed") %></p>
           <ul class="list-disc pl-5 space-y-1">
             <% @shop.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -21,20 +21,20 @@
 
         <!-- カテゴリ -->
         <div class="form-control">
-          <%= f.label :log_category, "カテゴリ", class: "label" %>
+          <%= f.label :log_category, t("views.shop_logs.edit.log_category_label"), class: "label" %>
           <%= f.text_field :log_category, class: "input input-bordered w-full" %>
         </div>
 
         <!-- メモ -->
         <div class="form-control mt-4">
-          <%= f.label :log_note, "お店メモ", class: "label" %>
-          <%= f.text_area :log_note, rows: 5, class: "textarea textarea-bordered w-full" %>
+          <%= f.label :log_note, t("views.shop_logs.edit.log_note_label"), class: "label" %>
+          <%= f.text_area :log_note, rows: 5, maxlength: 1000, class: "textarea textarea-bordered w-full" %>
         </div>
 
         <!-- ボタン -->
         <div class="mt-4 flex justify-end gap-2">
-          <%= link_to "戻る", shop_logs_path, class: "btn btn-ghost" %>
-          <%= f.submit "保存する", class: "btn btn-primary" %>
+          <%= link_to t("common.back"), shop_logs_path, class: "btn btn-ghost" %>
+          <%= f.submit t("common.save"), class: "btn btn-primary" %>
         </div>
 
       <% end %>

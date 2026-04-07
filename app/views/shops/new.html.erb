@@ -1,4 +1,4 @@
-<h1 class="text-xl font-bold mb-4">お店候補を登録</h1>
+<h1 class="text-xl font-bold mb-4"><%= t("views.shops.new.title") %></h1>
 
 <%= form_with model: [@event, @shop], local: true do |f| %>
 
@@ -13,27 +13,27 @@
   <% end %>
 
   <div class="mb-4">
-    <%= f.label :name, "店舗名" %><br>
+    <%= f.label :name, t("views.shops.new.name_label") %><br>
     <%= f.text_field :name, class: "input input-bordered w-full" %>
   </div>
 
   <div class="mb-4">
-    <%= f.label :url, "リンク" %><br>
+    <%= f.label :url, t("views.shops.new.url_label") %><br>
     <%= f.text_field :url, class: "input input-bordered w-full" %>
   </div>
 
   <div class="mb-4">
-    <%= f.label :address, "住所（任意）" %><br>
+    <%= f.label :address, t("views.shops.new.address_label") %><br>
     <%= f.text_field :address, class: "input input-bordered w-full" %>
   </div>
 
   <div class="mb-4">
-    <%= f.label :memo, "メモ" %><br>
+    <%= f.label :memo, t("views.shops.new.memo_label") %><br>
     <%= f.text_area :memo, class: "textarea textarea-bordered w-full" %>
   </div>
 
   <div>
-    <%= f.submit "登録する", class: "btn btn-primary" %>
+    <%= f.submit t("common.create"), class: "btn btn-primary" %>
   </div>
 
 <% end %>

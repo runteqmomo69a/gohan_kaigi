@@ -7,11 +7,11 @@
     </h1>
 
     <div class="flex items-center gap-2 flex-wrap">
-      <%= link_to "一覧へ戻る", events_path, class: "btn btn-ghost btn-sm" %>
-      <%= link_to "編集", edit_event_path(event), class: "btn btn-outline btn-sm" %>
-      <%= link_to "削除",
+      <%= link_to t("views.events.show.back_to_index"), events_path, class: "btn btn-ghost btn-sm" %>
+      <%= link_to t("common.edit"), edit_event_path(event), class: "btn btn-outline btn-sm" %>
+      <%= link_to t("common.delete"),
                   event_path(event),
-                  data: { turbo_method: :delete, turbo_confirm: "このイベントを削除します。よろしいですか？" },
+                  data: { turbo_method: :delete, turbo_confirm: t("views.events.show.delete_confirm") },
                   class: "btn btn-error btn-sm" %>
     </div>
   </div>
@@ -29,14 +29,14 @@
     <div class="flex items-center gap-1">
       <span>🕒</span>
       <span class="font-medium text-base-content">
-        <%= event.event_time.present? ? event.event_time.strftime("%H:%M") : "時間未設定" %>
+        <%= event.event_time.present? ? event.event_time.strftime("%H:%M") : t("views.events.show.time_unset") %>
       </span>
     </div>
 
     <div class="flex items-center gap-1">
       <span>📍</span>
       <span class="font-medium text-base-content">
-        <%= event.place.presence || "未設定" %>
+        <%= event.place.presence || t("views.events.show.place_unset") %>
       </span>
     </div>
 
@@ -54,7 +54,7 @@
     <div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-2">
       <div class="flex items-center gap-2 text-sm text-gray-500">
         <span>📝</span>
-        <span>メモ</span>
+        <span><%= t("views.events.show.note") %></span>
       </div>
 
       <p class="text-base leading-relaxed">
@@ -68,18 +68,45 @@
     <% if participating %>
       <div class="inline-flex items-center gap-2 rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success">
         <span>✓</span>
-        <span>参加済み</span>
+        <span><%= t("views.events.show.joined") %></span>
       </div>
     <% else %>
       <label for="join-event-modal" class="btn btn-primary">
-        このイベントに参加する
+        <%= t("views.events.show.join_event") %>
       </label>
+
+      <input type="checkbox" id="join-event-modal" class="modal-toggle" />
+      <div class="modal" role="dialog">
+        <div class="modal-box">
+          <h3 class="text-lg font-bold"><%= t("views.events.show.join_modal_title") %></h3>
+          <p class="pt-3"><%= t("views.events.show.join_modal_body") %></p>
+          <div class="py-3 text-sm text-base-content/70 leading-7">
+            <p><%= t("views.events.show.join_modal_features_intro") %></p>
+            <ul class="list-disc pl-5 mt-1">
+              <li><%= t("views.events.show.join_modal_feature_1") %></li>
+              <li><%= t("views.events.show.join_modal_feature_2") %></li>
+              <li><%= t("views.events.show.join_modal_feature_3") %></li>
+            </ul>
+          </div>
+
+          <%= form_with url: event_event_participants_path(event), method: :post, local: true do |f| %>
+            <div class="modal-action">
+              <%= f.submit t("views.events.show.join_modal_submit"), class: "btn btn-primary" %>
+              <label for="join-event-modal" class="btn btn-ghost"><%= t("common.cancel") %></label>
+            </div>
+          <% end %>
+        </div>
+
+        <label class="modal-backdrop" for="join-event-modal"><%= t("common.cancel") %></label>
+      </div>
     <% end %>
   </div>
 
   <!-- URL -->
-  <div class="rounded-xl border border-base-300 bg-base-100 p-4" data-controller="clipboard">
-    <p class="text-sm text-gray-500 mb-2">共有用URL</p>
+  <div class="rounded-xl border border-base-300 bg-base-100 p-4"
+       data-controller="clipboard"
+       data-clipboard-error-message-value="<%= t('views.events.show.copy_failed') %>">
+    <p class="text-sm text-gray-500 mb-2"><%= t("views.events.show.share_url") %></p>
 
     <div class="flex flex-col gap-2 sm:flex-row">
       <input
@@ -95,12 +122,12 @@
         class="btn btn-outline btn-sm shrink-0"
         data-action="click->clipboard#copy"
       >
-        コピー
+        <%= t("views.events.show.copy") %>
       </button>
     </div>
 
     <p class="text-xs text-success mt-2 hidden" data-clipboard-target="message">
-      URLをコピーしました
+      <%= t("views.events.show.copied") %>
     </p>
   </div>
 

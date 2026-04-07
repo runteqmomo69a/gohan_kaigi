@@ -3,7 +3,7 @@
 
     <div class="flex items-center gap-2">
       <span class="text-lg">🏆</span>
-      <h2 class="text-lg font-semibold">人気ランキング</h2>
+      <h2 class="text-lg font-semibold"><%= t("views.events.ranking.title") %></h2>
     </div>
 
     <% if top_shops.any? %>
@@ -23,17 +23,17 @@
 
             <% case index %>
             <% when 0 %>
-              <div class="text-yellow-500 font-bold text-lg">🥇 1位</div>
+              <div class="text-yellow-500 font-bold text-lg"><%= t("views.events.ranking.first") %></div>
             <% when 1 %>
-              <div class="text-gray-400 font-bold text-lg">🥈 2位</div>
+              <div class="text-gray-400 font-bold text-lg"><%= t("views.events.ranking.second") %></div>
             <% when 2 %>
-              <div class="text-orange-400 font-bold text-lg">🥉 3位</div>
+              <div class="text-orange-400 font-bold text-lg"><%= t("views.events.ranking.third") %></div>
             <% end %>
 
             <p class="font-semibold"><%= shop.name %></p>
 
             <p class="text-sm text-gray-500">
-              （<%= shop.likes_count %>いいね）
+              <%= t("views.events.ranking.likes_count", count: shop.likes_count) %>
             </p>
 
           </div>
@@ -41,7 +41,7 @@
 
       </div>
     <% else %>
-      <p class="text-sm text-gray-500">まだランキングはありません</p>
+      <p class="text-sm text-gray-500"><%= t("views.events.ranking.empty") %></p>
     <% end %>
 
   </div>

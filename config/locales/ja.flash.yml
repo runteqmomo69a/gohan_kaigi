@@ -1,0 +1,53 @@
+ja:
+  flash:
+    events:
+      not_found:
+        alert: "イベントが見つかりませんでした"
+      join_requires_auth:
+        alert: "イベントに参加するにはログインまたは新規登録が必要です"
+      create:
+        notice: "イベントを作成しました"
+      update:
+        notice: "イベントを更新しました"
+      destroy:
+        notice: "イベントを削除しました"
+    shops:
+      create:
+        notice: "お店候補を登録しました"
+      update:
+        notice: "お店候補を更新しました"
+      destroy:
+        notice: "お店候補を削除しました"
+      participant_only:
+        alert: "イベント参加者のみお店候補を操作できます"
+      owner_only:
+        alert: "お店候補の編集・削除は登録者のみ可能です"
+    shop_logs:
+      update:
+        notice: "お店ログを更新しました"
+    event_preferences:
+      create:
+        notice: "希望の条件を保存しました"
+      create_failed:
+        alert: "希望の条件の保存に失敗しました"
+      destroy:
+        notice: "希望条件を削除しました"
+      participant_only:
+        alert: "イベント参加者のみ希望条件を入力できます"
+    event_participants:
+      create:
+        notice: "イベントに参加しました"
+      create_failed:
+        alert: "イベントに参加できませんでした"
+    likes:
+      create:
+        notice: "いいねしました"
+      destroy:
+        notice: "いいねを解除しました"
+      participant_only:
+        alert: "イベント参加者のみいいねできます"
+    omniauth:
+      line_login:
+        notice: "LINEでログインしました"
+      line_login_failed:
+        alert: "LINEログインに失敗しました"
