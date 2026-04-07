@@ -1,0 +1,53 @@
+ja:
+  devise:
+    confirmations:
+      confirmed: "メールアドレスを確認しました。"
+      send_instructions: "確認手順を記載したメールを送信しました。"
+      send_paranoid_instructions: "該当のメールアドレスが存在する場合、確認手順を記載したメールを送信しました。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントはまだ有効化されていません。"
+      invalid: "%{authentication_keys}またはパスワードが正しくありません。"
+      locked: "アカウントはロックされています。"
+      last_attempt: "あと1回失敗するとアカウントがロックされます。"
+      not_found_in_database: "%{authentication_keys}またはパスワードが正しくありません。"
+      timeout: "セッションの有効期限が切れました。再度ログインしてください。"
+      unauthenticated: "ログインまたは新規登録をしてください。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+    mailer:
+      confirmation_instructions:
+        subject: "メールアドレス確認のご案内"
+      reset_password_instructions:
+        subject: "パスワード再設定のご案内"
+      unlock_instructions:
+        subject: "アカウントロック解除のご案内"
+      email_changed:
+        subject: "メールアドレス変更のお知らせ"
+      password_change:
+        subject: "パスワード変更のお知らせ"
+    omniauth_callbacks:
+      failure: "%{kind}の認証に失敗しました。理由: %{reason}"
+      success: "%{kind}アカウントで認証に成功しました。"
+    passwords:
+      no_token: "パスワード再設定メールのリンクからアクセスしてください。URLが途中で切れていないか確認してください。"
+      send_instructions: "パスワード再設定手順を記載したメールを送信しました。"
+      send_paranoid_instructions: "該当のメールアドレスが存在する場合、パスワード再設定用のメールを送信しました。"
+      updated: "パスワードを変更しました。ログインしました。"
+      updated_not_active: "パスワードを変更しました。"
+    registrations:
+      destroyed: "アカウントを削除しました。"
+      signed_up: "新規登録が完了しました。"
+      signed_up_but_inactive: "新規登録は完了しましたが、アカウントが有効化されていないためログインできません。"
+      signed_up_but_locked: "新規登録は完了しましたが、アカウントがロックされているためログインできません。"
+      signed_up_but_unconfirmed: "確認メールを送信しました。メール内のリンクからアカウントを有効化してください。"
+      update_needs_confirmation: "アカウント情報を更新しました。新しいメールアドレスの確認が必要です。"
+      updated: "アカウント情報を更新しました。"
+      updated_but_not_signed_in: "アカウント情報を更新しました。パスワード変更のため再ログインしてください。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "すでにログアウトしています。"
+    unlocks:
+      send_instructions: "ロック解除手順を記載したメールを送信しました。"
+      send_paranoid_instructions: "該当のアカウントが存在する場合、ロック解除手順を記載したメールを送信しました。"
+      unlocked: "アカウントのロックを解除しました。ログインしてください。"

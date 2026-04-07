@@ -4,9 +4,9 @@
   <div class="flex items-center justify-between text-sm text-gray-500">
     <div class="flex items-center gap-2">
       <span>👥</span>
-      <span>参加者</span>
+      <span><%= t("views.events.participants.title") %></span>
     </div>
-    <span><%= participants.count %>人</span>
+    <span><%= t("views.events.participants.count", count: participants.count) %></span>
   </div>
 
   <!-- 一覧 -->
@@ -19,7 +19,7 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="text-sm text-gray-500">まだ参加者はいません</p>
+    <p class="text-sm text-gray-500"><%= t("views.events.participants.empty") %></p>
   <% end %>
 
 </div>

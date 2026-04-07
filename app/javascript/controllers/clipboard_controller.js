@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["source", "message"]
+  static values = { errorMessage: String }
 
   async copy() {
     try {
@@ -14,7 +15,8 @@ export default class extends Controller {
       }, 1500)
 
     } catch (error) {
-      alert("コピーに失敗しました")
+      const message = this.errorMessageValue || "Copy failed"
+      alert(message)
     }
   }
 }

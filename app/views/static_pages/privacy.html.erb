@@ -3,63 +3,63 @@
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body">
         <div class="flex items-center justify-between gap-4">
-          <h1 class="text-3xl font-bold">プライバシーポリシー</h1>
-          <%= link_to "トップへ戻る", root_path, class: "btn btn-ghost btn-sm" %>
+          <h1 class="text-3xl font-bold"><%= t("views.static_pages.privacy.title") %></h1>
+          <%= link_to t("views.static_pages.privacy.back_to_top"), root_path, class: "btn btn-ghost btn-sm" %>
         </div>
 
         <p class="mt-2 text-base-content/70">
-          ごはん会議（以下、「本サービス」）は、ユーザーの個人情報の適切な取り扱いを重要視し、
-          以下のとおりプライバシーポリシーを定めます。
+          <%= t("views.static_pages.privacy.preface_1") %>
+          <%= t("views.static_pages.privacy.preface_2") %>
         </p>
 
         <div class="divider"></div>
 
         <div class="prose max-w-none">
-          <h2>第1条（取得する情報）</h2>
+          <h2><%= t("views.static_pages.privacy.article_1_title") %></h2>
           <ul>
-            <li>メールアドレス</li>
-            <li>ユーザー名</li>
-            <li>LINEログインを利用した場合のLINEアカウント情報（ユーザー識別情報）</li>
+            <li><%= t("views.static_pages.privacy.article_1_item_1") %></li>
+            <li><%= t("views.static_pages.privacy.article_1_item_2") %></li>
+            <li><%= t("views.static_pages.privacy.article_1_item_3") %></li>
           </ul>
 
-          <h2>第2条（利用目的）</h2>
+          <h2><%= t("views.static_pages.privacy.article_2_title") %></h2>
           <ul>
-            <li>ユーザー認証のため</li>
-            <li>サービス提供のため</li>
-            <li>不正利用防止のため</li>
+            <li><%= t("views.static_pages.privacy.article_2_item_1") %></li>
+            <li><%= t("views.static_pages.privacy.article_2_item_2") %></li>
+            <li><%= t("views.static_pages.privacy.article_2_item_3") %></li>
           </ul>
 
-          <h2>第3条（外部サービスの利用）</h2>
-          <p>本サービスでは以下の外部サービスを利用する場合があります。</p>
+          <h2><%= t("views.static_pages.privacy.article_3_title") %></h2>
+          <p><%= t("views.static_pages.privacy.article_3_body_1") %></p>
           <ul>
-            <li>LINEログイン（LINEヤフー株式会社）</li>
-            <li>Google Map（Google LLC）</li>
+            <li><%= t("views.static_pages.privacy.article_3_item_1") %></li>
+            <li><%= t("views.static_pages.privacy.article_3_item_2") %></li>
           </ul>
           <p>
-            外部サービスのデータ取り扱いについては、各社のプライバシーポリシーをご確認ください。
+            <%= t("views.static_pages.privacy.article_3_body_2") %>
           </p>
 
-          <h2>第4条（第三者提供）</h2>
+          <h2><%= t("views.static_pages.privacy.article_4_title") %></h2>
           <p>
-            法令に基づく場合を除き、ユーザーの個人情報を第三者に提供することはありません。
+            <%= t("views.static_pages.privacy.article_4_body") %>
           </p>
 
-          <h2>第5条（安全管理）</h2>
+          <h2><%= t("views.static_pages.privacy.article_5_title") %></h2>
           <p>
-            本サービスは、Render上でホスティングされ、適切なセキュリティ対策のもと運用されます。
+            <%= t("views.static_pages.privacy.article_5_body") %>
           </p>
 
-          <h2>第6条（お問い合わせ）</h2>
+          <h2><%= t("views.static_pages.privacy.article_6_title") %></h2>
           <p>
-            本ポリシーに関するお問い合わせは、GitHubリポジトリのIssueより受け付けます。
+            <%= t("views.static_pages.privacy.article_6_body") %>
           </p>
 
-          <h2>第7条（改定）</h2>
+          <h2><%= t("views.static_pages.privacy.article_7_title") %></h2>
           <p>
-            本ポリシーの内容は、必要に応じて変更されることがあります。
+            <%= t("views.static_pages.privacy.article_7_body") %>
           </p>
 
-          <p>以上</p>
+          <p><%= t("views.static_pages.privacy.end") %></p>
         </div>
       </div>
     </div>

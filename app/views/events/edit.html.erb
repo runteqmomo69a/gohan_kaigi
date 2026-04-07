@@ -1,7 +1,7 @@
 <div class="max-w-xl mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-2">イベント編集</h1>
+  <h1 class="text-2xl font-bold mb-2"><%= t("views.events.edit.title") %></h1>
   <p class="text-sm text-gray-500 mb-6">
-    内容を修正してイベントを更新します。
+    <%= t("views.events.edit.description") %>
   </p>
 
   <%= render "shared/error_messages", resource: @event %>
@@ -9,47 +9,47 @@
   <%= form_with model: @event do |f| %>
     <!-- イベント名 -->
     <div class="form-control mb-4">
-      <%= f.label :title, "イベント名", class: "label" %>
+      <%= f.label :title, t("views.events.new.title_label"), class: "label" %>
       <%= f.text_field :title,
             class: "input input-bordered w-full",
-            placeholder: "金曜ランチ会" %>
+            placeholder: t("views.events.new.title_placeholder") %>
     </div>
 
     <!-- 開催日 -->
     <div class="form-control mb-4">
-      <%= f.label :event_date, "開催日", class: "label" %>
+      <%= f.label :event_date, t("views.events.new.event_date_label"), class: "label" %>
       <%= f.date_field :event_date, class: "input input-bordered w-full" %>
     </div>
 
     <!-- 開始時間（任意） -->
     <div class="form-control mb-4">
-      <%= f.label :event_time, "開始時間（任意）", class: "label" %>
+      <%= f.label :event_time, t("views.events.new.event_time_label"), class: "label" %>
       <%= f.time_field :event_time, class: "input input-bordered w-full" %>
     </div>
 
     <!-- 場所（任意） -->
     <div class="form-control mb-4">
-      <%= f.label :place, "場所（任意）", class: "label" %>
+      <%= f.label :place, t("views.events.new.place_label"), class: "label" %>
       <%= f.text_field :place,
             class: "input input-bordered w-full",
-            placeholder: "新宿 / 東京駅周辺 など" %>
+            placeholder: t("views.events.new.place_placeholder") %>
     </div>
 
     <!-- メモ（任意） -->
     <div class="form-control mb-6">
-      <%= f.label :note, "メモ（任意）", class: "label" %>
+      <%= f.label :note, t("views.events.new.note_label"), class: "label" %>
       <%= f.text_area :note,
             class: "textarea textarea-bordered w-full",
             rows: 5,
             maxlength: 1000,
-            placeholder: "補足メモ（最大1000文字）" %>
+            placeholder: t("views.events.new.note_placeholder") %>
     </div>
 
-    <%= f.submit "更新する", class: "btn btn-primary w-full" %>
+    <%= f.submit t("common.update"), class: "btn btn-primary w-full" %>
 
     <div class="flex gap-2 mt-4">
-      <%= link_to "詳細へ戻る", event_path(@event), class: "btn btn-ghost w-1/2" %>
-      <%= link_to "一覧へ戻る", events_path, class: "btn btn-outline w-1/2" %>
+      <%= link_to t("views.events.edit.back_to_detail"), event_path(@event), class: "btn btn-ghost w-1/2" %>
+      <%= link_to t("views.events.edit.back_to_index"), events_path, class: "btn btn-outline w-1/2" %>
     </div>
   <% end %>
 </div>

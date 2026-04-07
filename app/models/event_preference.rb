@@ -9,17 +9,17 @@ class EventPreference < ApplicationRecord
   def budget_label
     case budget
     when 1
-      "〜999円"
+      I18n.t("models.event_preference.budget_labels.one")
     when 2
-      "1000〜1999円"
+      I18n.t("models.event_preference.budget_labels.two")
     when 3
-      "2000〜2999円"
+      I18n.t("models.event_preference.budget_labels.three")
     when 4
-      "3000〜3999円"
+      I18n.t("models.event_preference.budget_labels.four")
     when 5
-      "4000円以上"
+      I18n.t("models.event_preference.budget_labels.five")
     else
-      "未入力"
+      I18n.t("models.event_preference.budget_labels.unset")
     end
   end
 end

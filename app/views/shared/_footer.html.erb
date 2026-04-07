@@ -2,12 +2,12 @@
   <div class="max-w-3xl mx-auto px-4 py-6">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <nav class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-        <%= link_to "利用規約", terms_path, class: "link link-hover" %>
-        <%= link_to "プライバシーポリシー", privacy_path, class: "link link-hover" %>
+        <%= link_to t("views.shared.footer.terms"), terms_path, class: "link link-hover" %>
+        <%= link_to t("views.shared.footer.privacy"), privacy_path, class: "link link-hover" %>
       </nav>
 
       <p class="text-sm text-base-content/60">
-        © <%= Time.current.year %> ごはん会議
+        © <%= Time.current.year %> <%= t("app.name") %>
       </p>
     </div>
   </div>

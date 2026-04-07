@@ -47,7 +47,7 @@ class ShopLogsController < ApplicationController
     @shop = current_user.shops.find(params[:id])
 
     if @shop.update(shop_params)
-      redirect_to shop_logs_path, notice: "お店ログを更新しました"
+      redirect_to shop_logs_path, notice: t("flash.shop_logs.update.notice")
     else
       render :edit, status: :unprocessable_content
     end

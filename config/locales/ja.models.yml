@@ -1,0 +1,56 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+      event: "イベント"
+      shop: "お店候補"
+      event_preference: "希望条件"
+      event_participant: "イベント参加"
+      like: "いいね"
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        current_password: "現在のパスワード"
+      event:
+        title: "イベント名"
+        event_date: "開催日"
+        event_time: "開始時間"
+        place: "場所"
+        note: "メモ"
+        unique_url: "参加用URL"
+        user: "作成者"
+      shop:
+        name: "店名"
+        url: "お店のURL"
+        address: "住所"
+        memo: "メモ"
+        place_id: "場所ID"
+        log_category: "カテゴリ"
+        log_note: "お店メモ"
+        likes_count: "いいね数"
+        event: "イベント"
+        user: "登録者"
+      event_preference:
+        dislike_foods: "苦手なもの"
+        budget: "予算"
+        content: "その他"
+        event: "イベント"
+        user: "ユーザー"
+      event_participant:
+        event: "イベント"
+        user: "ユーザー"
+      like:
+        shop: "お店候補"
+        user: "ユーザー"
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      taken: "はすでに存在します"
+      too_long: "は%{count}文字以内で入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      invalid: "は不正な値です"
+      confirmation: "と%{attribute}の入力が一致しません"

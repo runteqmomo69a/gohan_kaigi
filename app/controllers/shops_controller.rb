@@ -20,7 +20,7 @@ class ShopsController < ApplicationController
     @shop.place_id = @shop.fetch_place_id(@event.place)
 
     if @shop.save
-      redirect_to event_path(@event), notice: "お店候補を登録しました"
+      redirect_to event_path(@event), notice: t("flash.shops.create.notice")
     else
       render :new, status: :unprocessable_content
     end
@@ -37,7 +37,7 @@ class ShopsController < ApplicationController
     end
 
     if @shop.save
-      redirect_to event_path(@event), notice: "お店候補を更新しました"
+      redirect_to event_path(@event), notice: t("flash.shops.update.notice")
     else
       render :edit, status: :unprocessable_content
     end
@@ -45,7 +45,7 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop.destroy
-    redirect_to event_path(@event), notice: "お店候補を削除しました"
+    redirect_to event_path(@event), notice: t("flash.shops.destroy.notice")
   end
 
   private
@@ -57,7 +57,7 @@ class ShopsController < ApplicationController
   def ensure_event_participant
     return if @event.participants.exists?(current_user.id)
 
-    redirect_to event_path(@event), alert: "イベント参加者のみお店候補を操作できます"
+    redirect_to event_path(@event), alert: t("flash.shops.participant_only.alert")
   end
 
   def set_shop
@@ -67,7 +67,7 @@ class ShopsController < ApplicationController
   def ensure_shop_owner
     return if @shop.user == current_user
 
-    redirect_to event_path(@event), alert: "お店候補の編集・削除は登録者のみ可能です"
+    redirect_to event_path(@event), alert: t("flash.shops.owner_only.alert")
   end
 
   def shop_params
