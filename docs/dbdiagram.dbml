@@ -1,0 +1,131 @@
+// ==========================
+// users
+// ==========================
+Table users {
+  id bigint [pk]
+  name varchar [not null]
+  email varchar [not null, unique]
+  encrypted_password varchar [not null, default: ""]
+  reset_password_token varchar [unique]
+  reset_password_sent_at datetime
+  remember_created_at datetime
+  provider varchar
+  uid varchar
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    (provider, uid) [unique]
+  }
+}
+
+// ==========================
+// events
+// ==========================
+Table events {
+  id bigint [pk]
+  user_id bigint [not null] // イベント作成者
+  title varchar [not null]
+  event_date date [not null]
+  event_time time
+  place varchar
+  unique_url varchar [not null, unique]
+  note text
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    user_id
+  }
+}
+
+// ==========================
+// event_participants
+// ==========================
+Table event_participants {
+  id bigint [pk]
+  event_id bigint [not null]
+  user_id bigint [not null]
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    event_id
+    user_id
+    (event_id, user_id) [unique]
+  }
+}
+
+// ==========================
+// event_preferences
+// ==========================
+Table event_preferences {
+  id bigint [pk]
+  event_id bigint [not null]
+  user_id bigint [not null]
+  dislike_foods text
+  budget int
+  content text
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    event_id
+    user_id
+    (event_id, user_id) [unique]
+  }
+}
+
+// ==========================
+// shops
+// ==========================
+Table shops {
+  id bigint [pk]
+  name varchar [not null]
+  url varchar
+  address varchar
+  memo text
+  event_id bigint [not null]
+  user_id bigint [not null] // 登録したユーザー
+  likes_count int [not null, default: 0]
+  place_id varchar
+  log_category varchar
+  log_note text
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    event_id
+    user_id
+  }
+}
+
+// ==========================
+// likes
+// ==========================
+Table likes {
+  id bigint [pk]
+  shop_id bigint [not null]
+  user_id bigint [not null]
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  indexes {
+    shop_id
+    user_id
+    (shop_id, user_id) [unique]
+  }
+}
+
+// ==========================
+// Relations
+// ==========================
+Ref: events.user_id > users.id
+Ref: event_participants.event_id > events.id
+Ref: event_participants.user_id > users.id
+Ref: event_preferences.event_id > events.id
+Ref: event_preferences.user_id > users.id
+Ref: shops.event_id > events.id
+Ref: shops.user_id > users.id
+Ref: likes.shop_id > shops.id
+Ref: likes.user_id > users.id
