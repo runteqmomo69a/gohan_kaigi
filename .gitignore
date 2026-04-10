@@ -41,4 +41,10 @@
 
 AGENTS.md
 
+.vscode/docs/ui/stitch/
+
+# mac
+.DS_Store
+
+# VSCode
 .vscode/
