@@ -52,6 +52,7 @@ ja:
           title: "新規登録"
           description: "必要事項を入力してアカウントを作成します。"
           submit: "新規登録"
+          line_signup: "LINEで登録する"
           login_link: "ログインはこちら"
         edit:
           title: "アカウント編集"
