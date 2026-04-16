@@ -1,53 +1,110 @@
-<div class="max-w-4xl mx-auto p-6">
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold"><%= t("views.events.index.title") %></h1>
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
+  <div class="max-w-5xl mx-auto space-y-8 sm:space-y-10">
+    <section class="relative overflow-hidden rounded-3xl border border-[#d7cdbc] px-6 py-10 sm:px-10 sm:py-12">
+      <%= image_tag "hero.png",
+            class: "absolute inset-0 h-full w-full scale-[1.16] object-cover object-[40%_42%]",
+            alt: "" %>
 
-    <div class="flex items-center gap-3">
-      <%= link_to t("common.back"), dashboard_path,
-            class: "link link-hover text-sm text-gray-500" %>
+      <div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-2xl">
+          <p class="inline-flex items-center gap-2 rounded-full bg-white/45 px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#7d7268] backdrop-blur-sm">
+            Event List
+          </p>
+          <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-tight text-[#675d55]">
+            <%= t("views.events.index.title") %>
+          </h1>
+          <p class="mt-3 text-base sm:text-lg leading-relaxed text-[#7a7068]">
+            <%= t("views.events.index.description") %>
+          </p>
+        </div>
 
-      <%= link_to t("views.events.index.new"), new_event_path,
-            class: "btn btn-primary btn-sm" %>
-    </div>
-  </div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <%= link_to t("common.back"), dashboard_path,
+                class: "btn btn-ghost rounded-full" %>
 
-  <% if @events.any? %>
-    <div class="space-y-3">
-      <% @events.each do |event| %>
-        <div class="card bg-base-100 shadow-sm">
-          <div class="card-body">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h2 class="card-title text-lg">
-                  <%= link_to event.title,
+          <%= link_to t("views.events.index.new"), new_event_path,
+                class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+        </div>
+      </div>
+    </section>
+
+    <% if @events.any? %>
+      <section class="space-y-4 sm:space-y-5">
+        <% @events.each do |event| %>
+          <article class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20 transition-shadow hover:shadow-2xl">
+            <div class="card-body p-6 sm:p-7">
+              <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                <div class="space-y-4">
+                  <div>
+                    <p class="inline-flex items-center gap-2 rounded-full bg-[#fff1eb] px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#e3744b]">
+                      <span class="material-symbols-outlined text-sm">restaurant</span>
+                      Event
+                    </p>
+                    <h2 class="mt-3 text-2xl font-bold tracking-tight text-neutral-700">
+                      <%= link_to event.title,
+                            event_path(event),
+                            class: "link link-hover decoration-0 hover:text-[#e3744b]" %>
+                    </h2>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-base-content/60">
+                    <div class="flex items-center gap-2 rounded-2xl bg-amber-50/70 px-4 py-3">
+                      <span class="material-symbols-outlined text-[#e3744b]">calendar_today</span>
+                      <span><%= l(event.event_date) %></span>
+                    </div>
+
+                    <div class="flex items-center gap-2 rounded-2xl bg-amber-50/70 px-4 py-3">
+                      <span class="material-symbols-outlined text-[#e3744b]">schedule</span>
+                      <span>
+                        <% if event.event_time.present? %>
+                          <%= event.event_time.strftime("%H:%M") %>
+                        <% else %>
+                          <%= t("views.events.show.time_unset") %>
+                        <% end %>
+                      </span>
+                    </div>
+
+                    <div class="sm:col-span-2 flex items-center gap-2 rounded-2xl bg-amber-50/70 px-4 py-3">
+                      <span class="material-symbols-outlined text-[#e3744b]">location_on</span>
+                      <span>
+                        <% if event.place.present? %>
+                          <%= event.place %>
+                        <% else %>
+                          <%= t("views.events.show.place_unset") %>
+                        <% end %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="lg:pl-4">
+                  <%= link_to t("views.events.index.detail"),
                         event_path(event),
-                        class: "link link-hover" %>
-                </h2>
-
-                <p class="text-sm text-gray-600 mt-1">
-                  <%= event.event_date %>
-
-                  <% if event.event_time.present? %>
-                    <span> / <%= event.event_time.strftime("%H:%M") %></span>
-                  <% end %>
-
-                  <% if event.place.present? %>
-                    <span> / <%= event.place %></span>
-                  <% end %>
-                </p>
+                        class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
+                </div>
               </div>
-
-              <%= link_to t("views.events.index.detail"),
-                    event_path(event),
-                    class: "btn btn-outline btn-sm" %>
             </div>
+          </article>
+        <% end %>
+      </section>
+    <% else %>
+      <section class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20">
+        <div class="card-body items-center text-center py-12">
+          <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#fff1eb] text-[#e3744b]">
+            <span class="material-symbols-outlined text-3xl">event_busy</span>
+          </div>
+          <h2 class="mt-4 text-2xl font-bold text-neutral-700">
+            <%= t("views.events.index.title") %>
+          </h2>
+          <p class="mt-2 max-w-md text-base-content/60">
+            <%= t("views.events.index.empty") %>
+          </p>
+          <div class="mt-6">
+            <%= link_to t("views.events.index.new"), new_event_path,
+                  class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
           </div>
         </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="alert">
-      <span><%= t("views.events.index.empty") %></span>
-    </div>
-  <% end %>
+      </section>
+    <% end %>
+  </div>
 </div>

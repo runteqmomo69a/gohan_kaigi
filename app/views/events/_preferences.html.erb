@@ -1,69 +1,136 @@
-<div class="mt-8">
-  <div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-3">
-    <div class="flex items-center justify-between">
-      <h2 class="text-lg font-semibold"><%= t("views.events.preferences.title") %></h2>
+<section class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-amber-100/40 overflow-hidden">
+  <div class="card-body p-6 sm:p-7 space-y-5">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff6dc] text-[#c78a12]">
+          <span class="material-symbols-outlined">tune</span>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-neutral-700"><%= t("views.events.preferences.title") %></h2>
+          <p class="text-sm text-base-content/60"><%= t("views.events.preferences.description") %></p>
+        </div>
+      </div>
 
       <% if participating %>
-        <label for="event-preference-modal" class="btn btn-primary btn-sm">
+        <label for="event-preference-modal" class="btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35">
           <%= t("views.events.preferences.open_form") %>
         </label>
       <% end %>
     </div>
 
     <% if event_preferences.any? %>
-      <div class="max-h-72 overflow-y-auto">
-        <div class="grid gap-3 lg:grid-cols-2">
-          <% event_preferences.each do |event_preference| %>
-            <div class="rounded-lg border border-base-200 bg-base-100 p-3 space-y-2">
-              <% if event_preference.user_id == current_user.id %>
-                <p class="text-xs text-primary font-bold"><%= t("views.events.preferences.your_post") %></p>
+      <% dislike_foods_list = event_preferences.filter_map { |preference| preference.dislike_foods.presence } %>
+      <% budget_groups = event_preferences.filter_map(&:budget_label).tally %>
+      <% content_list = event_preferences.filter_map { |preference| preference.content.presence } %>
+
+      <div class="grid gap-4 xl:grid-cols-3">
+        <article class="rounded-[1.75rem] border border-[#e8d7a2] bg-gradient-to-br from-white to-[#fff8e8] p-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#fff6dc] text-[#c78a12]">
+              <span class="material-symbols-outlined">no_food</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-neutral-700"><%= t("views.events.preferences.dislike_foods") %></h3>
+              <p class="text-sm text-base-content/55">みんなの苦手なもの</p>
+            </div>
+          </div>
+
+          <% if dislike_foods_list.any? %>
+            <div class="flex flex-wrap gap-2">
+              <% dislike_foods_list.each do |dislike_foods| %>
+                <span class="rounded-full bg-[#fff6dc] border border-[#e8d7a2] px-3 py-1.5 text-sm text-[#b07a10]">
+                  <%= dislike_foods %>
+                </span>
               <% end %>
-
-              <div>
-                <p class="text-sm text-gray-500"><%= t("views.events.preferences.dislike_foods") %></p>
-                <p><%= event_preference.dislike_foods.presence || t("views.events.preferences.none") %></p>
-              </div>
-
-              <div>
-                <p class="text-sm text-gray-500"><%= t("views.events.preferences.budget") %></p>
-                <p><%= event_preference.budget_label %></p>
-              </div>
-
-              <div>
-                <p class="text-sm text-gray-500"><%= t("views.events.preferences.content") %></p>
-                <p class="whitespace-pre-wrap">
-                  <%= event_preference.content.presence || t("views.events.preferences.none") %>
-                </p>
-              </div>
+            </div>
+          <% else %>
+            <div class="rounded-2xl bg-white/90 border border-[#e8d7a2] px-4 py-4 text-sm text-base-content/60">
+              <%= t("views.events.preferences.none") %>
             </div>
           <% end %>
-        </div>
+        </article>
+
+        <article class="rounded-[1.75rem] border border-[#e8d7a2] bg-gradient-to-br from-white to-[#fff8e8] p-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#fff6dc] text-[#c78a12]">
+              <span class="material-symbols-outlined">payments</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-neutral-700"><%= t("views.events.preferences.budget") %></h3>
+              <p class="text-sm text-base-content/55">予算のまとまり</p>
+            </div>
+          </div>
+
+          <% if budget_groups.any? %>
+            <div class="space-y-2">
+              <% budget_groups.each do |budget_label, count| %>
+                <div class="flex items-center justify-between rounded-2xl bg-white/90 border border-[#e8d7a2] px-4 py-3">
+                  <span class="text-sm text-base-content/80"><%= budget_label %></span>
+                  <span class="rounded-full bg-[#fff6dc] px-2.5 py-1 text-xs font-bold text-[#b07a10] border border-[#e8d7a2]">
+                    <%= t("views.events.participants.count", count: count) %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="rounded-2xl bg-white/90 border border-[#e8d7a2] px-4 py-4 text-sm text-base-content/60">
+              <%= t("views.events.preferences.select_budget") %>
+            </div>
+          <% end %>
+        </article>
+
+        <article class="rounded-[1.75rem] border border-[#e8d7a2] bg-gradient-to-br from-white to-[#fff8e8] p-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#fff6dc] text-[#c78a12]">
+              <span class="material-symbols-outlined">edit_note</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-neutral-700"><%= t("views.events.preferences.other") %></h3>
+              <p class="text-sm text-base-content/55"><%= t("views.events.preferences.content") %></p>
+            </div>
+          </div>
+
+          <% if content_list.any? %>
+            <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+              <% content_list.each do |content| %>
+                <div class="rounded-2xl bg-white/90 border border-[#e8d7a2] px-4 py-3">
+                  <p class="whitespace-pre-wrap text-sm leading-relaxed text-base-content/80"><%= content %></p>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="rounded-2xl bg-white/90 border border-[#e8d7a2] px-4 py-4 text-sm text-base-content/60">
+              <%= t("views.events.preferences.none") %>
+            </div>
+          <% end %>
+        </article>
       </div>
     <% else %>
-      <p class="text-sm text-gray-500"><%= t("views.events.preferences.empty") %></p>
+      <div class="rounded-2xl bg-stone-50 border border-stone-200 px-4 py-4 text-sm text-base-content/60">
+        <%= t("views.events.preferences.empty") %>
+      </div>
     <% end %>
 
     <% if participating %>
       <input type="checkbox" id="event-preference-modal" class="modal-toggle" />
 
       <div class="modal" role="dialog">
-        <div class="modal-box max-w-lg">
-          <h3 class="text-lg font-bold"><%= t("views.events.preferences.open_form") %></h3>
+        <div class="modal-box max-w-lg rounded-3xl border border-amber-100">
+          <h3 class="text-xl font-bold text-neutral-700"><%= t("views.events.preferences.open_form") %></h3>
 
           <%= form_with model: event_preference,
                         url: event_event_preferences_path(event),
                         method: :post,
                         local: true do |f| %>
 
-            <div class="mt-4 space-y-4">
-
+            <div class="mt-5 space-y-4">
               <div class="form-control">
-                <%= f.label :dislike_foods, t("views.events.preferences.dislike_foods"), class: "label" %>
-                <%= f.text_area :dislike_foods, class: "textarea textarea-bordered w-full", rows: 3 %>
+                <%= f.label :dislike_foods, t("views.events.preferences.dislike_foods"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <%= f.text_area :dislike_foods, class: "textarea textarea-bordered w-full rounded-2xl bg-base-100", rows: 3 %>
               </div>
 
               <div class="form-control">
-                <%= f.label :budget, t("views.events.preferences.budget"), class: "label" %>
+                <%= f.label :budget, t("views.events.preferences.budget"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
                 <%= f.select :budget,
                   [
                     [t("views.events.preferences.select_budget"), nil],
@@ -74,12 +141,12 @@
                     [t("views.events.preferences.option_5"), 5]
                   ],
                   {},
-                  class: "select select-bordered w-full" %>
+                  class: "select select-bordered w-full rounded-2xl bg-base-100" %>
               </div>
 
               <div class="form-control">
-                <%= f.label :content, t("views.events.preferences.other"), class: "label" %>
-                <%= f.text_area :content, class: "textarea textarea-bordered w-full", rows: 4 %>
+                <%= f.label :content, t("views.events.preferences.other"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <%= f.text_area :content, class: "textarea textarea-bordered w-full rounded-2xl bg-base-100", rows: 4 %>
               </div>
 
               <div class="modal-action">
@@ -87,13 +154,12 @@
                   <%= link_to t("views.events.preferences.delete"),
                     event_event_preference_path(event, event_preference),
                     data: { turbo_method: :delete, turbo_confirm: t("views.events.preferences.delete_confirm") },
-                    class: "btn btn-error" %>
+                    class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
                 <% end %>
 
-                <%= f.submit t("common.save"), class: "btn btn-primary" %>
-                <label for="event-preference-modal" class="btn btn-ghost"><%= t("common.cancel") %></label>
+                <%= f.submit t("common.save"), class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d]" %>
+                <label for="event-preference-modal" class="btn btn-ghost rounded-full"><%= t("common.cancel") %></label>
               </div>
-
             </div>
           <% end %>
         </div>
@@ -101,6 +167,5 @@
         <label class="modal-backdrop" for="event-preference-modal"><%= t("views.events.preferences.close") %></label>
       </div>
     <% end %>
-
   </div>
-</div>
+</section>
