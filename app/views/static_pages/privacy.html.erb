@@ -1,67 +1,76 @@
-<div class="min-h-screen bg-base-200">
-  <div class="max-w-3xl mx-auto px-4 py-12">
-    <div class="card bg-base-100 shadow-xl">
-      <div class="card-body">
-        <div class="flex items-center justify-between gap-4">
-          <h1 class="text-3xl font-bold"><%= t("views.static_pages.privacy.title") %></h1>
-          <%= link_to t("views.static_pages.privacy.back_to_top"), root_path, class: "btn btn-ghost btn-sm" %>
-        </div>
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-10 sm:py-14 relative overflow-hidden">
+  <div class="absolute top-[-10%] right-[-10%] h-80 w-80 rounded-full bg-[#f4ede3]/70 blur-3xl"></div>
+  <div class="absolute bottom-[-10%] left-[-10%] h-72 w-72 rounded-full bg-[#f7efe6]/60 blur-3xl"></div>
 
-        <p class="mt-2 text-base-content/70">
-          <%= t("views.static_pages.privacy.preface_1") %>
-          <%= t("views.static_pages.privacy.preface_2") %>
-        </p>
+  <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+    <section class="text-center">
+      <span class="inline-block rounded-full bg-[#fff1eb] px-4 py-1.5 text-xs font-bold tracking-widest uppercase text-[#e3744b]">
+        Privacy
+      </span>
+      <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight text-neutral-700">
+        <%= t("views.static_pages.privacy.title") %>
+      </h1>
+      <p class="mt-4 text-base-content/70 max-w-2xl mx-auto leading-relaxed">
+        <%= t("views.static_pages.privacy.preface_1") %>
+        <%= t("views.static_pages.privacy.preface_2") %>
+      </p>
+      <div class="mt-6">
+        <%= link_to t("views.static_pages.privacy.back_to_top"), root_path, class: "btn btn-outline rounded-full border-[#d7cdbc] text-[#7a6757] hover:bg-amber-50" %>
+      </div>
+    </section>
 
-        <div class="divider"></div>
-
-        <div class="prose max-w-none">
-          <h2><%= t("views.static_pages.privacy.article_1_title") %></h2>
-          <ul>
+    <section class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20">
+      <div class="card-body p-6 sm:p-10 space-y-4">
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_1_title") %></h2>
+          <ul class="mt-3 space-y-1 list-disc pl-5 text-base-content/70 leading-normal">
             <li><%= t("views.static_pages.privacy.article_1_item_1") %></li>
             <li><%= t("views.static_pages.privacy.article_1_item_2") %></li>
             <li><%= t("views.static_pages.privacy.article_1_item_3") %></li>
           </ul>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_2_title") %></h2>
-          <ul>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_2_title") %></h2>
+          <ul class="mt-3 space-y-1 list-disc pl-5 text-base-content/70 leading-normal">
             <li><%= t("views.static_pages.privacy.article_2_item_1") %></li>
             <li><%= t("views.static_pages.privacy.article_2_item_2") %></li>
             <li><%= t("views.static_pages.privacy.article_2_item_3") %></li>
           </ul>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_3_title") %></h2>
-          <p><%= t("views.static_pages.privacy.article_3_body_1") %></p>
-          <ul>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_3_title") %></h2>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_3_body_1") %></p>
+          <ul class="mt-3 space-y-1 list-disc pl-5 text-base-content/70 leading-normal">
             <li><%= t("views.static_pages.privacy.article_3_item_1") %></li>
             <li><%= t("views.static_pages.privacy.article_3_item_2") %></li>
           </ul>
-          <p>
-            <%= t("views.static_pages.privacy.article_3_body_2") %>
-          </p>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_3_body_2") %></p>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_4_title") %></h2>
-          <p>
-            <%= t("views.static_pages.privacy.article_4_body") %>
-          </p>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_4_title") %></h2>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_4_body") %></p>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_5_title") %></h2>
-          <p>
-            <%= t("views.static_pages.privacy.article_5_body") %>
-          </p>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_5_title") %></h2>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_5_body") %></p>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_6_title") %></h2>
-          <p>
-            <%= t("views.static_pages.privacy.article_6_body") %>
-          </p>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_6_title") %></h2>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_6_body") %></p>
+        </article>
 
-          <h2><%= t("views.static_pages.privacy.article_7_title") %></h2>
-          <p>
-            <%= t("views.static_pages.privacy.article_7_body") %>
-          </p>
+        <article class="rounded-2xl bg-base-100 border border-base-200 p-5 sm:p-6">
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-700"><%= t("views.static_pages.privacy.article_7_title") %></h2>
+          <p class="mt-3 leading-normal text-base-content/70"><%= t("views.static_pages.privacy.article_7_body") %></p>
+        </article>
 
-          <p><%= t("views.static_pages.privacy.end") %></p>
-        </div>
+        <p class="text-center text-base-content/50 text-sm"><%= t("views.static_pages.privacy.end") %></p>
       </div>
-    </div>
+    </section>
   </div>
 </div>
