@@ -1,16 +1,20 @@
-<header class="navbar bg-base-100 shadow-sm px-6">
+<header class="navbar border-b border-[#d7cdbc] bg-[#fdf9f3] shadow-sm px-6">
   <div class="flex-1">
-    <%= link_to t("app.name"), dashboard_path, class: "text-xl font-bold" %>
+    <%= link_to dashboard_path, class: "flex items-center gap-1 text-xl font-bold tracking-tight text-[#4f2f1d]" do %>
+      <%= image_tag "logo.png", class: "h-10 w-10 object-contain sm:h-11 sm:w-11", alt: t("app.name") %>
+      <span class="brand-title -ml-1 inline-block translate-y-[4px] font-bold"><%= t("app.name") %></span>
+    <% end %>
   </div>
 
-  <div class="flex items-center gap-3">
-    <div class="text-sm text-gray-600">
-      <%= current_user.name %> <%= t("views.shared.header.user_suffix") %>
-    </div>
+  <div class="flex items-center gap-2 sm:gap-3">
+          <div class="inline-flex items-center translate-y-[2px] text-sm leading-none text-[#675d55]">
+            <%= current_user.name %> <%= t("views.shared.header.user_suffix") %>
+          </div>
 
-    <div class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-ghost btn-circle">
-        <!-- ハンバーガー -->
+    <div class="relative">
+      <input id="header-menu-toggle" type="checkbox" class="peer hidden">
+
+      <label for="header-menu-toggle" class="btn btn-ghost btn-circle">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
              viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -18,18 +22,29 @@
         </svg>
       </label>
 
-      <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li><%= link_to t("views.shared.header.menu.top"), dashboard_path %></li>
-        <li><%= link_to t("views.shared.header.menu.new_event"), new_event_path %></li>
-        <li><%= link_to t("views.shared.header.menu.events"), events_path %></li>
-        <li><%= link_to t("views.shared.header.menu.shop_logs"), shop_logs_path %></li>
-        <li>
-          <%= link_to t("views.shared.header.menu.logout"),
-                      destroy_user_session_path,
-                      data: { turbo_method: :delete },
-                      class: "text-error hover:bg-base-200" %>
-        </li>
-      </ul>
+      <label for="header-menu-toggle" class="fixed inset-0 z-40 hidden cursor-pointer bg-stone-950/12 peer-checked:block"></label>
+
+      <div class="fixed right-4 top-[76px] z-50 hidden w-[min(19rem,calc(100vw-2rem))] rounded-[1.75rem] border border-[#d7cdbc] bg-[#fdf9f3] p-3 shadow-xl shadow-stone-300/20 peer-checked:block">
+        <div class="mb-2 flex items-center justify-between px-2 pt-1">
+          <p class="text-xs font-bold uppercase tracking-widest text-[#7a6757]"><%= t("app.name") %></p>
+          <label for="header-menu-toggle" class="btn btn-ghost btn-sm btn-circle text-[#675d55]">
+            <span class="material-symbols-outlined">close</span>
+          </label>
+        </div>
+
+        <ul class="menu gap-1 rounded-2xl bg-white/80 p-2">
+          <li><%= link_to t("views.shared.header.menu.top"), dashboard_path, class: "rounded-2xl text-[#675d55] hover:bg-[#f4ede3]" %></li>
+          <li><%= link_to t("views.shared.header.menu.new_event"), new_event_path, class: "rounded-2xl text-[#675d55] hover:bg-[#f4ede3]" %></li>
+          <li><%= link_to t("views.shared.header.menu.events"), events_path, class: "rounded-2xl text-[#675d55] hover:bg-[#f4ede3]" %></li>
+          <li><%= link_to t("views.shared.header.menu.shop_logs"), shop_logs_path, class: "rounded-2xl text-[#675d55] hover:bg-[#f4ede3]" %></li>
+          <li>
+            <%= link_to t("views.shared.header.menu.logout"),
+                        destroy_user_session_path,
+                        data: { turbo_method: :delete },
+                        class: "rounded-2xl text-[#b65f48] hover:bg-[#fff1eb]" %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

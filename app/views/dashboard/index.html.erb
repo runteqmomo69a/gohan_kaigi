@@ -1,69 +1,69 @@
-<div class="max-w-4xl mx-auto p-6">
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
+  <div class="max-w-6xl mx-auto space-y-8">
+    <section class="relative overflow-hidden rounded-3xl text-white p-7 sm:p-10 lg:p-12 min-h-[320px] lg:min-h-[360px] shadow-xl shadow-orange-200/30">
+      <div class="absolute inset-0 scale-[1.12] bg-cover bg-[50%_22%] bg-no-repeat" style="background-image: url('<%= asset_path('dashboard.png') %>');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/15"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-amber-950/30 via-transparent to-white/10"></div>
 
-  <!-- ページタイトル -->
-  <h1 class="text-2xl font-bold mb-6 text-center">
-    <%= t("views.dashboard.title") %>
-  </h1>
-
-  <!-- ユーザー情報 -->
-  <div class="mb-8 text-center">
-    <p class="text-gray-700">
-      <%= t("views.dashboard.welcome") %>
-      <span class="font-semibold">
-        <%= current_user.name %>
-      </span>
-      <%= t("views.shared.header.user_suffix") %>
-    </p>
-    <p class="text-sm text-gray-500 mt-1">
-      <%= t("views.dashboard.message") %>
-    </p>
-  </div>
-
-  <!-- メイン導線 -->
-  <div class="grid gap-4 sm:grid-cols-2">
-
-    <!-- イベント作成 -->
-    <div class="card bg-base-100 shadow">
-      <div class="card-body">
-        <h2 class="card-title"><%= t("views.dashboard.cards.events_new_title") %></h2>
-        <p class="text-sm text-gray-600">
-          <%= t("views.dashboard.cards.events_new_desc") %>
+      <div class="relative z-10 max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-xs font-bold tracking-widest uppercase">
+          <span class="material-symbols-outlined text-sm">dashboard</span>
+          <%= t("views.dashboard.hero_badge") %>
         </p>
-        <div class="card-actions justify-end">
-          <%= link_to t("views.dashboard.cards.events_new_link"), new_event_path, class: "btn btn-primary" %>
-        </div>
-      </div>
-    </div>
-
-    <!-- イベント一覧 -->
-    <div class="card bg-base-100 shadow">
-      <div class="card-body">
-        <h2 class="card-title"><%= t("views.dashboard.cards.events_index_title") %></h2>
-        <p class="text-sm text-gray-600">
-          <%= t("views.dashboard.cards.events_index_desc") %>
+        <h1 class="mt-4 text-3xl sm:text-4xl font-black tracking-tight leading-tight [text-shadow:0_2px_10px_rgba(0,0,0,0.35)]">
+          <%= t("views.dashboard.welcome") %>
+          <span><%= current_user.name %></span><%= t("views.shared.header.user_suffix") %>
+        </h1>
+        <p class="mt-3 text-white/95 text-base sm:text-lg [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
+          <%= t("views.dashboard.message") %>
         </p>
-        <div class="card-actions justify-end">
-          <%= link_to t("views.dashboard.cards.index_link"), events_path, class: "btn btn-primary" %>
-        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- お店ログ（下中央） -->
-    <div class="sm:col-span-2 flex justify-center">
-      <div class="w-full sm:w-1/2">
-        <div class="card bg-base-100 shadow">
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <div class="lg:col-span-2 grid gap-6 sm:grid-cols-2">
+        <article class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20 hover:shadow-2xl transition-shadow">
           <div class="card-body">
-            <h2 class="card-title"><%= t("views.dashboard.cards.shop_logs_title") %></h2>
-            <p class="text-sm text-gray-600">
-              <%= t("views.dashboard.cards.shop_logs_desc") %>
-            </p>
-            <div class="card-actions justify-end">
-              <%= link_to t("views.dashboard.cards.index_link"), shop_logs_path, class: "btn btn-primary" %>
+            <h2 class="card-title text-neutral-700"><%= t("views.dashboard.cards.events_new_title") %></h2>
+            <p class="text-sm text-[#7a6757]"><%= t("views.dashboard.cards.events_new_desc") %></p>
+            <div class="card-actions justify-end mt-2">
+              <%= link_to t("views.dashboard.cards.events_new_link"), new_event_path, class: "btn btn-sm rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d]" %>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </article>
 
+        <article class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20 hover:shadow-2xl transition-shadow">
+          <div class="card-body">
+            <h2 class="card-title text-neutral-700"><%= t("views.dashboard.cards.events_index_title") %></h2>
+            <p class="text-sm text-[#7a6757]"><%= t("views.dashboard.cards.events_index_desc") %></p>
+            <div class="card-actions justify-end mt-2">
+              <%= link_to t("views.dashboard.cards.index_link"), events_path, class: "btn btn-sm rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d]" %>
+            </div>
+          </div>
+        </article>
+
+        <article class="card sm:col-span-2 bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20 hover:shadow-2xl transition-shadow">
+          <div class="card-body">
+            <h2 class="card-title text-neutral-700"><%= t("views.dashboard.cards.shop_logs_title") %></h2>
+            <p class="text-sm text-[#7a6757]"><%= t("views.dashboard.cards.shop_logs_desc") %></p>
+            <div class="card-actions justify-end mt-2">
+              <%= link_to t("views.dashboard.cards.index_link"), shop_logs_path, class: "btn btn-sm rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d]" %>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20">
+        <div class="card-body">
+          <h3 class="text-lg font-bold text-neutral-700 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#c45f3d]">lightbulb</span>
+            <%= t("views.dashboard.quick_tips.title") %>
+          </h3>
+          <p class="text-sm text-[#7a6757] leading-normal">
+            <%= t("views.dashboard.quick_tips.body") %>
+          </p>
+        </div>
+      </aside>
+    </section>
   </div>
 </div>

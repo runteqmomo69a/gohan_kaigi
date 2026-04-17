@@ -41,4 +41,10 @@
 
 AGENTS.md
 
+docs/ui/
+
+# mac
+.DS_Store
+
+# VSCode
 .vscode/

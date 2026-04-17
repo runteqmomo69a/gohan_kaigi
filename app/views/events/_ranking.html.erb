@@ -1,48 +1,49 @@
-<div class="mt-8">
-  <div class="rounded-xl border border-base-300 bg-base-100 p-5 space-y-4">
-
-    <div class="flex items-center gap-2">
-      <span class="text-lg">🏆</span>
-      <h2 class="text-lg font-semibold"><%= t("views.events.ranking.title") %></h2>
+<section class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-orange-200/20 overflow-hidden">
+  <div class="card-body p-6 space-y-5">
+    <div class="flex items-center gap-3">
+      <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff6dc] text-[#c78a12]">
+        <span class="material-symbols-outlined">trophy</span>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-neutral-700"><%= t("views.events.ranking.title") %></h2>
+        <p class="text-sm text-base-content/60"><%= t("views.events.ranking.description") %></p>
+      </div>
     </div>
 
     <% if top_shops.any? %>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-
+      <div class="space-y-3">
         <% top_shops.each_with_index do |shop, index| %>
-
-          <% bg_class =
+          <% rank_label =
             case index
-            when 0 then "bg-yellow-50 border-yellow-200"
-            when 1 then "bg-gray-50 border-gray-200"
-            when 2 then "bg-orange-50 border-orange-200"
-            end
-          %>
+            when 0 then t("views.events.ranking.first")
+            when 1 then t("views.events.ranking.second")
+            else t("views.events.ranking.third")
+            end %>
+          <% rank_classes =
+            case index
+            when 0 then "bg-gradient-to-r from-[#fff3c4] to-[#fff8e2] border-[#f0d27a]"
+            when 1 then "bg-gradient-to-r from-[#f0f1f4] to-[#fafafb] border-[#d6d9e0]"
+            else "bg-gradient-to-r from-[#f7e4dc] to-[#fff3ee] border-[#e6b29d]"
+            end %>
 
-          <div class="rounded-xl p-4 text-center space-y-2 border <%= bg_class %>">
-
-            <% case index %>
-            <% when 0 %>
-              <div class="text-yellow-500 font-bold text-lg"><%= t("views.events.ranking.first") %></div>
-            <% when 1 %>
-              <div class="text-gray-400 font-bold text-lg"><%= t("views.events.ranking.second") %></div>
-            <% when 2 %>
-              <div class="text-orange-400 font-bold text-lg"><%= t("views.events.ranking.third") %></div>
-            <% end %>
-
-            <p class="font-semibold"><%= shop.name %></p>
-
-            <p class="text-sm text-gray-500">
-              <%= t("views.events.ranking.likes_count", count: shop.likes_count) %>
-            </p>
-
-          </div>
+          <article class="rounded-3xl border p-4 <%= rank_classes %>">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs font-bold tracking-widest uppercase text-base-content/60"><%= rank_label %></p>
+                <h3 class="mt-1 text-lg font-bold text-neutral-700"><%= shop.name %></h3>
+              </div>
+              <div class="rounded-2xl bg-white/80 px-3 py-2 text-center min-w-20">
+                <p class="text-xl font-black text-neutral-700"><%= shop.likes_count %></p>
+                <p class="text-[10px] font-bold tracking-widest uppercase text-base-content/50"><%= t("views.events.ranking.likes_label") %></p>
+              </div>
+            </div>
+          </article>
         <% end %>
-
       </div>
     <% else %>
-      <p class="text-sm text-gray-500"><%= t("views.events.ranking.empty") %></p>
+      <div class="rounded-2xl bg-stone-50 border border-stone-200 px-4 py-4 text-sm text-base-content/60">
+        <%= t("views.events.ranking.empty") %>
+      </div>
     <% end %>
-
   </div>
-</div>
+</section>

@@ -1,45 +1,71 @@
-<div class="max-w-xl mx-auto p-6">
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
+  <div class="mx-auto max-w-4xl space-y-8 sm:space-y-10">
+    <section class="relative overflow-hidden rounded-3xl border border-[#d7cdbc] px-6 py-10 shadow-lg shadow-stone-200/20 sm:px-10 sm:py-12">
+      <%= image_tag "shop_log_hero.png",
+            class: "absolute inset-0 h-full w-full scale-[1.14] object-cover object-[42%_42%]",
+            alt: "" %>
 
-  <h1 class="text-xl font-bold mb-4"><%= t("views.shop_logs.edit.title") %></h1>
+      <div class="relative z-10 max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/45 px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#7d7268] backdrop-blur-sm">
+          <%= t("views.shop_logs.edit.hero_badge") %>
+        </p>
+        <h1 class="mt-4 text-4xl font-black tracking-tight text-[#675d55] sm:text-5xl">
+          <%= t("views.shop_logs.edit.title") %>
+        </h1>
+        <p class="mt-3 text-base leading-relaxed text-[#7a7068] sm:text-lg">
+          <%= t("views.shop_logs.edit.description") %>
+        </p>
+      </div>
+    </section>
 
-  <div class="card bg-base-100 shadow">
-    <div class="card-body">
+    <section class="card overflow-hidden border border-[#d7cdbc] bg-base-100/95 shadow-xl shadow-stone-200/20">
+      <div class="card-body relative p-6 sm:p-8 lg:p-10">
+        <div class="pointer-events-none absolute right-0 top-0 h-24 w-24 translate-x-1/4 -translate-y-1/4 rounded-full bg-[#f3c8b8]/35 blur-2xl"></div>
 
-      <!-- エラーメッセージ -->
-      <% if @shop.errors.any? %>
-        <div class="mb-4 rounded-lg bg-error/10 p-4 text-sm text-error">
-          <p class="font-semibold mb-2"><%= t("views.shop_logs.edit.save_failed") %></p>
-          <ul class="list-disc pl-5 space-y-1">
-            <% @shop.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+        <div class="relative z-10">
+          <% if @shop.errors.any? %>
+            <div class="mb-6 rounded-3xl border border-error/20 bg-error/10 p-4 text-sm text-error">
+              <p class="mb-2 font-semibold"><%= t("views.shop_logs.edit.save_failed") %></p>
+              <ul class="list-disc space-y-1 pl-5">
+                <% @shop.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= form_with model: @shop, url: shop_log_path(@shop), method: :patch, local: true do |f| %>
+            <div class="space-y-6">
+              <div class="form-control">
+                <%= f.label :log_category, t("views.shop_logs.edit.log_category_label"), class: "label text-xs font-bold uppercase tracking-widest text-[#7a6757]" %>
+                <label class="input input-bordered flex w-full items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                  <span class="material-symbols-outlined text-[#e3744b]">sell</span>
+                  <%= f.text_field :log_category,
+                        class: "grow border-0 p-0 focus:outline-none",
+                        placeholder: t("views.shop_logs.edit.log_category_placeholder") %>
+                </label>
+              </div>
+
+              <div class="form-control">
+                <%= f.label :log_note, t("views.shop_logs.edit.log_note_label"), class: "label text-xs font-bold uppercase tracking-widest text-[#7a6757]" %>
+                <label class="textarea textarea-bordered flex min-h-40 items-start gap-3 rounded-2xl bg-base-100 py-4 shadow-sm">
+                  <span class="material-symbols-outlined mt-1 text-[#e3744b]">menu_book</span>
+                  <%= f.text_area :log_note,
+                        rows: 6,
+                        maxlength: 1000,
+                        class: "grow resize-none border-0 bg-transparent p-0 focus:outline-none",
+                        placeholder: t("views.shop_logs.edit.log_note_placeholder") %>
+                </label>
+              </div>
+
+              <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                <%= link_to t("common.back"), shop_logs_path, class: "link link-hover text-sm text-[#7a6757]" %>
+                <%= f.submit t("common.save"), class: "btn rounded-full border-none bg-[#e3744b] px-8 text-white hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-
-      <%= form_with model: @shop, url: shop_log_path(@shop), method: :patch, local: true do |f| %>
-
-        <!-- カテゴリ -->
-        <div class="form-control">
-          <%= f.label :log_category, t("views.shop_logs.edit.log_category_label"), class: "label" %>
-          <%= f.text_field :log_category, class: "input input-bordered w-full" %>
-        </div>
-
-        <!-- メモ -->
-        <div class="form-control mt-4">
-          <%= f.label :log_note, t("views.shop_logs.edit.log_note_label"), class: "label" %>
-          <%= f.text_area :log_note, rows: 5, maxlength: 1000, class: "textarea textarea-bordered w-full" %>
-        </div>
-
-        <!-- ボタン -->
-        <div class="mt-4 flex justify-end gap-2">
-          <%= link_to t("common.back"), shop_logs_path, class: "btn btn-ghost" %>
-          <%= f.submit t("common.save"), class: "btn btn-primary" %>
-        </div>
-
-      <% end %>
-
-    </div>
+      </div>
+    </section>
   </div>
-
 </div>

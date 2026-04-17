@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#f2eee1",
+                    "on-surface-variant": "#66645c",
+                    "inverse-surface": "#0f0e09",
+                    "on-secondary-container": "#604200",
+                    "primary": "#8e5800",
+                    "surface-tint": "#8e5800",
+                    "on-surface": "#393831",
+                    "on-secondary-fixed-variant": "#6c4a00",
+                    "error-dim": "#b92902",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#855d00",
+                    "on-error-container": "#520c00",
+                    "on-primary-fixed": "#2a1700",
+                    "secondary-container": "#ffc96c",
+                    "surface-container-highest": "#ece8da",
+                    "surface-bright": "#fffbff",
+                    "surface": "#fffbff",
+                    "on-tertiary-container": "#605800",
+                    "surface-container-low": "#fdf9ed",
+                    "on-background": "#393831",
+                    "surface-variant": "#ece8da",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#f7a01e",
+                    "tertiary-fixed": "#feee57",
+                    "inverse-on-surface": "#9f9d93",
+                    "on-secondary-fixed": "#473000",
+                    "on-primary-container": "#4a2c00",
+                    "outline-variant": "#bcb9af",
+                    "secondary-fixed-dim": "#fdb726",
+                    "tertiary-container": "#feee57",
+                    "on-tertiary": "#ffffff",
+                    "secondary-dim": "#765100",
+                    "on-primary-fixed-variant": "#563400",
+                    "tertiary": "#6f6600",
+                    "error": "#be2d06",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#f0e04a",
+                    "error-container": "#f95630",
+                    "primary-container": "#f7a01e",
+                    "on-primary": "#ffffff",
+                    "background": "#fffbff",
+                    "surface-container": "#f7f4e7",
+                    "outline": "#838178",
+                    "tertiary-dim": "#625900",
+                    "secondary-fixed": "#ffc96c",
+                    "primary-fixed": "#f7a01e",
+                    "on-tertiary-fixed-variant": "#6b6200",
+                    "on-tertiary-fixed": "#4c4500",
+                    "primary-dim": "#7e4e00",
+                    "surface-dim": "#e6e3d4",
+                    "primary-fixed-dim": "#e79308"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans", "Noto Sans JP"],
+                    "body": ["Plus Jakarta Sans", "Noto Sans JP"],
+                    "label": ["Plus Jakarta Sans", "Noto Sans JP"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .elevation-tonal {
+            box-shadow: 0 4px 20px -2px rgba(142, 88, 0, 0.05);
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+            background-color: #fffbff;
+            color: #393831;
+        }
+        .solar-glow {
+            background: linear-gradient(135deg, #f7a01e 0%, #ffc96c 100%);
+        }
+        .mesh-bg {
+            background-color: #fffbff;
+            background-image: radial-gradient(at 0% 0%, rgba(247, 160, 30, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 100% 100%, rgba(255, 201, 108, 0.1) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-background selection:bg-secondary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md shadow-sm dark:shadow-none">
+<nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-black tracking-tighter text-orange-600 dark:text-orange-500">Gohan Kaigi</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-neutral-600 dark:text-neutral-400 hover:text-orange-500 font-['Plus_Jakarta_Sans'] font-medium text-lg tracking-tight transition-colors duration-300" href="#hero">Hero</a>
+<a class="text-neutral-600 dark:text-neutral-400 hover:text-orange-500 font-['Plus_Jakarta_Sans'] font-medium text-lg tracking-tight transition-colors duration-300" href="#features">Features</a>
+<a class="text-neutral-600 dark:text-neutral-400 hover:text-orange-500 font-['Plus_Jakarta_Sans'] font-medium text-lg tracking-tight transition-colors duration-300" href="#how-it-works">How to Use</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-neutral-600 dark:text-neutral-400 hover:text-orange-500 transition-colors duration-300 font-medium px-4 py-2">Login</button>
+<button class="bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold tracking-tight scale-95 active:scale-90 transition-transform hover:bg-orange-700">Start Meeting</button>
+</div>
+</nav>
+</header>
+<main class="overflow-x-hidden pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex flex-col items-center justify-center text-center px-6 mesh-bg" id="hero">
+<div class="max-w-4xl mx-auto z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-sm font-bold uppercase tracking-widest mb-8">
+<span class="material-symbols-outlined text-sm">restaurant</span>
+                    Lunch &amp; Dinner Planner
+                </div>
+<h1 class="text-5xl md:text-7xl font-black text-on-surface tracking-tighter mb-6 leading-[1.1]">
+                    みんなで決める、<br/>
+<span class="text-primary-container">ごはん会議</span>
+</h1>
+<p class="text-lg md:text-2xl text-on-surface-variant font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
+                    お店の提案といいねで、<br class="md:hidden"/>行きたい気持ちを見える化
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="solar-glow text-on-primary font-black py-5 px-12 rounded-full text-xl shadow-xl shadow-orange-200 transition-all hover:scale-105 active:scale-95">
+                        無料で使う
+                    </button>
+</div>
+</div>
+<!-- Abstract Background Decorations -->
+<div class="absolute top-1/4 left-10 opacity-20 hidden lg:block">
+<span class="material-symbols-outlined text-[8rem] text-primary" data-icon="restaurant">restaurant</span>
+</div>
+<div class="absolute bottom-1/4 right-10 opacity-20 hidden lg:block">
+<span class="material-symbols-outlined text-[8rem] text-secondary" data-icon="lunch_dining">lunch_dining</span>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-32 px-6 max-w-7xl mx-auto" id="features">
+<div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+<div class="max-w-xl">
+<h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tighter mb-4">
+                        スムーズに、楽しく選ぶ。
+                    </h2>
+<p class="text-lg text-on-surface-variant">「どこでもいいよ」をなくして、みんなの「ここがいい！」を集めよう。</p>
+</div>
+<div class="text-right">
+<span class="text-primary font-bold text-sm tracking-widest uppercase">Features</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Feature 1 -->
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-10 flex flex-col justify-between min-h-[400px] transition-transform hover:scale-[1.01]">
+<div>
+<div class="w-16 h-16 rounded-lg bg-primary-container flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-on-primary text-3xl" data-icon="share">share</span>
+</div>
+<h3 class="text-3xl font-black mb-4">リンクを送るだけ</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-md">
+                            アプリのインストールは不要。作成した会議のURLをシェアするだけで、誰でもすぐに参加できます。
+                        </p>
+</div>
+<div class="mt-8 overflow-hidden rounded-lg bg-surface h-32 relative">
+<div class="absolute inset-0 flex items-center justify-center text-primary-container opacity-10">
+<span class="material-symbols-outlined text-[10rem]">link</span>
+</div>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="md:col-span-4 bg-surface-container-highest rounded-xl p-10 flex flex-col justify-between transition-transform hover:scale-[1.01]">
+<div>
+<div class="w-16 h-16 rounded-lg bg-secondary-container flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-on-secondary-container text-3xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<h3 class="text-2xl font-black mb-4">リアクションで投票</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            いいなと思ったお店には「いいね」を送るだけ。好みが一目でわかります。
+                        </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="md:col-span-4 bg-secondary-container/20 rounded-xl p-10 flex flex-col justify-between min-h-[300px] transition-transform hover:scale-[1.01]">
+<div>
+<div class="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-on-primary text-3xl" data-icon="map">map</span>
+</div>
+<h3 class="text-2xl font-black mb-4">マップ連携</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            お店の場所も地図でパッと確認。集合場所との距離も考慮して選べます。
+                        </p>
+</div>
+</div>
+<!-- Feature 4 -->
+<div class="md:col-span-8 bg-surface-container-low rounded-xl p-10 flex flex-col md:flex-row gap-8 items-center transition-transform hover:scale-[1.01]">
+<div class="flex-1">
+<div class="w-16 h-16 rounded-lg bg-tertiary-container flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-on-tertiary-container text-3xl" data-icon="history_edu">history_edu</span>
+</div>
+<h3 class="text-3xl font-black mb-4">思い出をストック</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed">
+                            過去に行ったお店や、次に行きたい候補をリストとして保存。次回の計画もスムーズに。
+                        </p>
+</div>
+<div class="w-full md:w-1/3 bg-white/50 backdrop-blur rounded-lg p-6 flex flex-col gap-3">
+<div class="h-4 w-3/4 bg-primary-container/20 rounded"></div>
+<div class="h-4 w-1/2 bg-secondary-container/20 rounded"></div>
+<div class="h-4 w-2/3 bg-tertiary-container/20 rounded"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="py-32 bg-surface-container-low" id="how-it-works">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-24">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-4 block">How to Use</span>
+<h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tighter">
+                        使い方はとてもシンプル
+                    </h2>
+</div>
+<div class="relative flex flex-col md:flex-row gap-8">
+<!-- Step 1 -->
+<div class="flex-1 bg-surface rounded-lg p-10 relative z-10 transition-all hover:-translate-y-2">
+<div class="text-primary text-6xl font-black opacity-10 absolute top-4 right-6">01</div>
+<div class="mb-8">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="add_circle">add_circle</span>
+</div>
+<h3 class="text-2xl font-black mb-4">会議を作成</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            目的や日程を入力して、新しい会議ルームを立ち上げます。
+                        </p>
+</div>
+<!-- Step 2 -->
+<div class="flex-1 bg-surface rounded-lg p-10 relative z-10 transition-all hover:-translate-y-2">
+<div class="text-primary text-6xl font-black opacity-10 absolute top-4 right-6">02</div>
+<div class="mb-8">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="send">send</span>
+</div>
+<h3 class="text-2xl font-black mb-4">URLを共有</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            生成されたリンクをLINEやSlackでみんなに送るだけ。
+                        </p>
+</div>
+<!-- Step 3 -->
+<div class="flex-1 bg-surface rounded-lg p-10 relative z-10 transition-all hover:-translate-y-2">
+<div class="text-primary text-6xl font-black opacity-10 absolute top-4 right-6">03</div>
+<div class="mb-8">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="celebration">celebration</span>
+</div>
+<h3 class="text-2xl font-black mb-4">みんなで決定</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            お店を提案したり「いいね」をしたり。最高の場所を選ぼう！
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-32 px-6">
+<div class="max-w-5xl mx-auto rounded-xl solar-glow p-12 md:p-24 text-center relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="text-4xl md:text-6xl font-black text-on-primary tracking-tighter mb-8 leading-tight">
+                        次のごはん、<br class="sm:hidden"/>もっと楽しもう。
+                    </h2>
+<p class="text-on-primary/90 text-lg md:text-xl mb-12 max-w-xl mx-auto">
+                        ログイン不要で、今すぐ会議を始められます。<br/>
+                        お店選びの時間を、もっとワクワクする体験に。
+                    </p>
+<button class="bg-white text-orange-600 font-black py-5 px-14 rounded-full text-xl shadow-2xl transition-transform hover:scale-105 active:scale-95">
+                        今すぐ始める
+                    </button>
+</div>
+<!-- Decorative Elements -->
+<div class="absolute -top-10 -right-10 opacity-10">
+<span class="material-symbols-outlined text-[20rem]" data-icon="local_pizza">local_pizza</span>
+</div>
+<div class="absolute -bottom-20 -left-20 opacity-10">
+<span class="material-symbols-outlined text-[25rem]" data-icon="bakery_dining">bakery_dining</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-[3rem] mt-20 bg-orange-50 dark:bg-neutral-950 flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full">
+<div class="mb-12 md:mb-0 text-center md:text-left">
+<div class="text-xl font-bold text-orange-600 mb-4">Gohan Kaigi</div>
+<p class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-neutral-500 dark:text-neutral-400">© 2024 Gohan Kaigi. All rights reserved.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<a class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-neutral-500 dark:text-neutral-400 hover:text-orange-500 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-neutral-500 dark:text-neutral-400 hover:text-orange-500 transition-colors opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm uppercase tracking-widest text-neutral-500 dark:text-neutral-400 hover:text-orange-500 transition-colors opacity-80 hover:opacity-100" href="#">Contact Us</a>
+</div>
+</footer>
+</body></html>

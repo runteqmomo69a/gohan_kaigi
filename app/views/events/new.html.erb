@@ -1,54 +1,93 @@
-<div class="max-w-xl mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-2"><%= t("views.events.new.title") %></h1>
-  <p class="text-sm text-gray-500 mb-6">
-    <%= t("views.events.new.description") %>
-  </p>
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
+  <div class="max-w-4xl mx-auto space-y-8 sm:space-y-10">
+    <section class="relative overflow-hidden rounded-3xl border border-[#d7cdbc] px-6 py-10 shadow-lg shadow-stone-200/20 sm:px-10 sm:py-12">
+      <%= image_tag "hero.png",
+            class: "absolute inset-0 h-full w-full scale-[1.16] object-cover object-[40%_42%]",
+            alt: "" %>
 
-  <%= render "shared/error_messages", resource: @event %>
+      <div class="relative z-10 max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/45 px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#7d7268] backdrop-blur-sm">
+          Event Creation
+        </p>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-tight text-[#675d55]">
+          <%= t("views.events.new.title") %>
+        </h1>
+        <p class="mt-3 text-base sm:text-lg leading-relaxed text-[#7a7068]">
+          <%= t("views.events.new.description") %>
+        </p>
+      </div>
+    </section>
 
-  <%= form_with model: @event, url: events_path do |f| %>
-    <!-- イベント名 -->
-    <div class="form-control mb-4">
-      <%= f.label :title, t("views.events.new.title_label"), class: "label" %>
-      <%= f.text_field :title,
-            class: "input input-bordered w-full",
-            placeholder: t("views.events.new.title_placeholder") %>
-    </div>
+    <section class="card bg-base-100/95 border border-[#d7cdbc] shadow-xl shadow-stone-200/20 overflow-hidden">
+      <div class="card-body p-6 sm:p-8 lg:p-10 relative">
+        <div class="absolute top-0 right-0 h-28 w-28 translate-x-1/4 -translate-y-1/4 rounded-full bg-orange-100/80 blur-2xl pointer-events-none"></div>
 
-    <!-- 開催日 -->
-    <div class="form-control mb-4">
-      <%= f.label :event_date, t("views.events.new.event_date_label"), class: "label" %>
-      <%= f.date_field :event_date, class: "input input-bordered w-full" %>
-    </div>
+        <div class="relative z-10">
+          <%= render "shared/error_messages", resource: @event %>
 
-    <!-- 開始時間（任意） -->
-    <div class="form-control mb-4">
-      <%= f.label :event_time, t("views.events.new.event_time_label"), class: "label" %>
-      <%= f.time_field :event_time, class: "input input-bordered w-full" %>
-    </div>
+          <%= form_with model: @event, url: events_path do |f| %>
+            <div class="space-y-6">
+              <div class="form-control">
+                <%= f.label :title, t("views.events.new.title_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <label class="input input-bordered w-full flex items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                  <span class="material-symbols-outlined text-[#e3744b]">edit_note</span>
+                  <%= f.text_field :title,
+                        class: "grow border-0 p-0 focus:outline-none",
+                        placeholder: t("views.events.new.title_placeholder") %>
+                </label>
+              </div>
 
-    <!-- 場所（任意） -->
-    <div class="form-control mb-4">
-      <%= f.label :place, t("views.events.new.place_label"), class: "label" %>
-      <%= f.text_field :place,
-            class: "input input-bordered w-full",
-            placeholder: t("views.events.new.place_placeholder") %>
-    </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div class="form-control">
+                  <%= f.label :event_date, t("views.events.new.event_date_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                  <label class="input input-bordered w-full flex items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[#e3744b]">calendar_today</span>
+                    <%= f.date_field :event_date, class: "grow border-0 p-0 focus:outline-none" %>
+                  </label>
+                </div>
 
-    <!-- メモ（任意） -->
-    <div class="form-control mb-6">
-      <%= f.label :note, t("views.events.new.note_label"), class: "label" %>
-      <%= f.text_area :note,
-            class: "textarea textarea-bordered w-full",
-            rows: 5,
-            maxlength: 1000,
-            placeholder: t("views.events.new.note_placeholder") %>
-    </div>
+                <div class="form-control">
+                  <%= f.label :event_time, t("views.events.new.event_time_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                  <label class="input input-bordered w-full flex items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                    <span class="material-symbols-outlined text-[#e3744b]">schedule</span>
+                    <%= f.time_field :event_time, class: "grow border-0 p-0 focus:outline-none" %>
+                  </label>
+                </div>
+              </div>
 
-    <%= f.submit t("common.create"), class: "btn btn-primary w-full" %>
+              <div class="form-control">
+                <%= f.label :place, t("views.events.new.place_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <label class="input input-bordered w-full flex items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                  <span class="material-symbols-outlined text-[#e3744b]">location_on</span>
+                  <%= f.text_field :place,
+                        class: "grow border-0 p-0 focus:outline-none",
+                        placeholder: t("views.events.new.place_placeholder") %>
+                </label>
+              </div>
 
-    <div class="mt-3 text-center">
-      <%= link_to t("common.back"), dashboard_path, class: "link link-hover text-sm text-gray-500" %>
-    </div>
-  <% end %>
+              <div class="form-control">
+                <%= f.label :note, t("views.events.new.note_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <label class="textarea textarea-bordered min-h-36 rounded-2xl bg-base-100 shadow-sm flex gap-3 items-start py-4">
+                  <span class="material-symbols-outlined text-[#e3744b] mt-1">notes</span>
+                  <%= f.text_area :note,
+                        class: "grow border-0 p-0 focus:outline-none resize-none bg-transparent",
+                        rows: 5,
+                        maxlength: 1000,
+                        placeholder: t("views.events.new.note_placeholder") %>
+                </label>
+              </div>
+
+              <div class="pt-2">
+                <%= f.submit t("common.create"), class: "btn w-full rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="mt-6 text-center">
+            <%= link_to t("common.back"), dashboard_path, class: "link link-hover text-sm text-base-content/60" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>

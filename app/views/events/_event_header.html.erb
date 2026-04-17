@@ -1,134 +1,146 @@
-<div class="space-y-6">
+<section class="relative overflow-hidden rounded-[2rem] border border-[#d7cdbc] p-6 sm:p-8 lg:p-10 shadow-xl shadow-stone-200/30">
+  <div class="absolute inset-0 scale-[1.18] bg-cover bg-[44%_40%]" style="background-image: url('<%= asset_path('event_hero.png') %>');"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/48"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-stone-950/10 via-transparent to-white/10"></div>
+  <div class="absolute right-0 top-0 h-56 w-56 -translate-y-1/3 translate-x-1/4 rounded-full bg-stone-300/15 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-orange-200/10 blur-3xl"></div>
 
-  <!-- タイトル + 操作 -->
-  <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-    <h1 class="text-3xl font-bold leading-tight">
-      <%= event.title %>
-    </h1>
-
-    <div class="flex items-center gap-2 flex-wrap">
-      <%= link_to t("views.events.show.back_to_index"), events_path, class: "btn btn-ghost btn-sm" %>
-      <%= link_to t("common.edit"), edit_event_path(event), class: "btn btn-outline btn-sm" %>
-      <%= link_to t("common.delete"),
-                  event_path(event),
-                  data: { turbo_method: :delete, turbo_confirm: t("views.events.show.delete_confirm") },
-                  class: "btn btn-error btn-sm" %>
-    </div>
-  </div>
-
-  <!-- 基本情報 -->
-  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-600">
-
-    <div class="flex items-center gap-1">
-      <span>📅</span>
-      <span class="font-medium text-base-content">
-        <%= event.event_date %>
-      </span>
-    </div>
-
-    <div class="flex items-center gap-1">
-      <span>🕒</span>
-      <span class="font-medium text-base-content">
-        <%= event.event_time.present? ? event.event_time.strftime("%H:%M") : t("views.events.show.time_unset") %>
-      </span>
-    </div>
-
-    <div class="flex items-center gap-1">
-      <span>📍</span>
-      <span class="font-medium text-base-content">
-        <%= event.place.presence || t("views.events.show.place_unset") %>
-      </span>
-    </div>
-
-    <div class="flex items-center gap-1">
-      <span>👤</span>
-      <span class="font-medium text-base-content">
-        <%= event.user.name %>
-      </span>
-    </div>
-
-  </div>
-
-  <!-- メモ -->
-  <% if event.note.present? %>
-    <div class="rounded-xl border border-base-300 bg-base-100 p-4 space-y-2">
-      <div class="flex items-center gap-2 text-sm text-gray-500">
-        <span>📝</span>
-        <span><%= t("views.events.show.note") %></span>
-      </div>
-
-      <p class="text-base leading-relaxed">
-        <%= event.note %>
-      </p>
-    </div>
-  <% end %>
-
-  <!-- 参加ボタン -->
-  <div>
-    <% if participating %>
-      <div class="inline-flex items-center gap-2 rounded-full bg-success/10 px-4 py-2 text-sm font-medium text-success">
-        <span>✓</span>
-        <span><%= t("views.events.show.joined") %></span>
-      </div>
-    <% else %>
-      <label for="join-event-modal" class="btn btn-primary">
-        <%= t("views.events.show.join_event") %>
-      </label>
-
-      <input type="checkbox" id="join-event-modal" class="modal-toggle" />
-      <div class="modal" role="dialog">
-        <div class="modal-box">
-          <h3 class="text-lg font-bold"><%= t("views.events.show.join_modal_title") %></h3>
-          <p class="pt-3"><%= t("views.events.show.join_modal_body") %></p>
-          <div class="py-3 text-sm text-base-content/70 leading-7">
-            <p><%= t("views.events.show.join_modal_features_intro") %></p>
-            <ul class="list-disc pl-5 mt-1">
-              <li><%= t("views.events.show.join_modal_feature_1") %></li>
-              <li><%= t("views.events.show.join_modal_feature_2") %></li>
-              <li><%= t("views.events.show.join_modal_feature_3") %></li>
-            </ul>
-          </div>
-
-          <%= form_with url: event_event_participants_path(event), method: :post, local: true do |f| %>
-            <div class="modal-action">
-              <%= f.submit t("views.events.show.join_modal_submit"), class: "btn btn-primary" %>
-              <label for="join-event-modal" class="btn btn-ghost"><%= t("common.cancel") %></label>
-            </div>
+  <div class="relative z-10 space-y-6">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-3xl space-y-5">
+        <div class="flex flex-wrap items-center gap-2">
+          <% if participating %>
+            <span class="inline-flex items-center gap-2 rounded-full bg-[#fff1eb] px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#c45f3d] border border-[#f3c8b8]">
+              <span class="material-symbols-outlined text-sm">check_circle</span>
+              <%= t("views.events.show.joined") %>
+            </span>
           <% end %>
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/88 px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#c45f3d] border border-stone-200">
+            <span class="material-symbols-outlined text-sm">event</span>
+            <%= t("views.events.show.hero_badge") %>
+          </span>
         </div>
 
-        <label class="modal-backdrop" for="join-event-modal"><%= t("common.cancel") %></label>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-tight text-stone-800">
+          <%= event.title %>
+        </h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 text-sm text-base-content/70">
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">calendar_today</span>
+            <span><%= l(event.event_date) %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">schedule</span>
+            <span><%= event.event_time.present? ? event.event_time.strftime("%H:%M") : t("views.events.show.time_unset") %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm sm:col-span-2 xl:col-span-1">
+            <span class="material-symbols-outlined text-[#e3744b]">location_on</span>
+            <span><%= event.place.presence || t("views.events.show.place_unset") %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm sm:col-span-2 xl:col-span-1">
+            <span class="material-symbols-outlined text-[#e3744b]">person</span>
+            <span><%= event.user.name %></span>
+          </div>
+        </div>
       </div>
-    <% end %>
-  </div>
 
-  <!-- URL -->
-  <div class="rounded-xl border border-base-300 bg-base-100 p-4"
-       data-controller="clipboard"
-       data-clipboard-error-message-value="<%= t('views.events.show.copy_failed') %>">
-    <p class="text-sm text-gray-500 mb-2"><%= t("views.events.show.share_url") %></p>
-
-    <div class="flex flex-col gap-2 sm:flex-row">
-      <input
-        type="text"
-        value="<%= join_event_url(event.unique_url) %>"
-        readonly
-        class="input input-bordered w-full text-sm"
-        data-clipboard-target="source"
-      >
-
-      <button
-        type="button"
-        class="btn btn-outline btn-sm shrink-0"
-        data-action="click->clipboard#copy"
-      >
-        <%= t("views.events.show.copy") %>
-      </button>
+      <div class="flex flex-wrap items-center gap-2 lg:max-w-xs lg:justify-end">
+        <%= link_to t("views.events.show.back_to_index"), events_path, class: "btn rounded-full bg-white/70 text-stone-700 border border-stone-200 hover:bg-white/90 shadow-sm backdrop-blur-sm" %>
+        <%= link_to t("common.edit"), edit_event_path(event), class: "btn rounded-full bg-white/82 text-stone-700 border border-stone-200 hover:bg-white shadow-sm" %>
+        <%= link_to t("common.delete"),
+                    event_path(event),
+                    data: { turbo_method: :delete, turbo_confirm: t("views.events.show.delete_confirm") },
+                    class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
+      </div>
     </div>
 
-    <p class="text-xs text-success mt-2 hidden" data-clipboard-target="message">
-      <%= t("views.events.show.copied") %>
-    </p>
-  </div>
+    <% if event.note.present? %>
+      <div class="rounded-3xl bg-[#fbf8f4]/88 border border-stone-200 p-5 space-y-3 shadow-sm backdrop-blur-sm">
+        <div class="flex items-center gap-2 text-sm text-base-content/60">
+          <span class="material-symbols-outlined text-[#e3744b]">notes</span>
+          <span><%= t("views.events.show.note") %></span>
+        </div>
 
-</div>
+        <p class="text-base leading-relaxed text-base-content/80 whitespace-pre-wrap">
+          <%= event.note %>
+        </p>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-4 items-start">
+      <div class="rounded-3xl bg-[#fcfaf7]/88 border border-stone-200 p-4 sm:p-5 shadow-sm backdrop-blur-sm"
+           data-controller="clipboard"
+           data-clipboard-error-message-value="<%= t('views.events.show.copy_failed') %>">
+        <p class="text-xs font-bold tracking-widest uppercase text-base-content/50 mb-2">
+          <%= t("views.events.show.share_url") %>
+        </p>
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input
+            type="text"
+            value="<%= join_event_url(event.unique_url) %>"
+            readonly
+            class="input input-bordered w-full rounded-2xl bg-base-100 text-sm"
+            data-clipboard-target="source"
+          >
+
+          <button
+            type="button"
+            class="btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35 shrink-0"
+            data-action="click->clipboard#copy"
+          >
+            <span class="material-symbols-outlined text-sm">content_copy</span>
+            <%= t("views.events.show.copy") %>
+          </button>
+        </div>
+
+        <p class="text-xs text-[#c45f3d] mt-3 hidden" data-clipboard-target="message">
+          <%= t("views.events.show.copied") %>
+        </p>
+      </div>
+
+      <div class="flex justify-start lg:justify-end">
+        <% if participating %>
+          <div class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-4 py-3 text-sm font-medium text-stone-700 border border-stone-200 shadow-sm">
+            <span class="material-symbols-outlined text-sm">how_to_reg</span>
+            <span><%= t("views.events.show.joined") %></span>
+          </div>
+        <% else %>
+          <label for="join-event-modal" class="btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35">
+            <span class="material-symbols-outlined text-sm">groups</span>
+            <%= t("views.events.show.join_event") %>
+          </label>
+
+          <input type="checkbox" id="join-event-modal" class="modal-toggle" />
+          <div class="modal" role="dialog">
+            <div class="modal-box max-w-lg rounded-3xl border border-amber-100">
+              <h3 class="text-xl font-bold text-neutral-700"><%= t("views.events.show.join_modal_title") %></h3>
+              <p class="pt-3 text-base-content/70"><%= t("views.events.show.join_modal_body") %></p>
+              <div class="mt-4 rounded-2xl bg-[#fcf2ed] border border-[#f3c8b8] p-4 text-sm text-base-content/70 leading-7">
+                <p class="font-semibold text-[#c45f3d]"><%= t("views.events.show.join_modal_features_intro") %></p>
+                <ul class="list-disc pl-5 mt-1">
+                  <li><%= t("views.events.show.join_modal_feature_1") %></li>
+                  <li><%= t("views.events.show.join_modal_feature_2") %></li>
+                  <li><%= t("views.events.show.join_modal_feature_3") %></li>
+                </ul>
+              </div>
+
+              <%= form_with url: event_event_participants_path(event), method: :post, local: true do |f| %>
+                <div class="modal-action">
+                  <%= f.submit t("views.events.show.join_modal_submit"), class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d]" %>
+                  <label for="join-event-modal" class="btn btn-ghost rounded-full"><%= t("common.cancel") %></label>
+                </div>
+              <% end %>
+            </div>
+
+            <label class="modal-backdrop" for="join-event-modal"><%= t("common.cancel") %></label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

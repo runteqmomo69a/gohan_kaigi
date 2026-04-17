@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .brand-title {
+    font-family: "Zen Maru Gothic", sans-serif;
+  }
+
+  .static-page-font {
+    font-family: "Zen Maru Gothic", sans-serif;
+  }
+}

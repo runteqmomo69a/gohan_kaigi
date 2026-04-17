@@ -1,12 +1,17 @@
 <% if resource&.errors&.any? %>
-  <div class="alert alert-error mb-6">
-    <div>
-      <p class="font-semibold"><%= t("views.shared.error_messages.title") %></p>
-      <ul class="list-disc ml-5 text-sm mt-2">
+  <div class="mb-6 rounded-3xl border border-[#e6b8ab] bg-[#fff3ef] p-5 shadow-sm">
+    <div class="flex items-start gap-4">
+      <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#fbe4db] text-[#b96b59]">
+        <span class="material-symbols-outlined text-[22px]">error</span>
+      </div>
+      <div class="min-w-0">
+        <p class="font-semibold tracking-wide text-[#9a5b4a]"><%= t("views.shared.error_messages.title") %></p>
+        <ul class="mt-3 ml-5 list-disc text-sm leading-relaxed text-[#9a5b4a]">
         <% resource.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 <% end %>
