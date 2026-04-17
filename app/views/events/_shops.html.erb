@@ -34,9 +34,9 @@
                 </div>
               </div>
 
-              <div class="flex-1 space-y-4">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div class="space-y-2">
+              <div class="min-w-0 flex-1 space-y-4">
+                <div class="flex flex-col gap-3">
+                  <div class="min-w-0 space-y-2">
                     <div class="inline-flex items-center gap-2 rounded-full bg-[#fff1eb] px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#c45f3d] border border-[#f3c8b8]">
                       <span class="material-symbols-outlined text-sm">storefront</span>
                       <%= t("views.events.shops.candidate_badge", number: index + 1) %>
@@ -45,7 +45,7 @@
                     <p class="text-sm text-base-content/50"><%= t("views.events.shops.owner", name: shop.user.name) %></p>
                   </div>
 
-                  <div class="inline-flex items-center gap-2 rounded-2xl bg-white/90 border border-[#f3c8b8] px-4 py-3 text-sm font-semibold text-base-content/70 shrink-0">
+                  <div class="inline-flex w-fit items-center gap-2 rounded-2xl bg-white/90 border border-[#f3c8b8] px-4 py-3 text-sm font-semibold text-base-content/70">
                     <span class="material-symbols-outlined text-[#e3744b]">favorite</span>
                     <span><%= shop.likes_count %></span>
                   </div>
