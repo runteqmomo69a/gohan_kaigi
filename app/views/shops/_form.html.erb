@@ -25,25 +25,47 @@
         <div class="relative z-10">
           <%= render "shared/error_messages", resource: shop %>
 
-          <%= form_with model: [event, shop], local: true do |f| %>
+          <%= form_with model: [event, shop], local: true,
+                data: {
+                  controller: "shop-name-fetch",
+                  "shop-name-fetch-endpoint-value": fetch_name_event_shops_path(event)
+                } do |f| %>
             <div class="space-y-6">
-              <div class="form-control">
-                <%= f.label :name, t("#{translation_scope}.name_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
-                <label class="input input-bordered flex w-full items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
-                  <span class="material-symbols-outlined text-[#e3744b]">storefront</span>
-                  <%= f.text_field :name,
-                        class: "grow border-0 p-0 focus:outline-none",
-                        placeholder: t("#{translation_scope}.name_placeholder") %>
-                </label>
-              </div>
-
               <div class="form-control">
                 <%= f.label :url, t("#{translation_scope}.url_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
                 <label class="input input-bordered flex w-full items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
                   <span class="material-symbols-outlined text-[#e3744b]">link</span>
                   <%= f.url_field :url,
+                        data: { "shop-name-fetch-target": "url" },
                         class: "grow border-0 p-0 focus:outline-none",
                         placeholder: t("#{translation_scope}.url_placeholder") %>
+                </label>
+
+                <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <button type="button"
+                    data-action="shop-name-fetch#fetch"
+                    data-shop-name-fetch-target="button"
+                    class="btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50">
+                    <%= t("views.shops.form.fetch_name_button") %>
+                  </button>
+                  <p class="text-sm text-base-content/50">
+                    <%= t("views.shops.form.fetch_name_hint") %>
+                  </p>
+                </div>
+
+                <p class="mt-2 hidden text-sm text-base-content/50" data-shop-name-fetch-target="message">
+                  <%= t("views.shops.form.fetch_name_idle") %>
+                </p>
+              </div>
+
+              <div class="form-control">
+                <%= f.label :name, t("#{translation_scope}.name_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
+                <label class="input input-bordered flex w-full items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
+                  <span class="material-symbols-outlined text-[#e3744b]">storefront</span>
+                  <%= f.text_field :name,
+                        data: { "shop-name-fetch-target": "name" },
+                        class: "grow border-0 p-0 focus:outline-none",
+                        placeholder: t("#{translation_scope}.name_placeholder") %>
                 </label>
               </div>
 

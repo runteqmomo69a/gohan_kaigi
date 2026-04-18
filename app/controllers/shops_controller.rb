@@ -13,6 +13,14 @@ class ShopsController < ApplicationController
 
   def edit; end
 
+  def fetch_name
+    url = params[:url].to_s.strip
+    result = ShopNameFetcher.call(url)
+    status = result.error.present? ? :unprocessable_content : :ok
+
+    render json: { name: result.name, error: result.error }, status: status
+  end
+
   def create
     @shop = @event.shops.new(shop_params)
     @shop.user = current_user
