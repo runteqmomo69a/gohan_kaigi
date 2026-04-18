@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     resources :event_preferences, only: %i[create destroy]
 
     resources :shops, only: %i[new create edit update destroy] do
+      collection do
+        post :fetch_name
+      end
       resource :like, only: %i[create destroy]
     end
   end
