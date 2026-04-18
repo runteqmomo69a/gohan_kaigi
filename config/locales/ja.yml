@@ -215,8 +215,6 @@ ja:
         name_placeholder: "お店の名前"
         url_label: "リンク"
         url_placeholder: "食べログや公式サイトのURL"
-        address_label: "住所（任意）"
-        address_placeholder: "渋谷○丁目あたり / 新宿駅周辺 など"
         memo_label: "メモ"
         memo_placeholder: "おすすめメニューや選んだ理由、雰囲気のメモなど"
       edit:
@@ -227,8 +225,6 @@ ja:
         name_placeholder: "お店の名前"
         url_label: "お店のURL"
         url_placeholder: "食べログや公式サイトのURL"
-        address_label: "住所（任意）"
-        address_placeholder: "渋谷○丁目あたり / 新宿駅周辺 など"
         memo_label: "メモ"
         memo_placeholder: "おすすめメニューや選んだ理由、雰囲気のメモなど"
     dashboard:

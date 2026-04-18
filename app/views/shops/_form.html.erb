@@ -48,16 +48,6 @@
               </div>
 
               <div class="form-control">
-                <%= f.label :address, t("#{translation_scope}.address_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
-                <label class="input input-bordered flex w-full items-center gap-3 rounded-2xl bg-base-100 shadow-sm">
-                  <span class="material-symbols-outlined text-[#e3744b]">location_on</span>
-                  <%= f.text_field :address,
-                        class: "grow border-0 p-0 focus:outline-none",
-                        placeholder: t("#{translation_scope}.address_placeholder") %>
-                </label>
-              </div>
-
-              <div class="form-control">
                 <%= f.label :memo, t("#{translation_scope}.memo_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
                 <label class="textarea textarea-bordered flex min-h-36 items-start gap-3 rounded-2xl bg-base-100 py-4 shadow-sm">
                   <span class="material-symbols-outlined mt-1 text-[#e3744b]">edit_note</span>
