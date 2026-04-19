@@ -3,6 +3,8 @@ ja:
     events:
       not_found:
         alert: "イベントが見つかりませんでした"
+      owner_only:
+        alert: "イベント編集はイベント作成者のみ可能です"
       join_requires_auth:
         alert: "イベントに参加するにはログインまたは新規登録が必要です"
       create:
