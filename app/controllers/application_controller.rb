@@ -11,12 +11,12 @@ class ApplicationController < ActionController::Base
   end
 
   # ログイン後の遷移先
-  def after_sign_in_path_for(_resource)
-    stored_location_for(resource) || dashboard_path
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || dashboard_path
   end
 
   # 新規登録後の遷移先
-  def after_sign_up_path_for(_resource)
-    stored_location_for(resource) || dashboard_path
+  def after_sign_up_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || dashboard_path
   end
 end

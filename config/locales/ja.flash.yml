@@ -51,3 +51,6 @@ ja:
         notice: "LINEでログインしました"
       line_login_failed:
         alert: "LINEログインに失敗しました"
+    devise:
+      already_authenticated:
+        alert: "すでにログインしています"
