@@ -50,11 +50,13 @@
 
       <div class="flex flex-wrap items-center gap-2 lg:max-w-xs lg:justify-end">
         <%= link_to t("views.events.show.back_to_index"), events_path, class: "btn rounded-full bg-white/70 text-stone-700 border border-stone-200 hover:bg-white/90 shadow-sm backdrop-blur-sm" %>
-        <%= link_to t("common.edit"), edit_event_path(event), class: "btn rounded-full bg-white/82 text-stone-700 border border-stone-200 hover:bg-white shadow-sm" %>
-        <%= link_to t("common.delete"),
-                    event_path(event),
-                    data: { turbo_method: :delete, turbo_confirm: t("views.events.show.delete_confirm") },
-                    class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
+        <% if current_user == event.user %>
+          <%= link_to t("common.edit"), edit_event_path(event), class: "btn rounded-full bg-white/82 text-stone-700 border border-stone-200 hover:bg-white shadow-sm" %>
+          <%= link_to t("common.delete"),
+                      event_path(event),
+                      data: { turbo_method: :delete, turbo_confirm: t("views.events.show.delete_confirm") },
+                      class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
+        <% end %>
       </div>
     </div>
 
