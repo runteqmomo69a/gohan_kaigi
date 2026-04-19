@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_01_151906) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_19_090000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_01_151906) do
     t.string "place_id"
     t.string "log_category"
     t.text "log_note"
+    t.string "ogp_image_url"
     t.index ["event_id"], name: "index_shops_on_event_id"
     t.index ["user_id"], name: "index_shops_on_user_id"
   end

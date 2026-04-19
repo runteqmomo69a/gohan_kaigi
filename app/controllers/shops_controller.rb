@@ -26,6 +26,7 @@ class ShopsController < ApplicationController
     @shop.user = current_user
 
     @shop.place_id = @shop.fetch_place_id(@event.place)
+    @shop.ogp_image_url = fetch_ogp_image_url(@shop.url)
 
     if @shop.save
       redirect_to event_path(@event), notice: t("flash.shops.create.notice")
@@ -42,6 +43,10 @@ class ShopsController < ApplicationController
     if @shop.will_save_change_to_name?
       new_place_id = @shop.fetch_place_id(@event.place)
       @shop.place_id = new_place_id if new_place_id.present?
+    end
+
+    if @shop.will_save_change_to_url? || @shop.ogp_image_url.blank?
+      @shop.ogp_image_url = fetch_ogp_image_url(@shop.url)
     end
 
     if @shop.save
@@ -80,5 +85,11 @@ class ShopsController < ApplicationController
 
   def shop_params
     params.require(:shop).permit(:name, :url, :memo)
+  end
+
+  def fetch_ogp_image_url(url)
+    return if url.blank?
+
+    ShopOgpImageFetcher.call(url).image_url
   end
 end
