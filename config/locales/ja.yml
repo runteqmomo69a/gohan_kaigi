@@ -2,6 +2,12 @@ ja:
   app:
     name: "ごはん会議"
     title: "ごはん会議"
+  services:
+    shop_ogp_image_fetcher:
+      blank_url: "URLを入力してください"
+      request_failed: "ページ情報を取得できませんでした"
+      not_found: "OGP画像を取得できませんでした"
+      unexpected_error: "OGP画像取得中にエラーが発生しました"
   defaults:
     line_user_name: "LINEユーザー"
 
@@ -192,7 +198,7 @@ ja:
         section_label: "Candidates"
         description: "候補を見比べて、気になるお店にいいねできます。"
         image_placeholder_title: "お店のイメージ画像"
-        image_placeholder_body: "将来ここに OGP 画像を表示できるようにしたいです。"
+        image_placeholder_body: "URL先に画像がないため表示されません"
         sort_created: "登録順"
         sort_likes: "いいね順"
         new_shop: "お店候補を登録"
@@ -286,7 +292,7 @@ ja:
         category_all: "すべて"
         reset: "リセット"
         image_placeholder_title: "お店のイメージ画像"
-        image_placeholder_body: "将来ここに OGP 画像を表示して、ログをもっと見返しやすくしたいです。"
+        image_placeholder_body: "URL先に画像がないため表示されません"
         uncategorized_badge: "LOG"
         open_shop_page: "お店のページを見る"
         shop_memo_label: "候補メモ"

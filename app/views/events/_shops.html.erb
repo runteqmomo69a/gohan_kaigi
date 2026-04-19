@@ -21,16 +21,22 @@
             <div class="flex flex-col gap-5 xl:flex-row xl:items-stretch xl:justify-between">
               <div class="xl:w-[220px] 2xl:w-[240px] shrink-0">
                 <div class="h-56 xl:h-full min-h-56 overflow-hidden rounded-[1.5rem] border border-[#f3c8b8] bg-gradient-to-br from-stone-100 via-[#f7f2ec] to-[#fff1eb] relative">
-                  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.9),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(251,146,60,0.16),transparent_40%)]"></div>
-                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/90 text-[#e3744b] shadow-sm">
-                      <span class="material-symbols-outlined text-3xl">photo</span>
+                  <% if shop.ogp_image_url.present? %>
+                    <%= image_tag shop.ogp_image_url,
+                      alt: shop.name,
+                      class: "h-full w-full object-cover" %>
+                    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(59,40,22,0.12),transparent_45%)]"></div>
+                  <% else %>
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.9),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(251,146,60,0.16),transparent_40%)]"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 translate-y-4">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/90 text-[#e3744b] shadow-sm">
+                        <span class="material-symbols-outlined text-[2.25rem]">photo</span>
+                      </div>
+                      <p class="mt-3 text-xs leading-relaxed text-base-content/60">
+                        <%= t("views.events.shops.image_placeholder_body") %>
+                      </p>
                     </div>
-                    <p class="mt-4 text-sm font-semibold text-stone-700"><%= t("views.events.shops.image_placeholder_title") %></p>
-                    <p class="mt-2 text-xs leading-relaxed text-base-content/60">
-                      <%= t("views.events.shops.image_placeholder_body") %>
-                    </p>
-                  </div>
+                  <% end %>
                 </div>
               </div>
 

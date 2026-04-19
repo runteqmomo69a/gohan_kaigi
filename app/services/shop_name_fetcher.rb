@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ShopNameFetcher
   Result = Struct.new(:name, :error, keyword_init: true)
 
