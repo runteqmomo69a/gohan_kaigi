@@ -292,7 +292,7 @@ ja:
         category_all: "すべて"
         reset: "リセット"
         image_placeholder_title: "お店のイメージ画像"
-        image_placeholder_body: "将来ここに OGP 画像を表示して、ログをもっと見返しやすくしたいです。"
+        image_placeholder_body: "URL先に画像がないため表示されません"
         uncategorized_badge: "LOG"
         open_shop_page: "お店のページを見る"
         shop_memo_label: "候補メモ"
