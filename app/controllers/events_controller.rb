@@ -6,7 +6,15 @@ class EventsController < ApplicationController
   before_action :ensure_event_owner!, only: %i[edit update destroy]
 
   def index
-    @events = current_user.events.order(created_at: :desc)
+    # 選択中のタブに応じて表示するイベント一覧を切り替える
+    @current_tab = params[:tab] == "joined" ? "joined" : "owned"
+    @events =
+      case @current_tab
+      when "joined"
+        current_user.participating_events.where.not(user_id: current_user.id).order(created_at: :desc)
+      else
+        current_user.events.order(created_at: :desc)
+      end
   end
 
   def show
