@@ -28,6 +28,22 @@
       </div>
     </section>
 
+    <section class="flex flex-wrap items-center gap-3">
+      <%= link_to t("views.events.index.tabs.owned"),
+            events_path(tab: "owned"),
+            class: [
+              "btn rounded-full border shadow-sm",
+              @current_tab == "owned" ? "border-transparent bg-[#e3744b] text-white hover:bg-[#cf643d]" : "border-[#d7cdbc] bg-white/80 text-[#675d55] hover:bg-amber-50"
+            ].join(" ") %>
+
+      <%= link_to t("views.events.index.tabs.joined"),
+            events_path(tab: "joined"),
+            class: [
+              "btn rounded-full border shadow-sm",
+              @current_tab == "joined" ? "border-transparent bg-[#e3744b] text-white hover:bg-[#cf643d]" : "border-[#d7cdbc] bg-white/80 text-[#675d55] hover:bg-amber-50"
+            ].join(" ") %>
+    </section>
+
     <% if @events.any? %>
       <section class="space-y-4 sm:space-y-5">
         <% @events.each do |event| %>
@@ -94,14 +110,16 @@
             <span class="material-symbols-outlined text-3xl">event_busy</span>
           </div>
           <h2 class="mt-4 text-2xl font-bold text-neutral-700">
-            <%= t("views.events.index.title") %>
+            <%= @current_tab == "joined" ? t("views.events.index.tabs.joined") : t("views.events.index.tabs.owned") %>
           </h2>
           <p class="mt-2 max-w-md text-base-content/60">
-            <%= t("views.events.index.empty") %>
+            <%= @current_tab == "joined" ? t("views.events.index.empty_joined") : t("views.events.index.empty_owned") %>
           </p>
           <div class="mt-6">
-            <%= link_to t("views.events.index.new"), new_event_path,
-                  class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+            <% if @current_tab == "owned" %>
+              <%= link_to t("views.events.index.new"), new_event_path,
+                    class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+            <% end %>
           </div>
         </div>
       </section>
