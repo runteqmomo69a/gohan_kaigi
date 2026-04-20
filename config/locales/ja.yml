@@ -219,12 +219,15 @@ ja:
     shops:
       form:
         fetch_name_button: "URLから店名を取得"
+        fetch_name_loading: "取得中..."
         fetch_name_hint: "取得後も手入力で修正できます"
         fetch_name_idle: "URLを入力してから店名取得ボタンを押してください"
         fetch_name_blank_url: "URLを入力してください"
         fetch_name_request_failed: "ページ情報を取得できませんでした"
         fetch_name_not_found: "店名候補を取得できませんでした"
         fetch_name_unexpected_error: "店名取得中にエラーが発生しました"
+        submit_loading_create: "登録中..."
+        submit_loading_update: "更新中..."
       new:
         hero_badge: "Restaurant Candidate"
         title: "お店候補を登録"

@@ -27,7 +27,8 @@
 
           <%= form_with model: [event, shop], local: true,
                 data: {
-                  controller: "shop-name-fetch",
+                  controller: "shop-name-fetch shop-submit",
+                  action: "submit->shop-submit#submit",
                   "shop-name-fetch-endpoint-value": fetch_name_event_shops_path(event)
                 } do |f| %>
             <div class="space-y-6">
@@ -45,8 +46,11 @@
                   <button type="button"
                     data-action="shop-name-fetch#fetch"
                     data-shop-name-fetch-target="button"
+                    data-default-text="<%= t("views.shops.form.fetch_name_button") %>"
+                    data-loading-text="<%= t("views.shops.form.fetch_name_loading") %>"
                     class="btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50">
-                    <%= t("views.shops.form.fetch_name_button") %>
+                    <span class="loading loading-spinner loading-xs hidden" data-shop-name-fetch-target="buttonSpinner"></span>
+                    <span data-shop-name-fetch-target="buttonLabel"><%= t("views.shops.form.fetch_name_button") %></span>
                   </button>
                   <p class="text-sm text-base-content/50">
                     <%= t("views.shops.form.fetch_name_hint") %>
@@ -82,7 +86,16 @@
               </div>
 
               <div class="pt-2">
-                <%= f.submit submit_label, class: "btn w-full rounded-full border-none bg-[#e3744b] text-white hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
+                <%= f.button :submit,
+                      class: "btn w-full rounded-full border-none bg-[#e3744b] text-white hover:bg-[#cf643d] shadow-lg shadow-orange-200/35",
+                      data: {
+                        "shop-submit-target": "button",
+                        default_text: submit_label,
+                        loading_text: shop.persisted? ? t("views.shops.form.submit_loading_update") : t("views.shops.form.submit_loading_create")
+                      } do %>
+                  <span class="loading loading-spinner loading-xs hidden" data-shop-submit-target="buttonSpinner"></span>
+                  <span data-shop-submit-target="buttonLabel"><%= submit_label %></span>
+                <% end %>
               </div>
             </div>
           <% end %>
