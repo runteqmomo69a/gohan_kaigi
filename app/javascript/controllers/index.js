@@ -15,3 +15,6 @@ application.register("autocomplete", AutocompleteController)
 
 import ShopNameFetchController from "./shop_name_fetch_controller"
 application.register("shop-name-fetch", ShopNameFetchController)
+
+import ShopSubmitController from "./shop_submit_controller"
+application.register("shop-submit", ShopSubmitController)

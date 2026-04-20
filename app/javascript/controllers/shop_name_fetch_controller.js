@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["url", "name", "message", "button"]
+  static targets = ["url", "name", "message", "button", "buttonLabel", "buttonSpinner"]
   static values = { endpoint: String }
 
   async fetch(event) {
@@ -14,7 +14,7 @@ export default class extends Controller {
       return
     }
 
-    this.buttonTarget.disabled = true
+    this.startLoading()
 
     try {
       const response = await window.fetch(this.endpointValue, {
@@ -37,7 +37,7 @@ export default class extends Controller {
     } catch (_error) {
       this.showMessage("店名取得中にエラーが発生しました", false)
     } finally {
-      this.buttonTarget.disabled = false
+      this.stopLoading()
     }
   }
 
@@ -45,5 +45,17 @@ export default class extends Controller {
     this.messageTarget.textContent = message
     this.messageTarget.classList.remove("hidden", "text-base-content/50", "text-[#c45f3d]", "text-[#5f7d4e]")
     this.messageTarget.classList.add(success ? "text-[#5f7d4e]" : "text-[#c45f3d]")
+  }
+
+  startLoading() {
+    this.buttonTarget.disabled = true
+    this.buttonLabelTarget.textContent = this.buttonTarget.dataset.loadingText
+    this.buttonSpinnerTarget.classList.remove("hidden")
+  }
+
+  stopLoading() {
+    this.buttonTarget.disabled = false
+    this.buttonLabelTarget.textContent = this.buttonTarget.dataset.defaultText
+    this.buttonSpinnerTarget.classList.add("hidden")
   }
 }
