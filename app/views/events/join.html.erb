@@ -1,0 +1,116 @@
+<% content_for :meta_title, event_ogp_title(@event) %>
+<% content_for :meta_description, event_ogp_description(@event) %>
+<% content_for :meta_type, "article" %>
+<% content_for :meta_url, join_event_url(@event.unique_url) %>
+<% content_for :meta_image, "ogp.png" %>
+
+<div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
+  <div class="mx-auto max-w-4xl space-y-6">
+    <section class="relative overflow-hidden rounded-[2rem] border border-[#d7cdbc] p-6 sm:p-8 shadow-xl shadow-stone-200/30">
+      <div class="absolute inset-0 scale-[1.08] bg-cover bg-[44%_40%]" style="background-image: url('<%= asset_path('event_hero.png') %>');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-white/94 via-white/88 to-white/72"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-stone-950/10 via-transparent to-white/10"></div>
+
+      <div class="relative z-10 space-y-6">
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/88 px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#c45f3d] border border-stone-200">
+              <span class="material-symbols-outlined text-sm">share</span>
+              <%= t("views.events.join.hero_badge") %>
+            </span>
+            <% if @participating %>
+              <span class="inline-flex items-center gap-2 rounded-full bg-[#fff1eb] px-3 py-1 text-xs font-bold tracking-widest uppercase text-[#c45f3d] border border-[#f3c8b8]">
+                <span class="material-symbols-outlined text-sm">check_circle</span>
+                <%= t("views.events.join.joined") %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="space-y-3">
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight text-stone-800">
+              <%= @event.title %>
+            </h1>
+            <p class="text-base sm:text-lg text-base-content/70 leading-relaxed">
+              <%= @event.title %><%= t("views.events.join.title_suffix") %>
+            </p>
+            <p class="text-sm sm:text-base text-base-content/60 leading-relaxed">
+              <%= t("views.events.join.description") %>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 text-sm text-base-content/70">
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">calendar_today</span>
+            <span><%= l(@event.event_date) %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">schedule</span>
+            <span><%= @event.event_time.present? ? @event.event_time.strftime("%H:%M") : t("views.events.join.time_unset") %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">location_on</span>
+            <span><%= @event.place.presence || t("views.events.join.place_unset") %></span>
+          </div>
+
+          <div class="flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 border border-stone-200/80 shadow-sm">
+            <span class="material-symbols-outlined text-[#e3744b]">groups</span>
+            <span><%= t("views.events.join.participants_count", count: @event.participants.size) %></span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-4 items-start">
+          <div class="rounded-3xl bg-[#fcfaf7]/88 border border-stone-200 p-5 space-y-4 shadow-sm backdrop-blur-sm">
+            <div class="flex items-center gap-2 text-sm text-base-content/60">
+              <span class="material-symbols-outlined text-[#e3744b]">person</span>
+              <span><%= t("views.events.join.host_label") %></span>
+            </div>
+            <p class="text-base font-semibold text-stone-800"><%= @event.user.name %></p>
+
+            <% if @event.note.present? %>
+              <div class="space-y-2 border-t border-stone-200 pt-4">
+                <div class="flex items-center gap-2 text-sm text-base-content/60">
+                  <span class="material-symbols-outlined text-[#e3744b]">notes</span>
+                  <span><%= t("views.events.join.note") %></span>
+                </div>
+                <p class="text-sm leading-relaxed text-base-content/75 whitespace-pre-wrap"><%= @event.note %></p>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="rounded-3xl bg-[#fff7f1] border border-[#f3c8b8] p-5 space-y-4 shadow-sm">
+            <% if user_signed_in? %>
+              <% if @participating %>
+                <div class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-medium text-stone-700 border border-stone-200 shadow-sm">
+                  <span class="material-symbols-outlined text-sm">how_to_reg</span>
+                  <span><%= t("views.events.join.joined") %></span>
+                </div>
+                <%= link_to t("views.events.join.open_event"),
+                            event_path(@event),
+                            class: "btn w-full rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
+              <% else %>
+                <%= form_with url: event_event_participants_path(@event), method: :post, local: true do |f| %>
+                  <%= f.submit t("views.events.join.join_button"),
+                               class: "btn w-full rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <p class="text-sm leading-relaxed text-base-content/70">
+                <%= t("views.events.join.login_prompt") %>
+              </p>
+              <%= link_to t("views.events.join.login_button"),
+                          new_user_session_path,
+                          class: "btn w-full rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
+            <% end %>
+
+            <%= link_to t("views.events.join.back_to_top"),
+                        root_path,
+                        class: "btn w-full rounded-full bg-white/80 text-stone-700 border border-stone-200 hover:bg-white" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

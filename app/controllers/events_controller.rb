@@ -44,20 +44,11 @@ class EventsController < ApplicationController
   end
 
   def join
-    @event = Event.find_by!(unique_url: params[:unique_url])
+    @event = Event.includes(:user, :participants).find_by!(unique_url: params[:unique_url])
+    @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
 
-    unless @event
-      redirect_to root_path, alert: t("flash.events.not_found.alert")
-      return
-    end
-
-    unless user_signed_in?
-      store_location_for(:user, join_event_path(@event.unique_url))
-      redirect_to root_path, alert: t("flash.events.join_requires_auth.alert")
-      return
-    end
-
-    redirect_to event_path(@event)
+    # ログイン後に共有URLへ戻せるようにして、参加導線をスムーズにする
+    store_location_for(:user, join_event_path(@event.unique_url)) unless user_signed_in?
   end
 
   def new
