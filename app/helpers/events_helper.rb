@@ -2,16 +2,12 @@
 
 module EventsHelper
   def event_ogp_title(event)
-    "#{event.title} | #{t('app.title')}"
+    title_date = l(event.event_date)
+    title_date += " #{event.event_time.strftime('%H:%M')}" if event.event_time.present?
+    "#{t('app.title')}｜#{title_date}"
   end
 
   def event_ogp_description(event)
-    details = [ l(event.event_date) ]
-    details << event.event_time.strftime("%H:%M") if event.event_time.present?
-    details << event.place if event.place.present?
-
-    note = event.note.to_s.squish
-    details << note.truncate(60) if note.present?
-    details.join(" / ")
+    "#{event.title.to_s.squish.truncate(50)}を会議中"
   end
 end
