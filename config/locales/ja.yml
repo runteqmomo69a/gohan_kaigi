@@ -2,7 +2,7 @@ ja:
   app:
     name: "ごはん会議"
     title: "ごはん会議"
-    description: "みんなでごはんのお店を相談しながら、イベント参加や候補比較を楽しく進められるアプリです。"
+    description: "お店選びを、もっと楽しく"
   services:
     shop_ogp_image_fetcher:
       blank_url: "URLを入力してください"
