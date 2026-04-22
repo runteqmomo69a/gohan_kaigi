@@ -1,11 +1,11 @@
 <div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
   <div class="max-w-6xl mx-auto space-y-8">
     <section class="relative overflow-hidden rounded-3xl text-white p-7 sm:p-10 lg:p-12 min-h-[320px] lg:min-h-[360px] shadow-xl shadow-orange-200/30">
-      <div class="absolute inset-0 scale-[1.12] bg-cover bg-[50%_22%] bg-no-repeat" style="background-image: url('<%= asset_path('dashboard.png') %>');"></div>
+      <div class="absolute inset-0 scale-[1.0] bg-cover bg-[72%_46%] bg-no-repeat sm:scale-[1.12] sm:bg-[50%_22%]" style="background-image: url('<%= asset_path('dashboard.png') %>');"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/15"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-amber-950/30 via-transparent to-white/10"></div>
 
-      <div class="relative z-10 max-w-2xl">
+      <div class="relative z-10 max-w-2xl pt-8 sm:pt-0">
         <p class="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1 text-xs font-bold tracking-widest uppercase">
           <span class="material-symbols-outlined text-sm">dashboard</span>
           <%= t("views.dashboard.hero_badge") %>
@@ -14,7 +14,7 @@
           <%= t("views.dashboard.welcome") %>
           <span><%= current_user.name %></span><%= t("views.shared.header.user_suffix") %>
         </h1>
-        <p class="mt-3 text-white/95 text-base sm:text-lg [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
+        <p class="mt-2 sm:mt-3 text-white/95 text-base sm:text-lg [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
           <%= t("views.dashboard.message") %>
         </p>
       </div>

@@ -16,8 +16,9 @@
           <%= t("views.static_pages.top.hero.badge") %>
         </p>
 
-        <h1 class="brand-title text-[2.85rem] sm:text-[3.7rem] lg:text-[4.5rem] font-black tracking-tight leading-[1.08] text-neutral-700">
-          <%= t("views.static_pages.top.hero.title_line1") %><br>
+        <h1 class="brand-title text-[2.45rem] sm:text-[3.7rem] lg:text-[4.5rem] font-black tracking-tight leading-[1.08] text-neutral-700">
+          <span class="sm:hidden"><%= t("views.static_pages.top.hero.title_line1_mobile") %></span>
+          <span class="hidden sm:inline"><%= t("views.static_pages.top.hero.title_line1") %></span><br>
           <span class="text-[#e3744b]"><%= t("views.static_pages.top.hero.title_highlight") %></span>
         </h1>
 
