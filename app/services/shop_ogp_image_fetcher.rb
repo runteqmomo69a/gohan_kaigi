@@ -20,9 +20,11 @@ class ShopOgpImageFetcher
     return Result.new(image_url: nil, error: I18n.t("services.shop_ogp_image_fetcher.not_found")) if image_url.blank?
 
     Result.new(image_url:, error: nil)
-  rescue Faraday::Error
+  rescue Faraday::Error => e
+    log_instagram_error(e) if instagram_url?
     Result.new(image_url: nil, error: I18n.t("services.shop_ogp_image_fetcher.request_failed"))
-  rescue StandardError
+  rescue StandardError => e
+    log_instagram_error(e) if instagram_url?
     Result.new(image_url: nil, error: I18n.t("services.shop_ogp_image_fetcher.unexpected_error"))
   end
 
@@ -56,6 +58,15 @@ class ShopOgpImageFetcher
       "og_title=#{document.at_css('meta[property=\"og:title\"]')&.[]("content")&.squish.inspect} " \
       "og_image=#{document.at_css('meta[property=\"og:image\"]')&.[]("content")&.squish.inspect} " \
       "body_head=#{body.to_s.first(500).inspect}"
+    )
+  end
+
+  def log_instagram_error(error)
+    Rails.logger.info(
+      "[Instagram ShopOgpImageFetcher Error] " \
+      "url=#{@url} " \
+      "error_class=#{error.class} " \
+      "message=#{error.message.inspect}"
     )
   end
 end
