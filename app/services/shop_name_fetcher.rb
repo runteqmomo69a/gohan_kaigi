@@ -20,9 +20,11 @@ class ShopNameFetcher
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_not_found")) if candidate_name.blank?
 
     Result.new(name: candidate_name, error: nil)
-  rescue Faraday::Error
+  rescue Faraday::Error => e
+    log_instagram_error(e) if instagram_url?
     Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_request_failed"))
-  rescue StandardError
+  rescue StandardError => e
+    log_instagram_error(e) if instagram_url?
     Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_unexpected_error"))
   end
 
@@ -55,6 +57,15 @@ class ShopNameFetcher
       "og_title=#{document.at_css('meta[property=\"og:title\"]')&.[]("content")&.squish.inspect} " \
       "og_image=#{document.at_css('meta[property=\"og:image\"]')&.[]("content")&.squish.inspect} " \
       "body_head=#{body.to_s.first(500).inspect}"
+    )
+  end
+
+  def log_instagram_error(error)
+    Rails.logger.info(
+      "[Instagram ShopNameFetcher Error] " \
+      "url=#{@url} " \
+      "error_class=#{error.class} " \
+      "message=#{error.message.inspect}"
     )
   end
 end
