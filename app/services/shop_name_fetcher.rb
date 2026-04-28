@@ -1,5 +1,6 @@
 class ShopNameFetcher
   Result = Struct.new(:name, :error, keyword_init: true)
+  MAX_REDIRECTS = 3
 
   def self.call(url)
     new(url).call
@@ -12,7 +13,7 @@ class ShopNameFetcher
   def call
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_blank_url")) if @url.blank?
 
-    response = Faraday.get(@url)
+    response = fetch_response(@url)
     log_instagram_response(response) if instagram_url?
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_request_failed")) unless response.success?
 
@@ -39,6 +40,22 @@ class ShopNameFetcher
     document.at_css("title")&.text&.strip
   end
 
+  def fetch_response(url, redirect_count = 0)
+    response = Faraday.get(url)
+    return response unless redirect_response?(response)
+    return response if redirect_count >= MAX_REDIRECTS
+
+    location = response.headers["location"]
+    return response if location.blank?
+
+    next_url = URI.join(url, location).to_s
+    fetch_response(next_url, redirect_count + 1)
+  end
+
+  def redirect_response?(response)
+    response.status.to_i >= 300 && response.status.to_i < 400
+  end
+
   def instagram_url?
     uri = URI.parse(@url)
     uri.host.to_s.downcase.include?("instagram.com")
@@ -54,6 +71,7 @@ class ShopNameFetcher
     Rails.logger.info(
       "[Instagram ShopNameFetcher] " \
       "url=#{@url} " \
+      "final_url=#{response.env.url} " \
       "status=#{response.status} " \
       "location=#{response.headers["location"].inspect} " \
       "title=#{document.at_css("title")&.text&.squish.inspect} " \
