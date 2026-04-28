@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShopLogsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @shops = current_user.shops.includes(:event)
 
