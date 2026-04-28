@@ -238,6 +238,7 @@ ja:
         fetch_name_button: "URLから店名を取得"
         fetch_name_loading: "取得中..."
         fetch_name_hint: "取得後も手入力で修正できます"
+        fetch_name_sns_notice: "Instagram・X などのSNS URLは、ページ情報を自動取得できない場合があります。その場合は店名を入力してください"
         fetch_name_idle: "URLを入力してから店名取得ボタンを押してください"
         fetch_name_blank_url: "URLを入力してください"
         fetch_name_request_failed: "ページ情報を取得できませんでした"
