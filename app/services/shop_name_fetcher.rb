@@ -13,7 +13,7 @@ class ShopNameFetcher
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_blank_url")) if @url.blank?
 
     response = Faraday.get(@url)
-    log_instagram_response(response.body, response.status) if instagram_url?
+    log_instagram_response(response) if instagram_url?
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_request_failed")) unless response.success?
 
     candidate_name = extract_name(response.body)
@@ -46,19 +46,20 @@ class ShopNameFetcher
     false
   end
 
-  def log_instagram_response(body, status)
-    document = Nokogiri::HTML(body)
+  def log_instagram_response(response)
+    document = Nokogiri::HTML(response.body)
     og_title_selector = 'meta[property="og:title"]'
     og_image_selector = 'meta[property="og:image"]'
 
     Rails.logger.info(
       "[Instagram ShopNameFetcher] " \
       "url=#{@url} " \
-      "status=#{status} " \
+      "status=#{response.status} " \
+      "location=#{response.headers["location"].inspect} " \
       "title=#{document.at_css("title")&.text&.squish.inspect} " \
       "og_title=#{document.at_css(og_title_selector)&.[]("content")&.squish.inspect} " \
       "og_image=#{document.at_css(og_image_selector)&.[]("content")&.squish.inspect} " \
-      "body_head=#{body.to_s.first(500).inspect}"
+      "body_head=#{response.body.to_s.first(500).inspect}"
     )
   end
 
