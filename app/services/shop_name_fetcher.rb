@@ -13,6 +13,7 @@ class ShopNameFetcher
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_blank_url")) if @url.blank?
 
     response = Faraday.get(@url)
+    log_instagram_response(response.body, response.status) if instagram_url?
     return Result.new(name: nil, error: I18n.t("views.shops.form.fetch_name_request_failed")) unless response.success?
 
     candidate_name = extract_name(response.body)
@@ -34,5 +35,26 @@ class ShopNameFetcher
     return og_title if og_title.present?
 
     document.at_css("title")&.text&.strip
+  end
+
+  def instagram_url?
+    uri = URI.parse(@url)
+    uri.host.to_s.downcase.include?("instagram.com")
+  rescue URI::InvalidURIError
+    false
+  end
+
+  def log_instagram_response(body, status)
+    document = Nokogiri::HTML(body)
+
+    Rails.logger.info(
+      "[Instagram ShopNameFetcher] " \
+      "url=#{@url} " \
+      "status=#{status} " \
+      "title=#{document.at_css("title")&.text&.squish.inspect} " \
+      "og_title=#{document.at_css('meta[property=\"og:title\"]')&.[]("content")&.squish.inspect} " \
+      "og_image=#{document.at_css('meta[property=\"og:image\"]')&.[]("content")&.squish.inspect} " \
+      "body_head=#{body.to_s.first(500).inspect}"
+    )
   end
 end
