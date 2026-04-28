@@ -49,14 +49,16 @@ class ShopOgpImageFetcher
 
   def log_instagram_response(body, status)
     document = Nokogiri::HTML(body)
+    og_title_selector = 'meta[property="og:title"]'
+    og_image_selector = 'meta[property="og:image"]'
 
     Rails.logger.info(
       "[Instagram ShopOgpImageFetcher] " \
       "url=#{@url} " \
       "status=#{status} " \
       "title=#{document.at_css("title")&.text&.squish.inspect} " \
-      "og_title=#{document.at_css('meta[property=\"og:title\"]')&.[]("content")&.squish.inspect} " \
-      "og_image=#{document.at_css('meta[property=\"og:image\"]')&.[]("content")&.squish.inspect} " \
+      "og_title=#{document.at_css(og_title_selector)&.[]("content")&.squish.inspect} " \
+      "og_image=#{document.at_css(og_image_selector)&.[]("content")&.squish.inspect} " \
       "body_head=#{body.to_s.first(500).inspect}"
     )
   end
