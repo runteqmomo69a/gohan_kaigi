@@ -37,7 +37,7 @@ RSpec.describe "Shops", type: :request do
 
   describe "POST /events/:event_id/shops/fetch_name" do
     let(:success_result) { ShopNameFetcher::Result.new(name: "shop name", error: nil) }
-    let(:failure_result) { ShopNameFetcher::Result.new(name: nil, error: "failed" ) }
+    let(:failure_result) { ShopNameFetcher::Result.new(name: nil, error: "failed") }
 
     it "参加者は成功時に200で店名JSONを受け取れること" do
       sign_in participant
@@ -96,6 +96,14 @@ RSpec.describe "Shops", type: :request do
       expect(response).to redirect_to(event_path(event))
     end
 
+    it "sort付きでイベント詳細へ戻ること" do
+      sign_in participant
+
+      post event_shops_path(event), params: valid_params.merge(sort: "likes_count")
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
+    end
+
     it "不正な値だと作成されず422を返すこと" do
       sign_in participant
 
@@ -114,6 +122,14 @@ RSpec.describe "Shops", type: :request do
       }.not_to change(Shop, :count)
 
       expect(response).to redirect_to(event_path(event))
+    end
+
+    it "非参加者でもsortを保持してイベント詳細へ戻ること" do
+      sign_in other_user
+
+      post event_shops_path(event), params: valid_params.merge(sort: "likes_count")
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
     end
   end
 
@@ -136,6 +152,14 @@ RSpec.describe "Shops", type: :request do
       expect(shop.reload.name).to eq("after")
     end
 
+    it "sort付きでイベント詳細へ戻ること" do
+      sign_in participant
+
+      patch event_shop_path(event, shop), params: { shop: { name: "after", url: "https://after.example.com", memo: "memo" }, sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
+    end
+
     it "他人は更新できないこと" do
       sign_in owner
 
@@ -143,6 +167,14 @@ RSpec.describe "Shops", type: :request do
 
       expect(response).to redirect_to(event_path(event))
       expect(shop.reload.name).to eq("before")
+    end
+
+    it "他人でもsortを保持してイベント詳細へ戻ること" do
+      sign_in owner
+
+      patch event_shop_path(event, shop), params: { shop: { name: "after" }, sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
     end
 
     it "不正な値だと更新されず422を返すこと" do
@@ -168,6 +200,14 @@ RSpec.describe "Shops", type: :request do
       expect(response).to redirect_to(event_path(event))
     end
 
+    it "sort付きでイベント詳細へ戻ること" do
+      sign_in participant
+
+      delete event_shop_path(event, shop), params: { sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
+    end
+
     it "他人は削除できないこと" do
       sign_in owner
 
@@ -176,6 +216,14 @@ RSpec.describe "Shops", type: :request do
       }.not_to change(Shop, :count)
 
       expect(response).to redirect_to(event_path(event))
+    end
+
+    it "他人でもsortを保持してイベント詳細へ戻ること" do
+      sign_in owner
+
+      delete event_shop_path(event, shop), params: { sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
     end
   end
 end

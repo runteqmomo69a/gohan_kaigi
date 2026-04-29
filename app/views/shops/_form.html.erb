@@ -31,6 +31,7 @@
                   action: "submit->shop-submit#submit",
                   "shop-name-fetch-endpoint-value": fetch_name_event_shops_path(event)
                 } do |f| %>
+            <%= hidden_field_tag :sort, params[:sort] if params[:sort].present? %>
             <div class="space-y-6">
               <div class="form-control">
                 <%= f.label :url, t("#{translation_scope}.url_label"), class: "label text-xs font-bold tracking-widest uppercase text-base-content/60" %>
@@ -105,7 +106,7 @@
           <% end %>
 
           <div class="mt-6 text-center">
-            <%= link_to t("common.back"), event_path(event), class: "link link-hover text-sm text-base-content/60" %>
+            <%= link_to t("common.back"), event_path(event, sort: params[:sort].presence), class: "link link-hover text-sm text-base-content/60" %>
           </div>
         </div>
       </div>

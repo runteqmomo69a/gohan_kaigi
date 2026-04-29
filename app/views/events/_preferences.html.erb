@@ -31,7 +31,7 @@
             </div>
             <div>
               <h3 class="text-lg font-bold text-neutral-700"><%= t("views.events.preferences.dislike_foods") %></h3>
-              <p class="text-sm text-base-content/55">みんなの苦手なもの</p>
+              <p class="text-sm text-base-content/55"><%= t("views.events.preferences.dislike_foods_summary") %></p>
             </div>
           </div>
 
@@ -57,7 +57,7 @@
             </div>
             <div>
               <h3 class="text-lg font-bold text-neutral-700"><%= t("views.events.preferences.budget") %></h3>
-              <p class="text-sm text-base-content/55">予算のまとまり</p>
+              <p class="text-sm text-base-content/55"><%= t("views.events.preferences.budget_summary") %></p>
             </div>
           </div>
 
@@ -112,7 +112,7 @@
     <% end %>
 
     <% if participating %>
-      <input type="checkbox" id="event-preference-modal" class="modal-toggle" />
+      <input type="checkbox" id="event-preference-modal" class="modal-toggle" <%= "checked" if local_assigns[:open_preference_modal] %> />
 
       <div class="modal" role="dialog">
         <div class="modal-box max-w-lg rounded-3xl border border-amber-100">

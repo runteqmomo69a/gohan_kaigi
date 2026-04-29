@@ -35,6 +35,9 @@
           <% end %>
 
           <%= form_with model: @shop, url: shop_log_path(@shop), method: :patch, local: true do |f| %>
+            <%= hidden_field_tag :q, params[:q] if params[:q].present? %>
+            <%= hidden_field_tag :category, params[:category] if params[:category].present? %>
+            <%= hidden_field_tag :sort, params[:sort] if params[:sort].present? %>
             <div class="space-y-6">
               <div class="form-control">
                 <%= f.label :log_category, t("views.shop_logs.edit.log_category_label"), class: "label text-xs font-bold uppercase tracking-widest text-[#7a6757]" %>
@@ -59,7 +62,7 @@
               </div>
 
               <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                <%= link_to t("common.back"), shop_logs_path, class: "link link-hover text-sm text-[#7a6757]" %>
+                <%= link_to t("common.back"), shop_logs_path(q: params[:q].presence, category: params[:category].presence, sort: params[:sort].presence), class: "link link-hover text-sm text-[#7a6757]" %>
                 <%= f.submit t("common.save"), class: "btn rounded-full border-none bg-[#e3744b] px-8 text-white hover:bg-[#cf643d] shadow-lg shadow-orange-200/35" %>
               </div>
             </div>

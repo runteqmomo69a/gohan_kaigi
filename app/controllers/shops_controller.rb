@@ -29,7 +29,7 @@ class ShopsController < ApplicationController
     @shop.ogp_image_url = fetch_ogp_image_url(@shop.url)
 
     if @shop.save
-      redirect_to event_path(@event), notice: t("flash.shops.create.notice")
+      redirect_to event_path(@event, sort: current_sort), notice: t("flash.shops.create.notice")
     else
       render :new, status: :unprocessable_content
     end
@@ -50,7 +50,7 @@ class ShopsController < ApplicationController
     end
 
     if @shop.save
-      redirect_to event_path(@event), notice: t("flash.shops.update.notice")
+      redirect_to event_path(@event, sort: current_sort), notice: t("flash.shops.update.notice")
     else
       render :edit, status: :unprocessable_content
     end
@@ -58,7 +58,7 @@ class ShopsController < ApplicationController
 
   def destroy
     @shop.destroy
-    redirect_to event_path(@event), notice: t("flash.shops.destroy.notice")
+    redirect_to event_path(@event, sort: current_sort), notice: t("flash.shops.destroy.notice")
   end
 
   private
@@ -70,7 +70,7 @@ class ShopsController < ApplicationController
   def ensure_event_participant
     return if @event.participants.exists?(current_user.id)
 
-    redirect_to event_path(@event), alert: t("flash.shops.participant_only.alert")
+    redirect_to event_path(@event, sort: current_sort), alert: t("flash.shops.participant_only.alert")
   end
 
   def set_shop
@@ -80,11 +80,15 @@ class ShopsController < ApplicationController
   def ensure_shop_owner
     return if @shop.user == current_user
 
-    redirect_to event_path(@event), alert: t("flash.shops.owner_only.alert")
+    redirect_to event_path(@event, sort: current_sort), alert: t("flash.shops.owner_only.alert")
   end
 
   def shop_params
     params.require(:shop).permit(:name, :url, :memo)
+  end
+
+  def current_sort
+    params[:sort].presence
   end
 
   def fetch_ogp_image_url(url)

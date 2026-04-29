@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventPreferencesController < ApplicationController
+  TOP_SHOPS_LIMIT = 3
+
   before_action :authenticate_user!
   before_action :set_event
   before_action :ensure_event_participant
@@ -11,7 +13,10 @@ class EventPreferencesController < ApplicationController
     if @event_preference.update(event_preference_params)
       redirect_to event_path(@event), notice: t("flash.event_preferences.create.notice")
     else
-      redirect_to event_path(@event), alert: t("flash.event_preferences.create_failed.alert")
+      load_event_show_resources
+      @open_preference_modal = true
+      flash.now[:alert] = t("flash.event_preferences.create_failed.alert")
+      render "events/show", status: :unprocessable_content
     end
   end
 
@@ -35,5 +40,20 @@ class EventPreferencesController < ApplicationController
 
   def event_preference_params
     params.require(:event_preference).permit(:dislike_foods, :budget, :content)
+  end
+
+  def load_event_show_resources
+    @participating = true
+    @participants = @event.participants
+    @current_sort = params[:sort] == "likes_count" ? "likes_count" : "created_at"
+    @shops =
+      case @current_sort
+      when "likes_count"
+        @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
+      else
+        @event.shops.includes(:user, :likes).order(created_at: :asc)
+      end
+    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(TOP_SHOPS_LIMIT)
+    @event_preferences = @event.event_preferences.order(updated_at: :desc)
   end
 end

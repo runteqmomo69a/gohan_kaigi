@@ -1,26 +1,28 @@
 <div class="min-h-[calc(100vh-64px)] bg-gradient-to-b from-[#fbf6ef] via-[#f8f1e7] to-[#f5ede2] px-4 py-8 sm:py-12">
   <div class="max-w-7xl mx-auto space-y-8 sm:space-y-10">
-    <%= render "event_header",
+    <%= render "events/event_header",
         event: @event,
         participating: @participating %>
 
     <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1.65fr)_340px] gap-6 lg:gap-8 items-start">
       <div class="space-y-6">
-        <%= render "preferences",
+        <%= render "events/preferences",
             event: @event,
             event_preferences: @event_preferences,
             event_preference: @event_preference,
-            participating: @participating %>
+            participating: @participating,
+            open_preference_modal: @open_preference_modal %>
 
-        <%= render "shops",
+        <%= render "events/shops",
             event: @event,
-            shops: @shops %>
+            shops: @shops,
+            current_sort: @current_sort %>
       </div>
 
       <div class="space-y-6 xl:sticky xl:top-24">
-        <%= render "participants", participants: @participants %>
+        <%= render "events/participants", participants: @participants %>
 
-        <%= render "ranking",
+        <%= render "events/ranking",
             top_shops: @top_shops %>
       </div>
     </div>

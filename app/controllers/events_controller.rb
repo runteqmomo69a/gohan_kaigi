@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  TOP_SHOPS_LIMIT = 3
+
   before_action :authenticate_user!, except: %i[join]
   before_action :set_event, only: %i[show edit update destroy]
   before_action :ensure_event_owner!, only: %i[edit update destroy]
@@ -20,16 +22,17 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
+    @current_sort = params[:sort] == "likes_count" ? "likes_count" : "created_at"
     # 並び替え用
     @shops =
-      case params[:sort]
+      case @current_sort
       when "likes_count"
         @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
       else
         @event.shops.includes(:user, :likes).order(created_at: :asc)
       end
     # ランキング用
-    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(3)
+    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(TOP_SHOPS_LIMIT)
 
     # 希望条件フォーム用
     @event_preference =

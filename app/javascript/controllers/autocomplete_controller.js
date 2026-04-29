@@ -3,13 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "results"]
 
-  connect() {
-    console.log("autocomplete controller connected")
-  }
-
   search() {
     const query = this.inputTarget.value
-    console.log("動いたよ", query)
 
     if (query.length === 0) {
       this.resultsTarget.innerHTML = ""
@@ -20,8 +15,6 @@ export default class extends Controller {
     fetch(`/shop_logs/autocomplete?q=${encodeURIComponent(query)}`)
       .then(response => response.json())
       .then(data => {
-        console.log("autocomplete data:", data)
-
         this.resultsTarget.innerHTML = ""
 
         data.forEach((name) => {

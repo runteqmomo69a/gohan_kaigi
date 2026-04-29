@@ -10,7 +10,7 @@
       <div class="flex flex-wrap items-center gap-2">
         <%= link_to t("views.events.shops.sort_created"), event_path(event, sort: "created_at"), class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
         <%= link_to t("views.events.shops.sort_likes"), event_path(event, sort: "likes_count"), class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
-        <%= link_to t("views.events.shops.new_shop"), new_event_shop_path(event), class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
+        <%= link_to t("views.events.shops.new_shop"), new_event_shop_path(event, sort: current_sort), class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
       </div>
     </div>
 
@@ -50,11 +50,6 @@
                     <h3 class="text-2xl font-bold tracking-tight text-neutral-700"><%= shop.name %></h3>
                     <p class="text-sm text-base-content/50"><%= t("views.events.shops.owner", name: shop.user.name) %></p>
                   </div>
-
-                  <div class="inline-flex w-fit items-center gap-2 rounded-2xl bg-white/90 border border-[#f3c8b8] px-4 py-3 text-sm font-semibold text-base-content/70">
-                    <span class="material-symbols-outlined text-[#e3744b]">favorite</span>
-                    <span><%= shop.likes_count %></span>
-                  </div>
                 </div>
 
                 <% if shop.memo.present? %>
@@ -66,38 +61,7 @@
                   </div>
                 <% end %>
 
-                <div class="flex flex-wrap gap-3">
-                  <% if shop.url.present? %>
-                    <%= link_to t("views.events.shops.shop_url"),
-                      shop.url,
-                      target: "_blank",
-                      rel: "noopener",
-                      class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
-                  <% end %>
-
-                  <% if current_user.likes.exists?(shop: shop) %>
-                    <%= link_to t("views.events.shops.unlike"),
-                      event_shop_like_path(event, shop),
-                      data: { turbo_method: :delete },
-                      class: "btn rounded-full bg-[#fff1eb] text-[#c45f3d] border border-[#f3c8b8] hover:bg-[#fde4d8]" %>
-                  <% else %>
-                    <%= link_to t("views.events.shops.like"),
-                      event_shop_like_path(event, shop),
-                      data: { turbo_method: :post },
-                      class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
-                  <% end %>
-
-                  <% if shop.user == current_user %>
-                    <%= link_to t("common.edit"),
-                      edit_event_shop_path(event, shop),
-                      class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
-
-                    <%= link_to t("common.delete"),
-                      event_shop_path(event, shop),
-                      data: { turbo_method: :delete, turbo_confirm: t("views.events.shops.delete_confirm") },
-                      class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
-                  <% end %>
-                </div>
+                <%= render "shop_reaction", event: event, shop: shop, current_sort: current_sort %>
               </div>
 
               <div class="xl:w-[280px] 2xl:w-[300px] shrink-0 space-y-3">

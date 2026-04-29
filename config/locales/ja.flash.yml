@@ -4,7 +4,7 @@ ja:
       not_found:
         alert: "イベントが見つかりませんでした"
       owner_only:
-        alert: "イベント編集はイベント作成者のみ可能です"
+        alert: "イベントを編集できるのは作成者のみです"
       join_requires_auth:
         alert: "イベントに参加するにはログインまたは新規登録が必要です"
       create:
@@ -21,21 +21,21 @@ ja:
       destroy:
         notice: "お店候補を削除しました"
       participant_only:
-        alert: "イベント参加者のみお店候補を操作できます"
+        alert: "お店候補を操作できるのはイベント参加者のみです"
       owner_only:
-        alert: "お店候補の編集・削除は登録者のみ可能です"
+        alert: "お店候補を編集・削除できるのは登録者のみです"
     shop_logs:
       update:
         notice: "お店ログを更新しました"
     event_preferences:
       create:
-        notice: "希望の条件を保存しました"
+        notice: "希望条件を保存しました"
       create_failed:
-        alert: "希望の条件の保存に失敗しました"
+        alert: "希望条件を保存できませんでした"
       destroy:
         notice: "希望条件を削除しました"
       participant_only:
-        alert: "イベント参加者のみ希望条件を入力できます"
+        alert: "希望条件を入力できるのはイベント参加者のみです"
     event_participants:
       create:
         notice: "イベントに参加しました"
@@ -47,12 +47,14 @@ ja:
       destroy:
         notice: "いいねを解除しました"
       participant_only:
-        alert: "イベント参加者のみいいねできます"
+        alert: "いいねできるのはイベント参加者のみです"
     omniauth:
       line_login:
         notice: "LINEでログインしました"
       line_login_failed:
         alert: "LINEログインに失敗しました"
-    devise:
-      already_authenticated:
-        alert: "すでにログインしています"
+  devise:
+    already_authenticated:
+      alert: "すでにログインしています"
+    account_settings_unavailable:
+      alert: "アカウント設定機能は本リリース後に公開予定です"

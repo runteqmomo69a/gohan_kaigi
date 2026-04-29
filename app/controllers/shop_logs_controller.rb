@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShopLogsController < ApplicationController
+  AUTOCOMPLETE_LIMIT = 5
+
   before_action :authenticate_user!
 
   def index
@@ -33,7 +35,7 @@ class ShopLogsController < ApplicationController
     shops = current_user.shops
 
     shops = if params[:q].present?
-              shops.where("name LIKE ?", "%#{params[:q]}%").limit(5)
+              shops.where("name LIKE ?", "%#{params[:q]}%").limit(AUTOCOMPLETE_LIMIT)
     else
               []
     end
@@ -49,7 +51,7 @@ class ShopLogsController < ApplicationController
     @shop = current_user.shops.find(params[:id])
 
     if @shop.update(shop_params)
-      redirect_to shop_logs_path, notice: t("flash.shop_logs.update.notice")
+      redirect_to shop_logs_path(q: current_q, category: current_category, sort: current_sort), notice: t("flash.shop_logs.update.notice")
     else
       render :edit, status: :unprocessable_content
     end
@@ -59,5 +61,17 @@ class ShopLogsController < ApplicationController
 
   def shop_params
     params.require(:shop).permit(:log_category, :log_note)
+  end
+
+  def current_q
+    params[:q].presence
+  end
+
+  def current_category
+    params[:category].presence
+  end
+
+  def current_sort
+    params[:sort].presence
   end
 end

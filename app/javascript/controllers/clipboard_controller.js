@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
+const COPY_MESSAGE_TIMEOUT_MS = 1500
+
 export default class extends Controller {
   static targets = ["source", "message"]
   static values = { errorMessage: String }
@@ -12,7 +14,7 @@ export default class extends Controller {
 
       setTimeout(() => {
         this.messageTarget.classList.add("hidden")
-      }, 1500)
+      }, COPY_MESSAGE_TIMEOUT_MS)
 
     } catch (error) {
       const message = this.errorMessageValue || "Copy failed"
