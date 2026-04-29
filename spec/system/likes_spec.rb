@@ -21,6 +21,11 @@ RSpec.describe "いいね導線", type: :system, js: true do
       click_link I18n.t("views.events.shops.like")
       expect(page).to have_link(I18n.t("views.events.shops.unlike"))
       expect(page).to have_content("1")
+      expect(page).to have_content(I18n.t("flash.likes.create.notice"))
+      click_link I18n.t("views.events.shops.unlike")
+      expect(page).to have_link(I18n.t("views.events.shops.like"))
+      expect(page).to have_content("0")
+      expect(page).to have_content(I18n.t("flash.likes.destroy.notice"))
     end
   end
 end

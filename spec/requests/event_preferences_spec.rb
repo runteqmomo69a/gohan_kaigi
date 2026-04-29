@@ -59,6 +59,19 @@ RSpec.describe "EventPreferences", type: :request do
 
       expect(response).to redirect_to(event_path(event))
     end
+
+    it "保存失敗時は422でイベント詳細を再描画すること" do
+      sign_in participant
+      allow_any_instance_of(EventPreference).to receive(:update).and_return(false)
+
+      expect {
+        post event_event_preferences_path(event), params: valid_params
+      }.not_to change(EventPreference, :count)
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include(event.title)
+      expect(response.body).to include(I18n.t("views.events.preferences.open_form"))
+    end
   end
 
   describe "DELETE /events/:event_id/event_preferences/:id" do
@@ -70,6 +83,16 @@ RSpec.describe "EventPreferences", type: :request do
       expect {
         delete event_event_preference_path(event, preference)
       }.to change(EventPreference, :count).by(-1)
+
+      expect(response).to redirect_to(event_path(event))
+    end
+
+    it "自分の希望条件がなくても安全にイベント詳細へ戻ること" do
+      sign_in owner
+
+      expect {
+        delete event_event_preference_path(event, 0)
+      }.not_to change(EventPreference, :count)
 
       expect(response).to redirect_to(event_path(event))
     end

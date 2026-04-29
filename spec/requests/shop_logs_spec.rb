@@ -70,6 +70,19 @@ RSpec.describe "ShopLogs", type: :request do
       expect(shop1.reload.log_category).to eq("dessert")
     end
 
+    it "検索条件付き一覧へ戻ること" do
+      sign_in user
+
+      patch shop_log_path(shop1), params: {
+        shop: { log_category: "dessert", log_note: "updated" },
+        q: "coffee",
+        category: "cafe",
+        sort: "old"
+      }
+
+      expect(response).to redirect_to(shop_logs_path(q: "coffee", category: "cafe", sort: "old"))
+    end
+
     it "不正な値だと422を返すこと" do
       sign_in user
 

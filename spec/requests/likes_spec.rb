@@ -29,6 +29,14 @@ RSpec.describe "Likes", type: :request do
       expect(response).to redirect_to(event_path(event))
     end
 
+    it "sort付きでイベント詳細へ戻ること" do
+      sign_in participant
+
+      post event_shop_like_path(event, shop), params: { sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
+    end
+
     it "非参加者はいいねできないこと" do
       sign_in other_user
 
@@ -37,6 +45,14 @@ RSpec.describe "Likes", type: :request do
       }.not_to change(Like, :count)
 
       expect(response).to redirect_to(event_path(event))
+    end
+
+    it "非参加者でもsortを保持してイベント詳細へ戻ること" do
+      sign_in other_user
+
+      post event_shop_like_path(event, shop), params: { sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
     end
   end
 
@@ -51,6 +67,14 @@ RSpec.describe "Likes", type: :request do
       }.to change(Like, :count).by(-1)
 
       expect(response).to redirect_to(event_path(event))
+    end
+
+    it "sort付きでイベント詳細へ戻ること" do
+      sign_in participant
+
+      delete event_shop_like_path(event, shop), params: { sort: "likes_count" }
+
+      expect(response).to redirect_to(event_path(event, sort: "likes_count"))
     end
   end
 end

@@ -17,4 +17,37 @@ RSpec.describe "Users::Registrations", type: :request do
       expect(response).to redirect_to(dashboard_path)
     end
   end
+
+  describe "GET /users/edit" do
+    it "ログイン済みでもdashboardへリダイレクトされること" do
+      user = create(:user)
+      sign_in user
+
+      get edit_user_registration_path
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
+
+  describe "PATCH /users" do
+    it "ログイン済みでもdashboardへリダイレクトされること" do
+      user = create(:user)
+      sign_in user
+
+      patch user_registration_path, params: { user: { name: "updated" } }
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
+
+  describe "DELETE /users" do
+    it "ログイン済みでもdashboardへリダイレクトされること" do
+      user = create(:user)
+      sign_in user
+
+      delete user_registration_path
+
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
 end
