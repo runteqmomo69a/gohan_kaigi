@@ -54,7 +54,7 @@ RSpec.describe "Users::OmniauthCallbacks", type: :request do
 
       expect(User.last.name).to eq(I18n.t("defaults.line_user_name"))
     end
-    
+
     it "認証失敗時はログイン画面へリダイレクトされること" do
       OmniAuth.config.mock_auth[:line] = :invalid
 
