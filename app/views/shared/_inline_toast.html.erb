@@ -1,0 +1,13 @@
+<% toast_classes = kind.to_s == "notice" ? "border-[#c9d8c2] bg-[#f3f7f1] text-[#66785d]" : "border-[#e6b8ab] bg-[#fff3ef] text-[#9a5b4a]" %>
+<% toast_icon_classes = kind.to_s == "notice" ? "bg-[#e5efe1] text-[#6f8664]" : "bg-[#fbe4db] text-[#b96b59]" %>
+<% toast_icon = kind.to_s == "notice" ? "check_circle" : "error" %>
+
+<div data-controller="flash-toast"
+     class="pointer-events-auto w-full max-w-xs rounded-2xl border px-4 py-3 shadow-lg <%= toast_classes %>">
+  <div class="flex items-start gap-3">
+    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl <%= toast_icon_classes %>">
+      <span class="material-symbols-outlined text-[20px]"><%= toast_icon %></span>
+    </div>
+    <p class="min-w-0 pt-2 text-sm font-medium leading-relaxed"><%= message %></p>
+  </div>
+</div>

@@ -30,6 +30,8 @@
   <body class="min-h-screen flex flex-col">
     <%= render "shared/header" %>
 
+    <div id="toast-container" class="pointer-events-none fixed right-4 top-20 z-50 w-[min(20rem,calc(100vw-2rem))]"></div>
+
   <main class="flex-1 px-4">
 
     <% flash.each do |type, message| %>

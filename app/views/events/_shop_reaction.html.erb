@@ -1,0 +1,45 @@
+<div id="<%= dom_id(shop, :reaction) %>" class="space-y-4">
+  <div class="inline-flex w-fit items-center gap-2 rounded-2xl bg-white/90 border border-[#f3c8b8] px-4 py-3 text-sm font-semibold text-base-content/70">
+    <span class="material-symbols-outlined text-[#e3744b]">favorite</span>
+    <span><%= shop.likes_count %></span>
+  </div>
+
+  <div class="flex flex-wrap gap-3">
+    <% if shop.url.present? %>
+      <%= link_to t("views.events.shops.shop_url"),
+        shop.url,
+        target: "_blank",
+        rel: "noopener",
+        class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
+    <% end %>
+
+    <% if current_user.likes.exists?(shop: shop) %>
+      <%= link_to t("views.events.shops.unlike"),
+        event_shop_like_path(event, shop, sort: current_sort),
+        data: { turbo_method: :delete },
+        class: "btn rounded-full bg-[#fff1eb] text-[#c45f3d] border border-[#f3c8b8] hover:bg-[#fde4d8]" %>
+    <% else %>
+      <%= link_to t("views.events.shops.like"),
+        event_shop_like_path(event, shop, sort: current_sort),
+        data: { turbo_method: :post },
+        class: "btn rounded-full bg-[#e3744b] text-white border-none hover:bg-[#cf643d] shadow-md shadow-orange-200/35" %>
+    <% end %>
+
+    <% if shop.user == current_user %>
+      <%= link_to t("common.edit"),
+        edit_event_shop_path(event, shop, sort: current_sort),
+        class: "btn btn-outline rounded-full border-[#d7cdbc] text-base-content/70 hover:bg-amber-50" %>
+
+      <%= link_to t("common.delete"),
+        event_shop_path(event, shop, sort: current_sort),
+        data: { turbo_method: :delete, turbo_confirm: t("views.events.shops.delete_confirm") },
+        class: "btn rounded-full bg-red-50 text-red-600 border border-red-100 hover:bg-red-100" %>
+    <% end %>
+  </div>
+
+  <% if local_assigns[:toast_message].present? %>
+    <div class="w-full max-w-xs">
+      <%= render "shared/inline_toast", message: toast_message, kind: :notice %>
+    </div>
+  <% end %>
+</div>
