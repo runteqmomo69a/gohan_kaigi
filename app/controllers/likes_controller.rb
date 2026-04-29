@@ -8,12 +8,12 @@ class LikesController < ApplicationController
 
   def create
     current_user.likes.create!(shop: @shop)
-    redirect_to event_path(@event), notice: t("flash.likes.create.notice")
+    redirect_to event_path(@event, sort: current_sort), notice: t("flash.likes.create.notice")
   end
 
   def destroy
     current_user.likes.find_by!(shop: @shop).destroy
-    redirect_to event_path(@event), notice: t("flash.likes.destroy.notice")
+    redirect_to event_path(@event, sort: current_sort), notice: t("flash.likes.destroy.notice")
   end
 
   private
@@ -29,6 +29,10 @@ class LikesController < ApplicationController
   def ensure_event_participant
     return if @event.participants.exists?(current_user.id)
 
-    redirect_to event_path(@event), alert: t("flash.likes.participant_only.alert")
+    redirect_to event_path(@event, sort: current_sort), alert: t("flash.likes.participant_only.alert")
+  end
+
+  def current_sort
+    params[:sort].presence
   end
 end

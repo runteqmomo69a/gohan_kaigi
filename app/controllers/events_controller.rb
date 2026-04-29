@@ -20,9 +20,10 @@ class EventsController < ApplicationController
   def show
     @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
     @participants = @event.participants
+    @current_sort = params[:sort] == "likes_count" ? "likes_count" : "created_at"
     # 並び替え用
     @shops =
-      case params[:sort]
+      case @current_sort
       when "likes_count"
         @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
       else
