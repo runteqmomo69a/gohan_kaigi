@@ -112,7 +112,7 @@
     <% end %>
 
     <% if participating %>
-      <input type="checkbox" id="event-preference-modal" class="modal-toggle" />
+      <input type="checkbox" id="event-preference-modal" class="modal-toggle" <%= "checked" if local_assigns[:open_preference_modal] %> />
 
       <div class="modal" role="dialog">
         <div class="modal-box max-w-lg rounded-3xl border border-amber-100">
