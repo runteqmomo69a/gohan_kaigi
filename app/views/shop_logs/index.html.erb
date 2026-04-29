@@ -198,7 +198,7 @@
                       </div>
 
                       <%= link_to t("common.edit"),
-                        edit_shop_log_path(shop),
+                        edit_shop_log_path(shop, q: params[:q].presence, category: params[:category].presence, sort: params[:sort].presence),
                         class: "btn btn-sm rounded-full border border-[#d7cdbc] bg-white text-[#7a6757] hover:bg-amber-50" %>
                     </div>
 
