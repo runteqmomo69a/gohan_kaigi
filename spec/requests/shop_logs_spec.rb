@@ -58,6 +58,22 @@ RSpec.describe "ShopLogs", type: :request do
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)).to eq([ "coffee" ])
     end
+
+    it "一致候補が6件以上あっても最大5件まで返すこと" do
+      sign_in user
+
+      6.times do |index|
+        create(:shop, event: event, user: user, name: "coffee_#{index}")
+      end
+
+      get shop_logs_autocomplete_path, params: { q: "coffee" }
+
+      result = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(result.size).to eq(5)
+      expect(result).to all(include("coffee"))
+    end
   end
 
   describe "PATCH /shop_logs/:id" do

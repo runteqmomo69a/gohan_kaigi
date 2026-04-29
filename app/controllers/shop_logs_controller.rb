@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShopLogsController < ApplicationController
+  AUTOCOMPLETE_LIMIT = 5
+
   before_action :authenticate_user!
 
   def index
@@ -33,7 +35,7 @@ class ShopLogsController < ApplicationController
     shops = current_user.shops
 
     shops = if params[:q].present?
-              shops.where("name LIKE ?", "%#{params[:q]}%").limit(5)
+              shops.where("name LIKE ?", "%#{params[:q]}%").limit(AUTOCOMPLETE_LIMIT)
     else
               []
     end

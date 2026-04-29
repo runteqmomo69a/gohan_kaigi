@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventPreferencesController < ApplicationController
+  TOP_SHOPS_LIMIT = 3
+
   before_action :authenticate_user!
   before_action :set_event
   before_action :ensure_event_participant
@@ -51,7 +53,7 @@ class EventPreferencesController < ApplicationController
       else
         @event.shops.includes(:user, :likes).order(created_at: :asc)
       end
-    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(3)
+    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(TOP_SHOPS_LIMIT)
     @event_preferences = @event.event_preferences.order(updated_at: :desc)
   end
 end
