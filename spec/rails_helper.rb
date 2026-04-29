@@ -8,6 +8,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+require "capybara/rspec"
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -23,7 +24,30 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+
+Capybara.register_driver :headless_chromium do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.binary = "/usr/bin/chromium" if File.exist?("/usr/bin/chromium")
+  options.add_argument("--headless=new")
+  options.add_argument("--no-sandbox")
+  options.add_argument("--disable-dev-shm-usage")
+  options.add_argument("--window-size=1400,1400")
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+class ActiveRecord::Base
+  mattr_accessor :shared_connection, default: nil
+
+  class << self
+    alias_method :original_connection, :connection
+
+    def connection
+      shared_connection || original_connection
+    end
+  end
+end
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -40,6 +64,8 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include SystemHelpers, type: :system
+  config.include Warden::Test::Helpers, type: :system
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -65,6 +91,23 @@ RSpec.configure do |config|
   #
   # To enable this behaviour uncomment the line below.
   config.infer_spec_type_from_file_location!
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+    driven_by :headless_chromium
+  end
+
+  config.after(:each, type: :system, js: true) do
+    ActiveRecord::Base.shared_connection = nil
+  end
+
+  config.after(:each, type: :system) do
+    Warden.test_reset!
+  end
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
