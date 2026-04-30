@@ -56,5 +56,7 @@ ja:
   devise:
     already_authenticated:
       alert: "すでにログインしています"
+    password_reset_unavailable:
+      alert: "パスワード再設定機能は本リリース後に公開予定です"
     account_settings_unavailable:
       alert: "アカウント設定機能は本リリース後に公開予定です"
