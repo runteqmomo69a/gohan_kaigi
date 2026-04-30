@@ -75,19 +75,19 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "gohankaigi.com"),
-    protocol: ENV.fetch("APP_PROTOCOL", "https")
+    host: ENV.fetch("MAILER_HOST", "gohankaigi.com"),
+    protocol: "https"
   }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: "smtp.sendgrid.net",
     port: 587,
-    domain: ENV.fetch("APP_HOST", "gohankaigi.com"),
-    user_name: ENV.fetch("MAILER_SENDER"),
-    password: ENV.fetch("MAILER_PASSWORD"),
+    domain: ENV.fetch("MAILER_HOST", "gohankaigi.com"),
+    user_name: "apikey",
+    password: ENV.fetch("SENDGRID_API_KEY"),
     authentication: :plain,
     enable_starttls_auto: true
   }
