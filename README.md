@@ -84,13 +84,15 @@ https://gohan-kaigi.onrender.com
 | --- | --- |
 | バックエンド | Ruby 3.3.10 / Ruby on Rails 7.1.6 |
 | フロントエンド | Tailwind CSS / daisyUI / Hotwire（Turbo, Stimulus） |
-| データベース | PostgreSQL |
+| データベース | PostgreSQL（Neon） |
 | 認証 | Devise / OmniAuth（LINE） |
-| API | Google Places API（候補店の place_id 取得） |
+| API | Google Places API（候補店情報取得） / Google Maps Embed（地図表示） |
 | i18n | rails-i18n / devise-i18n |
+| テスト | RSpec / SimpleCov |
+| CI | GitHub Actions |
 | 開発環境 | Docker |
 | 本番環境 | Render |
-| その他 | RuboCop / Minitest |
+| その他 | RuboCop |
 
 ## サービスの差別化ポイント・推しポイント
 
