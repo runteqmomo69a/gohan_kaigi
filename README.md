@@ -1,6 +1,8 @@
 # ごはん会議
 
-<img src="app/assets/images/ogp.png" width="700" alt="ごはん会議 OGP">
+<p align="center">
+  <img src="app/assets/images/ogp.png" width="700" alt="ごはん会議 OGP">
+</p>
 
 ## サービス概要
 ごはん会議は、複数人で「どこのお店に行くか」を決める過程と結果を記録として残せる、提案・投票型のお店選び共有アプリです。  
