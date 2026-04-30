@@ -78,6 +78,19 @@ Rails.application.configure do
     host: ENV.fetch("APP_HOST", "gohankaigi.com"),
     protocol: ENV.fetch("APP_PROTOCOL", "https")
   }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: ENV.fetch("APP_HOST", "gohankaigi.com"),
+    user_name: ENV.fetch("MAILER_SENDER"),
+    password: ENV.fetch("MAILER_PASSWORD"),
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
