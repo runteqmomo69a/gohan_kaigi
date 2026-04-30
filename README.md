@@ -10,7 +10,7 @@ LINEなどのチャットでは、候補店のURLやスクリーンショット�
 ごはん会議は、候補をひとつにまとめ、いいねで温度感を見える化し、希望条件も共有しながら無理なく決められる体験を目指しています。  
 ログイン必須の設計により、参加したイベントや選んだお店を継続的に管理でき、お店ログとして次回のお店選びにも再利用できます。
 
-<img src="docs/images/github_visual.png" width="700" alt="ごはん会議 OGP">
+<img src="app/assets/images/ogp.png" width="700" alt="ごはん会議 OGP">
 
 ## アプリURL
 https://gohan-kaigi.onrender.com
