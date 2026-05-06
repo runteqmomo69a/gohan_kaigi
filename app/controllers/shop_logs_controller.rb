@@ -9,7 +9,7 @@ class ShopLogsController < ApplicationController
     @shops = current_user.shops.includes(:event)
 
     # 検索
-    @shops = @shops.where("name LIKE ?", "%#{params[:q]}%") if params[:q].present?
+    @shops = @shops.where("name LIKE ?", like_query(params[:q])) if params[:q].present?
 
     # カテゴリ絞り込み
     @shops = @shops.where(log_category: params[:category]) if params[:category].present?
@@ -35,7 +35,7 @@ class ShopLogsController < ApplicationController
     shops = current_user.shops
 
     shops = if params[:q].present?
-              shops.where("name LIKE ?", "%#{params[:q]}%").limit(AUTOCOMPLETE_LIMIT)
+              shops.where("name LIKE ?", like_query(params[:q])).limit(AUTOCOMPLETE_LIMIT)
     else
               []
     end
@@ -73,5 +73,9 @@ class ShopLogsController < ApplicationController
 
   def current_sort
     params[:sort].presence
+  end
+
+  def like_query(query)
+    "%#{ActiveRecord::Base.sanitize_sql_like(query)}%"
   end
 end

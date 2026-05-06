@@ -41,6 +41,30 @@ RSpec.describe "ShopLogs", type: :request do
       expect(response.body).to include("coffee")
       expect(response.body).not_to include("ramen")
     end
+
+    it "% を含む文字列でもそのまま検索できること" do
+      create(:shop, event: event, user: user, name: "100% cafe")
+      create(:shop, event: event, user: user, name: "1000 cafe")
+
+      sign_in user
+
+      get shop_logs_path, params: { q: "%" }
+
+      expect(response.body).to include("100% cafe")
+      expect(response.body).not_to include("1000 cafe")
+    end
+
+    it "_ を含む文字列でもそのまま検索できること" do
+      create(:shop, event: event, user: user, name: "ramen_house")
+      create(:shop, event: event, user: user, name: "ramen house")
+
+      sign_in user
+
+      get shop_logs_path, params: { q: "_" }
+
+      expect(response.body).to include("ramen_house")
+      expect(response.body).not_to include("ramen house")
+    end
   end
 
   describe "GET /shop_logs/autocomplete" do
@@ -73,6 +97,36 @@ RSpec.describe "ShopLogs", type: :request do
       expect(response).to have_http_status(:ok)
       expect(result.size).to eq(5)
       expect(result).to all(include("coffee"))
+    end
+
+    it "% を含む文字列でもそのまま候補検索できること" do
+      create(:shop, event: event, user: user, name: "100% cafe")
+      create(:shop, event: event, user: user, name: "1000 cafe")
+
+      sign_in user
+
+      get shop_logs_autocomplete_path, params: { q: "%" }
+
+      result = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(result).to include("100% cafe")
+      expect(result).not_to include("1000 cafe")
+    end
+
+    it "_ を含む文字列でもそのまま候補検索できること" do
+      create(:shop, event: event, user: user, name: "ramen_house")
+      create(:shop, event: event, user: user, name: "ramen house")
+
+      sign_in user
+
+      get shop_logs_autocomplete_path, params: { q: "_" }
+
+      result = JSON.parse(response.body)
+
+      expect(response).to have_http_status(:ok)
+      expect(result).to include("ramen_house")
+      expect(result).not_to include("ramen house")
     end
   end
 
