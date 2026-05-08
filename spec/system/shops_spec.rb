@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "お店候補登録導線", type: :system do
   before do
-    allow_any_instance_of(Shop).to receive(:fetch_place_id).and_return("place-123")
+    allow(ShopPlaceIdFetcher).to receive(:call).and_return("place-123")
     allow(ShopOgpImageFetcher).to receive(:call).and_return(
       ShopOgpImageFetcher::Result.new(image_url: "https://example.com/shop.png", error: nil)
     )

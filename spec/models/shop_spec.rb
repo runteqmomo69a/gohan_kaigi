@@ -39,7 +39,7 @@ RSpec.describe Shop, type: :model do
       expect(shop).not_to be_valid
       expect(shop.errors[:user]).to be_present
     end
-  end
+end
 
   describe "関連" do
     it "liked_usersからいいねしたuserを参照できること" do
@@ -113,30 +113,6 @@ RSpec.describe Shop, type: :model do
       expect(shop.map_link_url("shinjuku")).to eq(
         "https://www.google.com/maps/search/?api=1&query=coffee+shinjuku"
       )
-    end
-  end
-
-  describe "#fetch_place_id" do
-    it "Places APIの先頭idを返すこと" do
-      shop = build(:shop, name: "coffee")
-      response = instance_double(Faraday::Response, body: { places: [ { id: "place-123" } ] }.to_json)
-
-      allow(Faraday).to receive(:post).and_return(response)
-      allow(ENV).to receive(:fetch).and_call_original
-      allow(ENV).to receive(:fetch).with("GOOGLE_MAPS_API_KEY", nil).and_return("test-key")
-
-      expect(shop.fetch_place_id("shinjuku")).to eq("place-123")
-    end
-
-    it "候補がない場合はnilを返すこと" do
-      shop = build(:shop, name: "coffee")
-      response = instance_double(Faraday::Response, body: {}.to_json)
-
-      allow(Faraday).to receive(:post).and_return(response)
-      allow(ENV).to receive(:fetch).and_call_original
-      allow(ENV).to receive(:fetch).with("GOOGLE_MAPS_API_KEY", nil).and_return("test-key")
-
-      expect(shop.fetch_place_id("shinjuku")).to be_nil
     end
   end
 end

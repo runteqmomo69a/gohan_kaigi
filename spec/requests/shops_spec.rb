@@ -80,7 +80,7 @@ RSpec.describe "Shops", type: :request do
     end
 
     before do
-      allow_any_instance_of(Shop).to receive(:fetch_place_id).and_return("place-123")
+      allow(ShopPlaceIdFetcher).to receive(:call).and_return("place-123")
       allow(ShopOgpImageFetcher).to receive(:call).and_return(
         ShopOgpImageFetcher::Result.new(image_url: "https://example.com/image.png", error: nil)
       )
@@ -137,7 +137,7 @@ RSpec.describe "Shops", type: :request do
     let(:shop) { create(:shop, event: event, user: participant, name: "before", url: "https://before.example.com") }
 
     before do
-      allow_any_instance_of(Shop).to receive(:fetch_place_id).and_return("place-123")
+      allow(ShopPlaceIdFetcher).to receive(:call).and_return("place-123")
       allow(ShopOgpImageFetcher).to receive(:call).and_return(
         ShopOgpImageFetcher::Result.new(image_url: "https://example.com/image.png", error: nil)
       )
