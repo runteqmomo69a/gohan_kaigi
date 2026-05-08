@@ -25,7 +25,7 @@ class ShopsController < ApplicationController
     @shop = @event.shops.new(shop_params)
     @shop.user = current_user
 
-    @shop.place_id = @shop.fetch_place_id(@event.place)
+    @shop.place_id = ShopPlaceIdFetcher.call(@shop.map_query(@event.place))
     @shop.ogp_image_url = fetch_ogp_image_url(@shop.url)
 
     if @shop.save
@@ -41,7 +41,7 @@ class ShopsController < ApplicationController
 
     # 名前が変更された場合のみ place_id を再取得
     if @shop.will_save_change_to_name?
-      new_place_id = @shop.fetch_place_id(@event.place)
+      new_place_id = ShopPlaceIdFetcher.call(@shop.map_query(@event.place))
       @shop.place_id = new_place_id if new_place_id.present?
     end
 
