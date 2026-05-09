@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventPreferencesController < ApplicationController
+  include EventShowResources
+
   TOP_SHOPS_LIMIT = 3
 
   before_action :authenticate_user!
@@ -40,20 +42,5 @@ class EventPreferencesController < ApplicationController
 
   def event_preference_params
     params.require(:event_preference).permit(:dislike_foods, :budget, :content)
-  end
-
-  def load_event_show_resources
-    @participating = true
-    @participants = @event.participants
-    @current_sort = params[:sort] == "likes_count" ? "likes_count" : "created_at"
-    @shops =
-      case @current_sort
-      when "likes_count"
-        @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
-      else
-        @event.shops.includes(:user, :likes).order(created_at: :asc)
-      end
-    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(TOP_SHOPS_LIMIT)
-    @event_preferences = @event.event_preferences.order(updated_at: :desc)
   end
 end

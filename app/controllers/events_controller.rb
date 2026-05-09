@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
+  include EventShowResources
+
   TOP_SHOPS_LIMIT = 3
 
   before_action :authenticate_user!, except: %i[join]
@@ -20,19 +22,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @participating = user_signed_in? && @event.event_participants.exists?(user_id: current_user.id)
-    @participants = @event.participants
-    @current_sort = params[:sort] == "likes_count" ? "likes_count" : "created_at"
-    # 並び替え用
-    @shops =
-      case @current_sort
-      when "likes_count"
-        @event.shops.includes(:user, :likes).order(likes_count: :desc, created_at: :asc)
-      else
-        @event.shops.includes(:user, :likes).order(created_at: :asc)
-      end
-    # ランキング用
-    @top_shops = @event.shops.order(likes_count: :desc, created_at: :asc).limit(TOP_SHOPS_LIMIT)
+    load_event_show_resources
 
     # 希望条件フォーム用
     @event_preference =
@@ -41,9 +31,6 @@ class EventsController < ApplicationController
       else
         EventPreference.new
       end
-
-    # 希望条件一覧用
-    @event_preferences = @event.event_preferences.order(updated_at: :desc)
   end
 
   def join
