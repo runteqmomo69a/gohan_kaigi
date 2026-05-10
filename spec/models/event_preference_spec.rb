@@ -1,6 +1,18 @@
 require "rails_helper"
 
 RSpec.describe EventPreference, type: :model do
+  describe "enum定義" do
+    it "budgetの値に意味のある名前を持たせていること" do
+      expect(described_class.budgets).to eq(
+        "one" => 1,
+        "two" => 2,
+        "three" => 3,
+        "four" => 4,
+        "five" => 5
+      )
+    end
+  end
+
   describe "バリデーション" do
     it "有効なfactoryを持つこと" do
       expect(build(:event_preference)).to be_valid
@@ -30,34 +42,18 @@ RSpec.describe EventPreference, type: :model do
   end
 
   describe "#budget_label" do
-    it "budgetが1のとき対応する文言を返すこと" do
-      event_preference = build(:event_preference, budget: 1)
+    {
+      one: "one",
+      two: "two",
+      three: "three",
+      four: "four",
+      five: "five"
+    }.each do |budget_value, budget_label_key|
+      it "budgetが#{budget_value}のとき対応する文言を返すこと" do
+        event_preference = build(:event_preference, budget: budget_value)
 
-      expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.one"))
-    end
-
-    it "budgetが2のとき対応する文言を返すこと" do
-      event_preference = build(:event_preference, budget: 2)
-
-      expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.two"))
-    end
-
-    it "budgetが3のとき対応する文言を返すこと" do
-      event_preference = build(:event_preference, budget: 3)
-
-      expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.three"))
-    end
-
-    it "budgetが4のとき対応する文言を返すこと" do
-      event_preference = build(:event_preference, budget: 4)
-
-      expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.four"))
-    end
-
-    it "budgetが5のとき対応する文言を返すこと" do
-      event_preference = build(:event_preference, budget: 5)
-
-      expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.five"))
+        expect(event_preference.budget_label).to eq(I18n.t("models.event_preference.budget_labels.#{budget_label_key}"))
+      end
     end
 
     it "想定外の値なら未設定文言を返すこと" do

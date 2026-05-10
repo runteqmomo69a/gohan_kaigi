@@ -16,7 +16,7 @@ RSpec.describe "EventPreferences", type: :request do
       {
         event_preference: {
           dislike_foods: "none",
-          budget: 3,
+          budget: "three",
           content: "memo"
         }
       }
@@ -43,7 +43,7 @@ RSpec.describe "EventPreferences", type: :request do
       sign_in participant
 
       expect {
-        post event_event_preferences_path(event), params: { event_preference: { content: "after", budget: 4 } }
+        post event_event_preferences_path(event), params: { event_preference: { content: "after", budget: "four" } }
       }.not_to change(EventPreference, :count)
 
       expect(response).to redirect_to(event_path(event))

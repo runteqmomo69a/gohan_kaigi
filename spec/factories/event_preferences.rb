@@ -3,7 +3,7 @@ FactoryBot.define do
     association :event
     association :user
     dislike_foods { "none" }
-    budget { 3 }
+    budget { :three }
     content { "preference note" }
   end
 end
