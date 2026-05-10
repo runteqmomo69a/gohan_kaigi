@@ -4,22 +4,17 @@ class EventPreference < ApplicationRecord
   belongs_to :event
   belongs_to :user
 
+  enum :budget, {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5
+  }, prefix: true
+
   validates :user_id, uniqueness: { scope: :event_id }
 
   def budget_label
-    case budget
-    when 1
-      I18n.t("models.event_preference.budget_labels.one")
-    when 2
-      I18n.t("models.event_preference.budget_labels.two")
-    when 3
-      I18n.t("models.event_preference.budget_labels.three")
-    when 4
-      I18n.t("models.event_preference.budget_labels.four")
-    when 5
-      I18n.t("models.event_preference.budget_labels.five")
-    else
-      I18n.t("models.event_preference.budget_labels.unset")
-    end
+    I18n.t("models.event_preference.budget_labels.#{budget || 'unset'}")
   end
 end
