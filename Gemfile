@@ -35,6 +35,7 @@ gem "devise"
 
 gem "devise-i18n"
 gem "rails-i18n"
+gem "resend"
 
 gem "omniauth-line-v2"
 gem "omniauth-rails_csrf_protection"
