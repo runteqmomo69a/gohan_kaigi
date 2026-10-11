@@ -154,4 +154,99 @@ https://gohankaigi.com
 [Figmaで画面遷移図を表示](https://www.figma.com/design/oiS8Qecin0WFz8C2ZREPSM/%E5%8D%92%E5%88%B6%E3%80%80%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&p=f&t=dM6pWllWVzZC9kJk-0)
 
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/2c0b360eb00ff8a68d9d1c7d5f1f0aed.png)](https://gyazo.com/2c0b360eb00ff8a68d9d1c7d5f1f0aed)
+
+```mermaid
+erDiagram
+    users ||..o{ events : creates
+    users ||..o{ event_participants : joins
+    events ||..o{ event_participants : has
+    users ||..o{ event_preferences : submits
+    events ||..o{ event_preferences : has
+    users ||..o{ shops : registers
+    events ||..o{ shops : has
+    users ||..o{ likes : gives
+    shops ||..o{ likes : receives
+
+    users {
+        bigint id PK
+        varchar name "NOT NULL"
+        varchar email UK "NOT NULL"
+        varchar encrypted_password "NOT NULL / 初期値: 空文字"
+        varchar reset_password_token UK
+        datetime reset_password_sent_at
+        datetime remember_created_at
+        varchar provider
+        varchar uid
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+
+    events {
+        bigint id PK
+        bigint user_id FK "NOT NULL / イベント作成者"
+        varchar title "NOT NULL"
+        date event_date "NOT NULL"
+        time event_time
+        varchar place
+        varchar unique_url UK "NOT NULL"
+        text note
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+
+    event_participants {
+        bigint id PK
+        bigint event_id FK "NOT NULL"
+        bigint user_id FK "NOT NULL"
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+
+    event_preferences {
+        bigint id PK
+        bigint event_id FK "NOT NULL"
+        bigint user_id FK "NOT NULL"
+        text dislike_foods
+        int budget
+        text content
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+
+    shops {
+        bigint id PK
+        varchar name "NOT NULL"
+        varchar url
+        varchar address
+        text memo
+        bigint event_id FK "NOT NULL"
+        bigint user_id FK "NOT NULL / 登録したユーザー"
+        int likes_count "NOT NULL / 初期値: 0"
+        varchar place_id
+        varchar log_category
+        text log_note
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+
+    likes {
+        bigint id PK
+        bigint shop_id FK "NOT NULL"
+        bigint user_id FK "NOT NULL"
+        datetime created_at "NOT NULL"
+        datetime updated_at "NOT NULL"
+    }
+```
+
+- `PK`：主キー、`FK`：外部キー、`UK`：単一カラムの一意制約（値の重複を禁止）
+- `NOT NULL`：NULLを許可しない制約
+- 関連線の `||` は必ず1件、`o{` は0件以上を表します。
+
+複数カラムの組み合わせに対する一意制約は、次のとおりです。
+
+| テーブル | 一意制約の対象 |
+| --- | --- |
+| `users` | `provider` と `uid` の組み合わせ |
+| `event_participants` | `event_id` と `user_id` の組み合わせ |
+| `event_preferences` | `event_id` と `user_id` の組み合わせ |
+| `likes` | `shop_id` と `user_id` の組み合わせ |
