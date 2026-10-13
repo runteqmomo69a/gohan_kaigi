@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby "3.3.10"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", ">= 8.0.5.1", "< 8.1"
+gem "rails", "~> 8.1.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -34,7 +34,7 @@ gem "jbuilder"
 gem "devise"
 
 gem "devise-i18n"
-gem "rails-i18n", "~> 8.0.2"
+gem "rails-i18n", "~> 8.1.0"
 gem "resend"
 
 gem "omniauth-line-v2"
