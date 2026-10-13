@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby "3.3.10"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.6"
+gem "rails", "~> 8.1.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -34,7 +34,7 @@ gem "jbuilder"
 gem "devise"
 
 gem "devise-i18n"
-gem "rails-i18n"
+gem "rails-i18n", "~> 8.1.0"
 gem "resend"
 
 gem "omniauth-line-v2"
@@ -62,7 +62,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows]
 
-  gem "rspec-rails"
+  gem "rspec-rails", "~> 8.0.4"
   gem "factory_bot_rails"
   gem "faker"
 

@@ -84,7 +84,7 @@ https://gohankaigi.com
 
 | 項目 | 技術 |
 | --- | --- |
-| バックエンド | Ruby 3.3.10 / Ruby on Rails 7.1.6 |
+| バックエンド | Ruby 3.3.10 / Ruby on Rails 8.1.4 |
 | フロントエンド | Tailwind CSS / daisyUI / Hotwire（Turbo, Stimulus） |
 | データベース | PostgreSQL（Neon） |
 | 認証 | Devise / OmniAuth（LINE） |
