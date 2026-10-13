@@ -132,7 +132,7 @@ AIによる実行を明示的に依頼された場合は、その依頼の範囲
 
 | 分野 | 現在の構成 |
 | --- | --- |
-| バックエンド | Ruby 3.3.10 / Rails 7.1.6 |
+| バックエンド | Ruby 3.3.10 / Rails 8.1.4 |
 | 画面 | ERB / Tailwind CSS 3 / daisyUI 4 |
 | 画面の部分更新・操作補助 | Hotwire（Turbo / Stimulus） |
 | データベース | PostgreSQL |
