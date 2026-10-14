@@ -435,9 +435,21 @@ AIはブランチ名、コミットメッセージ、PR本文、issue本文の�
 
 ### ブランチ
 
-既存の運用に合わせ、`feat/内容`の形式を使用する。
+ブランチ名は `種別/内容` の形式とし、作業の主な目的に応じて種別を選ぶ。
 
-例：`feat/event-ui-update`
+| 種別 | 用途 | 例 |
+| --- | --- | --- |
+| `feat/` | 新機能の追加 | `feat/event-search` |
+| `fix/` | 不具合の修正 | `fix/event-note-mobile-layout` |
+| `chore/` | ライブラリ更新や開発環境などの保守 | `chore/rails-8-1-upgrade` |
+| `docs/` | README・AGENTS.mdなどのドキュメント変更 | `docs/update-branch-naming-rules` |
+| `refactor/` | 外部から見た動作を変えないコード整理 | `refactor/shop-search-service` |
+| `test/` | テストの追加・修正 | `test/event-permissions` |
+
+- 内容部分は、作業内容が伝わる短い英語を小文字とハイフンで記載する。
+- 複数の種類の変更を含む場合は、作業の主な目的に合わせて選ぶ。
+- 機能追加に伴うテストや説明の更新は、その機能追加のブランチに含めてよい。
+- AIはブランチ名を提案するとき、選んだ種別とその理由を説明する。
 
 ### コミット
 
