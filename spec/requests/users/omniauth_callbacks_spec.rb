@@ -42,6 +42,37 @@ RSpec.describe "Users::OmniauthCallbacks", type: :request do
       expect(response).to redirect_to(dashboard_path)
     end
 
+    it "共有ページ経由の初回ログインではuserを作成して共有ページへ戻り、自動参加しないこと" do
+      event = create(:event)
+      participant_count = EventParticipant.count
+      OmniAuth.config.mock_auth[:line] = auth_hash
+
+      get join_event_path(event.unique_url)
+
+      expect {
+        get user_line_omniauth_callback_path
+      }.to change(User, :count).by(1)
+
+      expect(response).to redirect_to(join_event_path(event.unique_url))
+      expect(EventParticipant.count).to eq(participant_count)
+    end
+
+    it "共有ページ経由の既存userのログインでは共有ページへ戻り、自動参加しないこと" do
+      event = create(:event)
+      create(:user, provider: "line", uid: "line-uid-123", email: "line@example.com", name: "line user")
+      participant_count = EventParticipant.count
+      OmniAuth.config.mock_auth[:line] = auth_hash
+
+      get join_event_path(event.unique_url)
+
+      expect {
+        get user_line_omniauth_callback_path
+      }.not_to change(User, :count)
+
+      expect(response).to redirect_to(join_event_path(event.unique_url))
+      expect(EventParticipant.count).to eq(participant_count)
+    end
+
     it "nameが空ならデフォルト名を使うこと" do
       auth_without_name = OmniAuth::AuthHash.new(
         provider: "line",
