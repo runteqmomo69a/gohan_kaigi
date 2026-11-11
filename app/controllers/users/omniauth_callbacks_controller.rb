@@ -16,7 +16,8 @@ module Users
 
       if @user.persisted?
         sign_in @user
-        redirect_to dashboard_path, notice: t("flash.omniauth.line_login.notice")
+        redirect_to after_sign_in_path_for(@user),
+                    notice: t("flash.omniauth.line_login.notice")
       else
         redirect_to new_user_session_path, alert: t("flash.omniauth.line_login_failed.alert")
       end
